@@ -98,7 +98,7 @@ product1.addProduct('Conjuto', 'Conjunto algodon', 3500, 'img 2', 1011, 15)
 console.log( '\n'+'-------- Agrego pruductos al Array ------------')
 product1.getProducts()
 
-roduct1.getProducts()
+product1.getProducts()
 
 console.log( '\n'+'-------- Producto encontrado por Id ------------')
 product1.getProductById(1)
