@@ -52,3 +52,11 @@ class ProductManager{
 const product1 = new ProductManager()
 console.log('------- Array Productos inicia Vacio ------')
 product1.getProducts()
+
+/*----------------------------------------------------------------------*/
+product1.addProduct('Bombis', 'Bombis de encaje', 2500, 'img 1', 1010, 10)
+product1.addProduct('Conjuto', 'Conjunto algodon', 3500, 'img 2', 1011, 15)
+
+
+console.log( '\n'+'-------- Agrego pruductos al Array ------------')
+product1.getProducts()
