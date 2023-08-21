@@ -26,6 +26,26 @@ class ProductManager{
     constructor(){
         this.products = []
     }
+        //metodo para traer y mostrar los productos
+        getProducts(){
+            console.log('Productos:', this.products)
+        }
+        //metodo para agregar productos
+        addProduct(title, description, price, thumbnail, code, stock){
+
+                //creo el producto apartir de la clase
+                const newProducts = {
+                    
+                    title,
+                    description,
+                    price,
+                    thumbnail,
+                    code,
+                    stock
+                }
+                this.products.push(newProducts)
+            
+        }
 }
 
 //Instancio la clase, creo un objeto apartir de la clase
