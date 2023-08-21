@@ -72,6 +72,11 @@ class ProductManager{
         }
            
     }
+    //metodo que calcula el precio total
+    getTotalPrice(){
+        const totalPrice = this.products.reduce( (total, product) => total += product.price, 0)
+        console.log('Prcio Total:', totalPrice)
+    }
 }
 
 //Instancio la clase, creo un objeto apartir de la clase
@@ -100,3 +105,7 @@ product1.getProductById(1)
 product1.getProductById(2)
 //producto no existe
 product1.getProductById(5)
+
+console.log('---------- Precio Total de los productos ----------')
+product1.getTotalPrice()
+
