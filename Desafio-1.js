@@ -27,3 +27,8 @@ class ProductManager{
         this.products = []
     }
 }
+
+//Instancio la clase, creo un objeto apartir de la clase
+const product1 = new ProductManager()
+console.log('------- Array Productos inicia Vacio ------')
+product1.getProducts()
