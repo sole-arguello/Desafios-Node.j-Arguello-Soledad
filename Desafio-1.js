@@ -62,6 +62,16 @@ class ProductManager{
             this.products.push(newProducts)
         }
     }
+    //metodo para encontrar por Id
+    getProductById(id){
+        const prodFound = this.products.find(prod => prod.id === id)
+        if(prodFound){
+            console.log(`Producto "${id}" Encontrado`,'\n', prodFound)
+        }else{
+            console.log(`Prodct "${id}" Not Found`)
+        }
+           
+    }
 }
 
 //Instancio la clase, creo un objeto apartir de la clase
