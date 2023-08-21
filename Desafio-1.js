@@ -22,5 +22,8 @@ Podrias desarrollarme en javascript lo siguiente:
 
 //Creo la clase
 class ProductManager{
-    
+    //defino el constructor con un array vacio
+    constructor(){
+        this.products = []
+    }
 }
