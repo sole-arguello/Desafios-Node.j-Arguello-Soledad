@@ -39,6 +39,8 @@
  * 
  */
 
+//traigo la libreria fs
+const fs = require('fs')
 
 class ProductManager{
 
@@ -46,6 +48,12 @@ class ProductManager{
     constructor(filePath){
         this.filePath = filePath
     }
+
+    //verifico si existe el archivo
+    fileExist(){
+        return fs.existsSync(this.filePath)
+    }
+
 
 }
 
