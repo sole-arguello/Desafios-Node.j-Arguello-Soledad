@@ -59,7 +59,11 @@ class ProductManager{
 
 
 const operations = async () =>{
-        
+     try {
+        const product = new ProductManager('./products.json')
+     } catch (error) {
+        console.log(error.message)
+     }   
 }
 operations()
 
