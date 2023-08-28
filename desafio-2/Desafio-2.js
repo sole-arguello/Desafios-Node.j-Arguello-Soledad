@@ -58,6 +58,9 @@ class ProductManager{
 }
 
 
-
+const operations = async () =>{
+        
+}
+operations()
 
 
