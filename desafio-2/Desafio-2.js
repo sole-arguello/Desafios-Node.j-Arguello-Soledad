@@ -55,6 +55,27 @@ class ProductManager{
     }
 
 
+    //metodo que trae todos los productos
+    async getProducts(){
+        try {
+            if(this.fileExist){
+                //leo el archivo
+                const content = await fs.promises.readFile(this.filePath, 'utf-8')
+
+                //transformo de string a json 
+                const contentJson = JSON.parse(content)
+                return contentJson
+
+            }else{
+                throw new Error ('No es posible leer el archivo')
+            }
+           
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
 }
 
 
