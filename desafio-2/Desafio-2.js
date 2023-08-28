@@ -42,8 +42,9 @@
 
 class ProductManager{
 
-    constructor(){
-
+    //creo la variable que va a contener la ruta del archivo
+    constructor(filePath){
+        this.filePath = filePath
     }
 
 }
