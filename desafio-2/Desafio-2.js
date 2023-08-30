@@ -71,7 +71,7 @@ class ProductManager {
     async addProduct(infoProduct) {
         try {
             //verifico que los campos se carguen obligatoriamente
-            if (!infoProduct) {
+            if (!infoProduct.title || !infoProduct.description || !infoProduct.price || !infoProduct.thumbnail || !infoProduct.code || !infoProduct.stock) {
                 throw new Error('Todos los campos son obligatorios');
             }
             //leo el producto en el archivo
@@ -187,9 +187,11 @@ async function operations() {
         //producto repetido
         //await product.addProduct({ title: 'Bombis Encaje', description: 'Bombis de encaje', price: 2550, thumbnail: 'img 1', code: 1020, stock: 10 });
         //nuevo producto
-       // await product.addProduct({ title: 'Conjunto ', description: 'Conjunto de algodon', price: 2800, thumbnail: 'img 2', code: 1010, stock: 10 });
+        //await product.addProduct({ title: 'Conjunto ', description: 'Conjunto de algodon', price: 2800, thumbnail: 'img 2', code: 1010, stock: 10 });
         //nuevo producto
-       // await product.addProduct({ title: 'Bombis Less', description: 'Bombis de algodon', price: 1500, thumbnail: 'img 3', code: 1111, stock: 10 });//codigo nuevo
+        //await product.addProduct({ title: 'Bombis Less', description: 'Bombis de algodon', price: 1500, thumbnail: 'img 3', code: 1111, stock: 10 });//codigo nuevo
+        //producto campos vacios o null
+        await product.addProduct({title: '', description: '', price: 0, thumbnail: '', code: 0, stock: 0});
 
         //paso el id del producto a actualizar y le paso lo nuevo
         //await product.updateProduct(2, {title: 'Bombis Culotte', description: 'Producto de algodon', price: 1200, thumbnail: 'img 4', code: 1090, stock: 20})
