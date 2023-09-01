@@ -1,0 +1,77 @@
+[
+    {
+        "id": 1,
+        "title": "Bombis Less",
+        "description": "Bombis de algodon",
+        "price": 1500,
+        "thumbnail": "img 1", 
+        "code": "ABC123",
+        "stock": 10
+
+    },
+    {
+        "id": 2,
+        "title": "Bombis More",
+        "description": "Bombis de algodon",
+        "price": 1500,
+        "thumbnail": "img 2",
+        "code": "BRD123",
+        "stock": 10
+    },
+    {
+        "id": 3,
+        "title": "Conjunto",
+        "description": "Prenda de algodon",
+        "price": 2000,
+        "thumbnail": "img 3",
+        "code": "ABY123",
+        "stock": 10
+    },
+    {
+        "id": 4,
+        "title": "Conjunto",
+        "description": "Prenda de encaje",
+        "price": 2300,
+        "thumbnail": "img 4",
+        "code": "BQD123",
+        "stock": 10
+    },
+    {
+        "id": 5,
+        "title": "Conjunto",
+        "description": "Prenda combinada de encaje y algodon",
+        "price": 2700,
+        "thumbnail": "img 5",
+        "code": "OPT123",
+        "stock": 10
+        
+    },
+    {
+        "id": 6,
+        "title": "Conjunto",
+        "description": "Prenda de algodon",
+        "price": 2700,
+        "thumbnail": "img 6",
+        "code": "OPT783",
+        "stock": 10
+    },
+    {
+        "id": 7,
+        "title": "Bombis Colote",
+        "description": "Prenda de encaje",
+        "price": 1700,
+        "thumbnail": "img 7",
+        "code": "YTR123",
+        "stock": 10
+
+    },
+    {
+        "id": 8,
+        "title": "Bombis Colote",
+        "description": "Prenda de algodon",
+        "price": 1900,
+        "thumbnail": "img 8",
+        "code": "YLP536",
+        "stock": 10
+    }
+]
