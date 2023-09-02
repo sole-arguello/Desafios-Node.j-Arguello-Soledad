@@ -136,33 +136,33 @@ export class ProductManager{
 }
 
 //funcion que recibe las operaciones
-async function operations() {
-    try {
-        const product = new ProductManager('./products.json');
+// async function operations() {
+//     try {
+//         const product = new ProductManager('./products.json');
 
-        //datos a cargar en el json
-        //await product.addProduct({ title: 'Bombis Encaje', description: 'Bombis de encaje', price: 2550, thumbnail: 'img 1', code: 1020, stock: 10 });
-        //producto repetido
-        //await product.addProduct({ title: 'Bombis Encaje', description: 'Bombis de encaje', price: 2550, thumbnail: 'img 1', code: 1020, stock: 10 });
-        //nuevo producto
-        //await product.addProduct({ title: 'Conjunto ', description: 'Conjunto de algodon', price: 2800, thumbnail: 'img 2', code: 1010, stock: 10 });
-        //nuevo producto
-        //await product.addProduct({ title: 'Bombis Less', description: 'Bombis de algodon', price: 1500, thumbnail: 'img 3', code: 1111, stock: 10 });//codigo nuevo
-        //producto campos vacios o null
-        //await product.addProduct({title: '', description: '', price: 0, thumbnail: '', code: 0, stock: 0});
+//         //datos a cargar en el json
+//         //await product.addProduct({ title: 'Bombis Encaje', description: 'Bombis de encaje', price: 2550, thumbnail: 'img 1', code: 1020, stock: 10 });
+//         //producto repetido
+//         //await product.addProduct({ title: 'Bombis Encaje', description: 'Bombis de encaje', price: 2550, thumbnail: 'img 1', code: 1020, stock: 10 });
+//         //nuevo producto
+//         //await product.addProduct({ title: 'Conjunto ', description: 'Conjunto de algodon', price: 2800, thumbnail: 'img 2', code: 1010, stock: 10 });
+//         //nuevo producto
+//         //await product.addProduct({ title: 'Bombis Less', description: 'Bombis de algodon', price: 1500, thumbnail: 'img 3', code: 1111, stock: 10 });//codigo nuevo
+//         //producto campos vacios o null
+//         //await product.addProduct({title: '', description: '', price: 0, thumbnail: '', code: 0, stock: 0});
 
-        //paso el id del producto a actualizar y le paso lo nuevo
-        //await product.updateProduct(2, {title: 'Bombis Culotte', description: 'Producto de algodon', price: 1200, thumbnail: 'img 4', code: 1090, stock: 20})
+//         //paso el id del producto a actualizar y le paso lo nuevo
+//         //await product.updateProduct(2, {title: 'Bombis Culotte', description: 'Producto de algodon', price: 1200, thumbnail: 'img 4', code: 1090, stock: 20})
 
-        //intrduce el id a buscar
-        //await product.getProductById()
+//         //intrduce el id a buscar
+//         //await product.getProductById()
 
-        //introduce el id a eliminar
-        //await product.deleteProduct()
+//         //introduce el id a eliminar
+//         //await product.deleteProduct()
 
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 
-operations();
+// operations();
