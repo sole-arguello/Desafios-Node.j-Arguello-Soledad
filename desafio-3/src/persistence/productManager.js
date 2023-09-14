@@ -69,7 +69,8 @@ export class ProductManager{
             //busco por id
             const prodFound = products.find(prod => prod.id === id)
             if(prodFound) {
-                console.log('Producto Encontrado con exito', prodFound);
+                return `Producto encontrado con exito ${prodFound}`
+               // console.log('Producto Encontrado con exito', prodFound);
             }
             else{
                 throw new Error('Producto no encontrado');

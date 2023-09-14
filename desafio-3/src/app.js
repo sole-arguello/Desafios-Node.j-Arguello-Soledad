@@ -63,10 +63,10 @@ app.get('/products', async (req, res)=>{
 app.get('/products/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id)
-        const products = await productManagerSrervice.getProducts()
-        const product = products.find(prod => prod.id === id)
+        const product = await productManagerSrervice.getProductById(id)
+        //const product = products.find(prod => prod.id === id)
         if(product){
-            res.send(product)
+            res.json(product)
         }else{
             res.send(`Producto no encontrado`)
         }
