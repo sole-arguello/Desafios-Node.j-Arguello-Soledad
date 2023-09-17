@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 //configuro para websocket del lado del server
 const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})
 const io = new Server(httpSever);
-io.on('connection', (socket) => {console.log('Cliente Conectado')})
+io.on('connection', (socket) => {console.log('Cliente Conectado');})
 
 //configuracion de handlebars, motor de plantillas
 app.engine('.hbs', engine({extname: '.hbs'}));
