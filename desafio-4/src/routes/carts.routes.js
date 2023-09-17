@@ -2,6 +2,10 @@ import { Router } from "express";
 import { cartsService } from "../persistence/index.js";
 
 const router = Router();
+
+
+
+
 //http://localhost:8080/api/carts
 router.get("/", async (req, res) => {
   try {

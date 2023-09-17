@@ -2,7 +2,7 @@ import { Router } from "express";
 import { productsService } from "../persistence/index.js";
 
 const router = Router();
-
+ 
 //http://localhost:8080/api/products //http://localhost:8080/api/products?limit=rangoLimite
 router.get('/', async (req, res) => {//ruta para obtener todos los productos
 
