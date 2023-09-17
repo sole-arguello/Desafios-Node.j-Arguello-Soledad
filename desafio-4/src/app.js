@@ -6,12 +6,12 @@ import { Server } from 'socket.io';
 import { __dirname } from './utils.js';
 import path from 'path';
 //importo los productos
-import { ProductManager } from './persistence/productManager.js'; 
+import { productsService } from './persistence/index.js';
 //importo rutas propias y las de handlebars
 import { productsRoutes } from './routes/products.routes.js';
 import { cartsRouter } from './routes/carts.routes.js';
 import { viewsRouter } from './routes/views.routes.js';
-import { productsService } from './persistence/index.js';
+
 
 const port = 8080;
 const app = express();
