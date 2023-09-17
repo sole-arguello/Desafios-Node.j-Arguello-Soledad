@@ -1,0 +1,29 @@
+<h1>Productos en Tiempo Real</h1>
+<form id="productForm">
+  <input type="text" id="productName" placeholder="Nombre del producto" required>
+  <br>
+  <input type="text" id="descrProduct" placeholder="Descripción del producto">
+  <br>
+  <input type="text" id="priceProduct" placeholder="Prcio">
+  <br>
+  <input type="text" id="codeProduct" placeholder="Código">
+ <br>
+  <input type="text" id="thumbnailProduct" placeholder="imagen del producto">
+  <br>
+  <input type="text" id="stockProduct" placeholder="Stock">
+  <br>
+  <input type="text" id="categoryProduct" placeholder="Categoría del producto">
+  <br>
+  <button type="submit">Agregar Producto</button>
+</form>
+
+<ul id="productList">
+  {{#each products}}
+    <li>{{this.title}}</li>
+    <!-- Otros detalles del producto -->
+  {{/each}}
+</ul>
+
+
+//configuro websocket del lado del cliente
+<script src="socket.io/socket.io.js"></script>
