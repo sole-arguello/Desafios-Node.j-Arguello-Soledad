@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
    
 })
 
-//ruta para productos en tiempo real Eliminar y Crear
+//ruta para productos en tiempo real Eliminar 
 router.get('/realTimeProducts', (req, res) => {
     try {
         res.render('realTime');
