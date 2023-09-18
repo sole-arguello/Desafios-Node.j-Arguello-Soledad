@@ -34,9 +34,9 @@ export class ProductManager{
             const prodFound = products.find(prod => prod.id === id)
             if(prodFound) {
                 return prodFound
-                // console.log('Producto Encontrado con exito', prodFound);
             }
             else{
+                console.log('El producto no existe');
                 throw new Error('Producto no encontrado');
             }
             
@@ -51,9 +51,11 @@ export class ProductManager{
         try {
             //verifico que los campos se carguen obligatoriamente
             if (!infoProduct.title || !infoProduct.description || !infoProduct.price || 
-                !infoProduct.thumbnail || !infoProduct.code || !infoProduct.boolean || 
-                !infoProduct.stock || !infoProduct.category) {
+                !infoProduct.thumbnail || !infoProduct.code || !infoProduct.stock 
+                || !infoProduct.category) {
+                console.log('Todos los campos son obligatorios');
                 throw new Error('Todos los campos son obligatorios');
+                
             }
             //leo el producto en el archivo
             const products = await this.getProducts();
@@ -69,13 +71,17 @@ export class ProductManager{
             //verifico si el codigo se repite y no lo agrego
             const codeExist = products.some( prod => prod.code === infoProduct.code)
             if(codeExist){
+                //alert("El codigo " + infoProduct.code + " ya existe, no sera agregado nuevamente")
+                console.log('el codigo ' + infoProduct.code + ' ya existe, no sera agregado nuevamente');
                 return "El codigo " + infoProduct.code + " ya existe, no sera agregado nuevamente"
+
             } else{
                 infoProduct.id = newId
                 products.push(infoProduct);
             }
             //sobreescribo el con el nuevo producto el archivo
             await fs.promises.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
+            console.log('Producto creado con exito');
             return infoProduct
 
             
@@ -129,7 +135,9 @@ export class ProductManager{
                 const deleteId = products.filter(prod => prod.id !== id);
                 //sobreescribo el archivo sin el 
                 await fs.promises.writeFile(this.filePath, JSON.stringify(deleteId, null, '\t'));
+                console.log('Producto eliminado con exito');
             } else {
+                console.log('El producto no existe');
                 throw new Error('Producto no encontrado');
             }
         } catch (error) {
