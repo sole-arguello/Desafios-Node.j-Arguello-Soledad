@@ -7,7 +7,7 @@ import { __dirname } from './utils.js';
 import path from 'path';
 //importo los productos
 import { productsService } from './persistence/index.js';
-//importo rutas propias y las de handlebars
+//importo rutas http y las de handlebars
 import { productsRoutes } from './routes/products.routes.js';
 import { cartsRouter } from './routes/carts.routes.js';
 import { viewsRouter } from './routes/views.routes.js';
@@ -35,7 +35,7 @@ io.on('connection', async (socket) => {
         
     }
 
-    //recibo los productos del cliente y los envio al servidor
+    //recibo los productos del cliente, los creo y envio al server
     socket.on('newProduct', async (productData) => {
         try {
             //creo los productos 
