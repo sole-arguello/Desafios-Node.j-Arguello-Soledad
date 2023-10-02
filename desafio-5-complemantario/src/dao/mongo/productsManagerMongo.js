@@ -21,7 +21,7 @@ export class ProductsManagerMongo{
     async getProducts(){
         try {
             //uso el modelo definido y el metodo de mongo
-            const resultado = await this.model.find();//
+            const resultado = await this.model.find().lean();//soluciona el bloqueo de handelbarspara mostrar en home
             return resultado
         } catch (error) {
             //mensaje interno
