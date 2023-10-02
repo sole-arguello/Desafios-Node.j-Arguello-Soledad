@@ -12,9 +12,12 @@ import { productsRoutes } from './routes/products.routes.js';
 import { cartsRouter } from './routes/carts.routes.js';
 import { viewsRouter } from './routes/views.routes.js';
 
+import { connectDB } from './config/dbConection.js';
+
 
 const port = 8080;
 const app = express();
+
 //midleware
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
@@ -23,6 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 //configuro para websocket del lado del server
 const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})
 const io = new Server(httpSever);
+//coneccion a la base de datos
+connectDB();
+
+
+
 io.on('connection', async (socket) => {
     console.log('Cliente Conectado');
     try {
