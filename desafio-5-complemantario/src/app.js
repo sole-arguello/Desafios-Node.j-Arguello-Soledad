@@ -1,34 +1,29 @@
 import express from 'express';
-//importo libreria handlebars y socket.io
-import { engine } from 'express-handlebars';
-import { Server } from 'socket.io';
-//importo dirname para obtener la ruta de mis archivos y path para unir diferentes rutas
-import { __dirname } from './utils.js';
+import { __dirname } from './utils.js';//importo dirname para obtener la ruta de mis archivos y path para unir diferentes rutas
 import path from 'path';
-//importo los productos
-import { productsService } from './persistence/index.js';
+import { engine } from 'express-handlebars'; //importo libreria handlebars y socket.io
+import { Server } from 'socket.io';
+import{ connectDB } from './config/dbConnection.js';//importo connectDB
+//import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
+import { productsService } from './dao/index.js';//importo el servicio de caht para uasrlo en socket
+
+
 //importo rutas http y las de handlebars
-import { productsRoutes } from './routes/products.routes.js';
-import { cartsRouter } from './routes/carts.routes.js';
 import { viewsRouter } from './routes/views.routes.js';
+import { productsRouter } from './routes/products.routes.js';
+import { cartsRouter } from './routes/carts.routes.js';
 
-import { connectDB } from './config/dbConection.js';
-
-
-const port = 8080;
+const port = 8080;//configuro puerto
 const app = express();
 
 //midleware
-app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '/public')));
 
 //configuro para websocket del lado del server
-const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})
-const io = new Server(httpSever);
-//coneccion a la base de datos
-connectDB();
-
+const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})//http
+const io = new Server(httpSever);//web socket
+connectDB() //conexion base de datos mongo
 
 
 io.on('connection', async (socket) => {
@@ -75,6 +70,7 @@ io.on('connection', async (socket) => {
   
 })
 
+
 //configuracion de handlebars, motor de plantillas
 app.engine('.hbs', engine({extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -82,17 +78,10 @@ app.set('views', path.join(__dirname, '/views'));//src/views
 
 
 
-//rutas de handlebars y web sockets
-app.use(viewsRouter)
-
-//rutas http
-app.use("/api/products", productsRoutes);
+//rutas trabajadas con mongo
+app.use(viewsRouter); 
+app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter)
-
-//rutas de mongoose
-
-
-
 
 
 
