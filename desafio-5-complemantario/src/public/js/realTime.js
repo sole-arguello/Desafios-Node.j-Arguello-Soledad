@@ -50,7 +50,7 @@ socketClient.on('productsArray', (dataProducts) => {
                             <p>imagen: ${product.thumbnail}</p>
                             <p>Stock: ${product.stock}</p>
                             <p>Categoria: ${product.category}</p>
-                            <button class="deleteProduct" data-id="${product.id}">Eliminar</button>
+                            <button class="deleteProduct" data-id="${product._id}">Eliminar</button>
                         </li>`
     })
     console.log(productsElms);
