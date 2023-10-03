@@ -1,6 +1,10 @@
+import { cartsModel } from "./models/carts.model.js";
+
 export class CartsManagerMongo {
     
-    constructor(){}
+    constructor(){
+        this.model = cartsModel
+    }
 
     async getCarts() {
         try {
@@ -21,20 +25,25 @@ export class CartsManagerMongo {
         }
     }
 
-    async addProduct(cartId, productId){
+    async addProduct(cartId, productId, quantity) {
         try {
-            const cart = await this.model.findOneAndUpdate({ _id: cartId })
-            if(!cart){
+            
+            const cartFound = await this.model.findOneAndUpdate({ _id: cartId })
+           
+            if(!cartFound){
                 throw new Error("No es posible obtener los carritos");
             }
-            const existProduct = cart.productId.find((product) => product.productId === productId);
-            if(!existProduct){
-                existProduct.quantity += quantity || 1
+            const productFound = cartFound.products.find((prod) => prod.id === productId);
+            if(productFound){
+                productFound.quantity += quantity
             }else{
-                cart.product.push({ productId, quantity:  quantity || 1 });
+                cartFound.products.push({
+                    id: productId, 
+                    quantity: quantity 
+                });
             }
-            await cart.save()
-            return cart
+            await cartFound.save()
+            return cartFound
         } catch (error) {
             console.log('agregar producto', error.message);
             throw new Error('No se pudo agregar el producto ', error.message);
