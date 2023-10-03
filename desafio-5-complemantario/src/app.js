@@ -55,6 +55,7 @@ io.on('connection', async (socket) => {
 
      // Manejar la eliminación de un producto
     socket.on('deleteProduct', async (productId) => {
+        
         try {
             // Eliminar el producto de la lista de productos por su ID
             await productsService.deleteProduct(productId);

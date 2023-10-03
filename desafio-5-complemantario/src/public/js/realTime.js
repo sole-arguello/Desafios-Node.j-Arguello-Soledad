@@ -21,11 +21,13 @@ createProductForm.addEventListener('submit', (e) => {
 
 //envio la info del form al socket del servidor para eliminar un producto
 document.addEventListener('click', function (e) {
+    
     //verifico que en el click reciba la clase deleteProduct
     if (e.target) {
+        
         if (e.target.classList.contains('deleteProduct')) {
             //obtengo el id del producto
-            const prodId = parseInt(e.target.dataset.id);
+            const prodId = e.target.dataset.id;
             //envio el id al socket para ser eliminado
             socketClient.emit('deleteProduct', prodId);
         }
