@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
   //http://localhost:8080/api/carts/cid para obtener el carrito por ID
   router.get("/:cid", async (req, res) => {
     try {
-      const idcarts = parseInt(req.params.cid); //obtengo el parametro cid de la URL
+      const idcarts = req.params.cid; //obtengo el parametro cid de la URL
       const carts = await cartsService.getCarts();
       const cart = carts.find((cart) => cart.id === idcarts); //busco el carrito por id
       res.json({ message: "Carrito encontrado", data: cart });
@@ -39,8 +39,8 @@ router.get("/", async (req, res) => {
   //http://localhost:8080/api/carts/:cid/products/:pid para agregar productos al carrito
   router.post("/:cid/products/:pid", async (req, res) => {
     try {
-      const idCarts = parseInt(req.params.cid);
-      const idProduct = parseInt(req.params.pid);
+      const idCarts = req.params.cid;
+      const idProduct = req.params.pid;
       const quantity = 1;
   
       const cart = await cartsService.addProduct(idCarts, idProduct, quantity);
