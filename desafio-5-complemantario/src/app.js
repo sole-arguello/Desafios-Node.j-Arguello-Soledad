@@ -26,6 +26,8 @@ const io = new Server(httpSever);//web socket
 connectDB() //conexion base de datos mongo
 
 
+let historyChat = [];//para guardar los mensajes
+//escucho un evento connection, el callback del socket que se acaba de conectar
 io.on('connection', async (socket) => {
     console.log('Cliente Conectado');
     try {
@@ -68,6 +70,26 @@ io.on('connection', async (socket) => {
             console.error('Error al eliminar un producto:', error.message);
         }
     });
+
+    //-------------- socket del servidor del chat ---------------//
+
+    //recibo el historial de mensajes 
+    socket.emit('historyChat', historyChat);//envio el mensaje
+
+    //recibo mensaje de cada usuario
+    socket.on('messageChat', (messageClient) => {//recibo el mensaje
+        console.log(messageClient)
+        chat.push(messageClient);//agrego el mensaje
+
+        //replico y envio el mensaje a todos los usuarios
+        io.emit('historyChat', historyChat);//envio el mensaje
+
+        //recibo mensaje de coneccion del nuevo cliente
+        socket.on('authenticated', (messageAuth) => {
+            socket.broadcast.emit('newUser', 
+            `El usuario ${messageAuth} se acaba de conectar`);
+        })
+    })
   
 })
 
