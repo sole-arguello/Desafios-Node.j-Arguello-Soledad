@@ -4,7 +4,7 @@ import path from 'path';
 import { engine } from 'express-handlebars'; //importo libreria handlebars y socket.io
 import { Server } from 'socket.io';
 import{ connectDB } from './config/dbConnection.js';//importo connectDB
-//import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
+import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
 import { productsService } from './dao/index.js';//importo el servicio de caht para uasrlo en socket
 
 
@@ -77,18 +77,24 @@ io.on('connection', async (socket) => {
     socket.emit('historyChat', historyChat);//envio el mensaje
 
     //recibo mensaje de cada usuario
-    socket.on('messageChat', (messageClient) => {//recibo el mensaje del front
+    socket.on('messageChat', async (messageClient) => {//recibo el mensaje del front
+        try {
         console.log(messageClient)
-        chat.push(messageClient);//agrego el mensaje
+        historyChat.push(messageClient);//agrego el mensaje
 
         //replico y envio el mensaje a todos los usuarios
         io.emit('historyChat', historyChat);//envio el mensaje
+            
+        } catch (error) {
+            console.error('Error al enviar el mensaje:', error.message);
+        }
 
-        //recibo mensaje de coneccion del nuevo cliente
-        socket.on('authenticated', (messageAuth) => {
-            socket.broadcast.emit('newUser', 
+    })
+    
+    //recibo mensaje de coneccion del nuevo cliente
+    socket.on('authenticated', (messageAuth) => {
+        socket.broadcast.emit('newUser', 
             `El usuario ${messageAuth} se acaba de conectar`);
-        })
     })
   
 })
