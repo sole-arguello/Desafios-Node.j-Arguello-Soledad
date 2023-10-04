@@ -27,4 +27,9 @@ router.get('/realTimeProducts', (req, res) => {
     }
 })
 
+//message para linkear / caht es la renderizacion hacia el chat 
+router.get('/message', (req, res) =>{
+    res.render('chat');
+} )
+
 export { router as viewsRouter }
