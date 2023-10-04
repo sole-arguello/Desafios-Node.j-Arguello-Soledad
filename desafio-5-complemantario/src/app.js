@@ -70,36 +70,26 @@ io.on('connection', async (socket) => {
     });
 
     //-------------- socket del servidor del chat ---------------//
-
-    //recibo mensaje de cada usuario
+    //traigo todos los chat
+    let historyChat = await chatService.getMessages()
+    //emito los caht 
+    socket.emit('historyChat', historyChat)
+    //recibo mensaje de cada usuario desde el cliente
     socket.on('messageChat', async (messageClient) => {//recibo el mensaje del front
         try {
             //creo los chat en la base de datos
             await chatService.createMessage(messageClient);
             //obtengo y actualizo los mensajes
-            await chatService.getMessages();
+            let historyChat = await chatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
-            io.emit('historyChat', historyChat);//envio el mensaje
+            socket.emit('historyChat', historyChat);//envio el mensaje
             
         } catch (error) {
             console.error('Error al enviar el mensaje:', error.message);
         }
 
     })
-    //recibo mensaje de coneccion del nuevo cliente
-    socket.on('authenticated', async (messageAuth) => {
-        try {
-            //obtengo y guardo los mensajes en la variable para emitirlos al home
-            let historyChat = await chatService.getMessages();
-            //recibo el historial de mensajes 
-            socket.emit('historyChat', historyChat);//envio el mensaje
-            socket.broadcast.emit('newUser', 
-            `El usuario ${messageAuth} se acaba de conectar`);
-        } catch (error) {
-            console.error('Error al autenticar:', error.message);
-            
-        }
-    })
+
   
 })
 
@@ -115,6 +105,3 @@ app.set('views', path.join(__dirname, '/views'));//src/views
 app.use(viewsRouter); 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter)
-
-
-

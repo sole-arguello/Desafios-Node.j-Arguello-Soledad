@@ -23,15 +23,18 @@ Swal.fire({
 }).then((inputValue) => {
     console.log(inputValue);
     user = inputValue.value;//carga el nombre
+
     userName.innerHTML = user;//muestro el nombre del usuario
     //autenticacion del cliente al servidor cuando se conente
-    socketClient.emit('authenticated', user);
+    //socketClient.emit('authenticated', user);
 })
 
 //agrgo un evento al campo de texto
-btnSendMessage.addEventListener('click', () => {
+btnSendMessage.addEventListener('click', (e) => {
+    e.preventDefault()
     //envio el usuario y el mensaje 
     console.log('enviando mensaje.....', {user: user, message: inputMessage.value});
+   
     //envio el mensaje al socket del servidor
     let message = {user: user, message: inputMessage.value};
     socketClient.emit('messageChat', message);
@@ -50,14 +53,4 @@ socketClient.on('historyChat', (messageServer) => {
     });
 
     chatPanel.innerHTML = messageElement
-})
-
-socketClient.on('newUser', (messageAuthServer) => {
-    if(user){//usuario autenticado
-        Swal.fire({
-            text: messageAuthServer,
-            toast: true,
-            position: 'top-right',
-        })
-    }
 })
