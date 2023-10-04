@@ -77,7 +77,7 @@ io.on('connection', async (socket) => {
     socket.emit('historyChat', historyChat);//envio el mensaje
 
     //recibo mensaje de cada usuario
-    socket.on('messageChat', (messageClient) => {//recibo el mensaje
+    socket.on('messageChat', (messageClient) => {//recibo el mensaje del front
         console.log(messageClient)
         chat.push(messageClient);//agrego el mensaje
 
