@@ -78,7 +78,7 @@ io.on('connection', async (socket) => {
         try {
 
             console.log(messageClient)
-            //historyChat.push(messageClient);//agrego el mensaje
+            historyChat.push(messageClient);//agrego el mensaje
             await chatService.createMessage(messageClient);
             
             await chatService.getMessages();
