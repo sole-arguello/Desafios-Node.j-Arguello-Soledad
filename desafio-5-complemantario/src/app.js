@@ -86,7 +86,6 @@ io.on('connection', async (socket) => {
         }
 
     })
-    
     //recibo mensaje de coneccion del nuevo cliente
     socket.on('authenticated', async (messageAuth) => {
         try {
