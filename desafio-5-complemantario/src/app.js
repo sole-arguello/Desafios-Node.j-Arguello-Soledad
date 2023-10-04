@@ -25,8 +25,6 @@ const httpSever = app.listen(port, () => {console.log(`app listening at http://l
 const io = new Server(httpSever);//web socket
 connectDB() //conexion base de datos mongo
 
-
-let historyChat = [];//para guardar los mensajes
 //escucho un evento connection, el callback del socket que se acaba de conectar
 io.on('connection', async (socket) => {
     console.log('Cliente Conectado');
@@ -76,11 +74,9 @@ io.on('connection', async (socket) => {
     //recibo mensaje de cada usuario
     socket.on('messageChat', async (messageClient) => {//recibo el mensaje del front
         try {
-
-            console.log(messageClient)
-            historyChat.push(messageClient);//agrego el mensaje
+            //creo los chat en la base de datos
             await chatService.createMessage(messageClient);
-            
+            //obtengo y actualizo los mensajes
             await chatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
             io.emit('historyChat', historyChat);//envio el mensaje
@@ -94,6 +90,8 @@ io.on('connection', async (socket) => {
     //recibo mensaje de coneccion del nuevo cliente
     socket.on('authenticated', async (messageAuth) => {
         try {
+            //obtengo y guardo los mensajes en la variable para emitirlos al home
+            let historyChat = await chatService.getMessages();
             //recibo el historial de mensajes 
             socket.emit('historyChat', historyChat);//envio el mensaje
             socket.broadcast.emit('newUser', 
