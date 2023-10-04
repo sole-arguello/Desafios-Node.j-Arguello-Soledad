@@ -44,11 +44,12 @@ socketClient.on('historyChat', (messageServer) => {
     console.log(messageServer)
     //replico el mensaje a los usuarios
     let messageElement = ''
-    messageServer.array.forEach(element => {
-        messageElement += `<p>Usuario: ${element.user} >>>> Mensaje: ${element.message}</p>`
+    messageServer.forEach(element => {
+        messageElement += `<p>Usuario: ${element.user} >>>> 
+        Mensaje: ${element.message}</p>`
     });
 
-    chatPanel.innerHTML = messageServer
+    chatPanel.innerHTML = messageElement
 })
 
 socketClient.on('newUser', (messageAuthServer) => {
