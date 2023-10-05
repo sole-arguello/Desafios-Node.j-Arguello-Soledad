@@ -71,7 +71,7 @@ io.on('connection', async (socket) => {
 
     //-------------- socket del servidor del chat ---------------//
     //traigo todos los chat
-    let historyChat = await chatService.getMessages()
+    const historyChat = await chatService.getMessages()
     //emito los caht 
     socket.emit('historyChat', historyChat)
     //recibo mensaje de cada usuario desde el cliente
@@ -80,7 +80,7 @@ io.on('connection', async (socket) => {
             //creo los chat en la base de datos
             await chatService.createMessage(messageClient);
             //obtengo y actualizo los mensajes
-            let historyChat = await chatService.getMessages();
+            const historyChat = await chatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
             socket.emit('historyChat', historyChat);//envio el mensaje
             
