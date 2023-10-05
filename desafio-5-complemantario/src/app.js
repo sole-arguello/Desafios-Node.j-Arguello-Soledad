@@ -82,7 +82,7 @@ io.on('connection', async (socket) => {
             //obtengo y actualizo los mensajes
             const historyChat = await chatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
-            socket.emit('historyChat', historyChat);//envio el mensaje
+            io.emit('historyChat', historyChat);//envio el mensaje
             
         } catch (error) {
             console.error('Error al enviar el mensaje:', error.message);
