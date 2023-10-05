@@ -21,22 +21,16 @@ Swal.fire({
     allowOutsideClick: false,
     allowEscapeKey: false,
 }).then((inputValue) => {
-    console.log(inputValue);
     user = inputValue.value;//carga el nombre
-
     userName.innerHTML = user;//muestro el nombre del usuario
-    //autenticacion del cliente al servidor cuando se conente
-    //socketClient.emit('authenticated', user);
+    
 })
 
 //agrgo un evento al campo de texto
 btnSendMessage.addEventListener('click', (e) => {
-    e.preventDefault()
-    //envio el usuario y el mensaje 
-    console.log('enviando mensaje.....', {user: user, message: inputMessage.value});
-   
+    e.preventDefault();
     //envio el mensaje al socket del servidor
-    let message = {user: user, message: inputMessage.value};
+    const message = {user: user, message: inputMessage.value};
     socketClient.emit('messageChat', message);
     //para solucionar que no llegue vacio
     inputMessage.value = '';
@@ -44,11 +38,11 @@ btnSendMessage.addEventListener('click', (e) => {
 
 //recibo el historial de chats
 socketClient.on('historyChat', (messageServer) => {
-    console.log(messageServer)
     //replico el mensaje a los usuarios
     let messageElement = ''
     messageServer.forEach(element => {
-        messageElement += `<p>Usuario: ${element.user} >>>> 
+        messageElement += `
+        <p>Usuario: ${element.user} >>>> 
         Mensaje: ${element.message}</p>`
     });
 
