@@ -22,11 +22,11 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 //configuro para websocket del lado del server
 const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})//http
-const io = new Server(httpSever);//web socket
+const socketServer = new Server(httpSever);//web socket
 connectDB() //conexion base de datos mongo
 
 //escucho un evento connection, el callback del socket que se acaba de conectar
-io.on('connection', async (socket) => {
+socketServer.on('connection', async (socket) => {
     console.log('Cliente Conectado');
     try {
         //obtengo todos los productos y los envio al cliente
@@ -82,7 +82,7 @@ io.on('connection', async (socket) => {
             //obtengo y actualizo los mensajes
             const historyChat = await chatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
-            io.emit('historyChat', historyChat);//envio el mensaje
+            socketServer.emit('historyChat', historyChat);//envio el mensaje
             
         } catch (error) {
             console.error('Error al enviar el mensaje:', error.message);
