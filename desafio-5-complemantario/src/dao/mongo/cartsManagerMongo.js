@@ -28,7 +28,7 @@ export class CartsManagerMongo {
     async addProduct(cartId, productId, quantity) {
         try {
             
-            const cartFound = await this.model.findOneAndUpdate({ _id: cartId })
+            const cartFound = await this.model.findOneAndUpdate({_id: cartId},productId, {new: true} )
            
             if(!cartFound){
                 throw new Error("No es posible obtener los carritos");
