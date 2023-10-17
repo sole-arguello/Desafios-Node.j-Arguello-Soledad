@@ -6,6 +6,17 @@ export class ProductsManagerMongo{
         this.model = productsModel
     }
 
+    //metodo para obtener productos del paginate
+    async getProductsPaginate(query, options){
+        try {
+            const result = await this.model.paginate(query, options);
+            return result
+        } catch (error) {
+            console.log('obtener producto',error.message);
+            throw new Error('No se pudo obtener el listado de  producto',error.message);
+        }
+    }
+
     async createProduct(infoProduct){
         try {
             //uso el modelo definido y el metodo de mongo
@@ -30,10 +41,10 @@ export class ProductsManagerMongo{
             throw new Error('No se pudo obtener el listado de  producto',error.message);
         }
     }
-    async getProductById(id){
+    async getProductById(prodcutId){
         try {
             //uso el modelo definido y el metodo de mongo
-            const resultado = await this.model.findById(id);//tambien se puede usar findOne({_id: id})
+            const resultado = await this.model.findById(prodcutId);//tambien se puede usar findOne({_id: id})
             return resultado
         } catch (error) {
             //mensaje interno
@@ -42,10 +53,10 @@ export class ProductsManagerMongo{
             throw new Error('No se pudo obtener el producto',error.message);
         }
     }
-    async updateProduct(id, product){
+    async updateProduct(prodcutId, newProduct){
         try {
             //uso el modelo definido y el metodo de mongo
-            const resultado = await this.model.findOneAndUpdate({_id: id}, product, {new: true});//tambien se puede usar updateOne({_id: id}, product)
+            const resultado = await this.model.findOneAndUpdate({_id: prodcutId}, newProduct, {new: true});//tambien se puede usar updateOne({_id: id}, product)
             if(!resultado){
                 throw new Error('No se pudo encontrar el producto, para actualizarlo');
             }
@@ -57,10 +68,10 @@ export class ProductsManagerMongo{
             throw new Error('No se pudo actualizar el producto',error.message);
         }
     }
-    async deleteProduct(id){
+    async deleteProduct(prodcutId){
         try {
             //uso el modelo definido y el metodo de mongo
-            const resultado = await this.model.findByIdAndDelete(id);//tambien se puede usar deleteOne({_id: id})
+            const resultado = await this.model.findByIdAndDelete(prodcutId);//tambien se puede usar deleteOne({_id: id})
             if(!resultado){
                 throw new Error('No se pudo encontrar el producto a eliminar');
             }
