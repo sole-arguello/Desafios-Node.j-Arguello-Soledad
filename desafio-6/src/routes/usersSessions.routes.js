@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
         const result = await usersService.createUsers(newUser);
         res.render('login', {errorRegister: 'Se registro el usuario con exito'});
     } catch (error) {
-        res.render('register', {errorRegister: 'No se pudo registrar el usuario'});
+        res.render('register', {error: 'No se pudo registrar el usuario'});
     }
 })
 
