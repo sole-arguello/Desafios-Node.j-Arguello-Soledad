@@ -3,7 +3,7 @@ import { Router } from "express";
 import { usersService } from "../dao/index.js";
 
 const router = Router();
-
+//logueo al usuario se admin o usuario
 router.post('/login', async (req, res) => {
     try {
         const loginUser = req.body;
@@ -25,19 +25,35 @@ router.post('/login', async (req, res) => {
         res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
                 
     } catch (error) {
-        res.render('login', {error: 'No se pudo iniciar sesion, para este usuario'});
+        res.status(500).render('login', {error: 'No se pudo iniciar sesion, para este usuario'});
     }
 
 })
-
+//registro al ususario
 router.post('/register', async (req, res) => {
     try {
         const newUser = req.body;
         const result = await usersService.createUsers(newUser);
         res.render('login', {message: 'Usuario registrado con exito'});
     } catch (error) {
-        res.render('register', {error: 'No se pudo registrar el usuario'});
+        res.status(500).render('register', {error: 'No se pudo registrar el usuario'});
     }
 })
+
+//para eliminar la seccion
+router.get('/logout', (req, res) => {
+    try {
+        req.session.destroy(err =>{
+            if(err) return res.render('profile', {error: 'No se pudo cerrar sesion'});
+            //una vez cerrada la sesion lo redirige a login
+            res.redirect('/');
+        });
+        res.redirect('/login');
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
+
 
 export { router as usersSessionsRouter}
