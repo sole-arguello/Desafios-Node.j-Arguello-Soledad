@@ -5,13 +5,15 @@ const router = Router();
 //ruta para la vista home de todos los productos
 router.get('/', async (req, res) => {
     try {
-
+        //si no esta logeado lo redirige a login
         if(!req.session.email){
-            res.render('login', { errorSession: 'Para navegar debe iniciar session'})
+            res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
+            //si esta logueado lo redirige a home
             const products = await productsService.getProducts();
+
             if(products.length === 0){
-                res.render('no-products', products)
+                res.render('home', { message: 'No hay productos'});
                 throw new Error('No hay productos');
             }
             res.render('home', { products : products });//podria ir solo products
