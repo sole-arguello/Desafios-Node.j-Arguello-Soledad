@@ -122,4 +122,4 @@ app.use(session ({
 app.use(viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter)
-app.use('api/sessions', usersSessionsRouter);
+app.use('/api/sessions', usersSessionsRouter);
