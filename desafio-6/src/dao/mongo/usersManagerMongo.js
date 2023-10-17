@@ -16,6 +16,15 @@ export class UsersManagerMongo {
         }
         
     }
+    async getUser(email){
+        try {
+            const user = await this.model.findOne({email})
+            return user
+        } catch (error) {
+            console.log('get user', error.message);
+            throw new Error('El Usuario no se encuentra registrado', error.message);
+        }
+    }
 
 
 }
