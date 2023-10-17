@@ -1,14 +1,14 @@
 
-
+import { usersModel} from "./models/users.models.js"
 export class UsersManagerMongo {
 
     constructor() {
-        this.usersModel = this.usersModel
+        this.model = usersModel
     }
 
     async createUsers(userInfo) {
         try {
-            const newUser = await this.usersModel.create(userInfo);
+            const newUser = await this.model.create(userInfo);
             return newUser
         } catch (error) {
             console.log('crear usuario', error.message);
