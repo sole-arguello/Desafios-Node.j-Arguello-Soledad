@@ -62,12 +62,11 @@ router.get('/profile', (req, res) => {
     }
 })
 
-
 //ruta para productos en tiempo real Eliminar 
 router.get('/realTimeProducts', (req, res) => {
     try {
         if(!req.session.email){
-            res.render('login', { errorSession: 'Para navegar debe iniciar session'})
+            res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             res.render('realTime');
         }
@@ -81,7 +80,7 @@ router.get('/realTimeProducts', (req, res) => {
 router.get('/message', (req, res) =>{
     try {
         if(!req.session.email){
-            res.render('login', { errorSession: 'Para navegar debe iniciar session'})
+            res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             res.render('chat');
         }
@@ -96,7 +95,7 @@ router.get('/message', (req, res) =>{
 router.get('/products', async (req, res) => {
     try {
         if(!req.session.email){
-            res.render('login', { errorSession: 'Para navegar debe iniciar session'})
+            res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             const { limit= 4, page=1 } = req.query;
             const query = {};
