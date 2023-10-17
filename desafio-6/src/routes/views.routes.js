@@ -16,7 +16,12 @@ router.get('/', async (req, res) => {
                 res.render('home', { message: 'No hay productos'});
                 throw new Error('No hay productos');
             }
-            res.render('home', { products : products });//podria ir solo products
+            res.render('home', { //
+                products : products,
+                userFirst_Name: req.session.first_name,
+                userLast_Name: req.session.last_name,
+                userRole: req.session.role
+            });
         }
 
     } catch (error) {
@@ -44,7 +49,14 @@ router.get('/register', (req, res) => {
 //ruta para el perfil de usuario
 router.get('/profile', (req, res) => {
     try {
-        res.render('profile');
+        res.render('profile', {
+            userFirst_Name: req.session.first_name,
+            userLast_Name: req.session.last_name,
+            userAge: req.session.age,
+            userEmail: req.session.email,
+            userRole: req.session.role
+
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
