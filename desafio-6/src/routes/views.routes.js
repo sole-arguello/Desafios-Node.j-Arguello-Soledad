@@ -49,14 +49,18 @@ router.get('/register', (req, res) => {
 //ruta para el perfil de usuario
 router.get('/profile', (req, res) => {
     try {
-        res.render('profile', {
-            userFirst_Name: req.session.first_name,
-            userLast_Name: req.session.last_name,
-            userAge: req.session.age,
-            userEmail: req.session.email,
-            userRole: req.session.role
-
-        });
+        if(!req.session.email){
+            res.render('login', { error: 'Para navegar debe iniciar session'})
+        }else{
+            res.render('profile', {
+                userFirst_Name: req.session.first_name,
+                userLast_Name: req.session.last_name,
+                userAge: req.session.age,
+                userEmail: req.session.email,
+                userRole: req.session.role
+    
+            });
+        }
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
