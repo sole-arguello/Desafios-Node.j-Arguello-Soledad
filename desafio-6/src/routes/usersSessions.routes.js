@@ -28,9 +28,9 @@ router.post('/login', async (req, res) => {
             req.session.age = user.age;
             req.session.email = user.email;
             req.session.role = user.role;
-            res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
+            
         }
-                
+        res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page     
     } catch (error) {
         res.status(500).render('login', {error: 'No se pudo iniciar sesion, para este usuario'});
     }
