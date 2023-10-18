@@ -6,23 +6,30 @@ const router = Router();
 //logueo al usuario se admin o usuario
 router.post('/login', async (req, res) => {
     try {
+
         const loginUser = req.body;
-        const user = await usersService.getUser(loginUser.email);
-    
-        if(!user) {
-            return res.render('login', {errorLogin: 'Usuario no registrado'});
+        console.log(loginUser.email, loginUser.password);
+        if(loginUser.email === 'admin@coder.com' && loginUser.password === 'admin') {
+            req.session.email = loginUser.email
+            req.session.role = 'admin'
+        }else{
+            const user = await usersService.getUser(loginUser.email);
+            //verifico si el usuario existe
+            if(!user) {
+                return res.render('login', {error: 'Usuario no registrado'});
+            }
+            //verifico usuario y contrasena coincida con las de la base
+            if(user.password !== loginUser.password) {
+                return res.render('login', {errorLogin: 'Credenciles invalidas'});
+            }
+            //si todo es ok 
+            req.session.first_name = user.first_name;
+            req.session.last_name = user.last_name;
+            req.session.age = user.age;
+            req.session.email = user.email;
+            req.session.role = user.role;
+            res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
         }
-        //verifico usuario y contrasena coincida con las de la base
-        if(user.password !== loginUser.password) {
-            return res.render('login', {errorLogin: 'Credenciles invalidas'});
-        }
-        //si todo es ok 
-        req.session.first_name = user.first_name;
-        req.session.last_name = user.last_name;
-        req.session.age = user.age;
-        req.session.email = user.email;
-        req.session.role = user.role;
-        res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
                 
     } catch (error) {
         res.status(500).render('login', {error: 'No se pudo iniciar sesion, para este usuario'});
