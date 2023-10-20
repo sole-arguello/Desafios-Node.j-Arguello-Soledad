@@ -8,9 +8,12 @@ const router = Router();
 router.post('/register', async (req, res) => {
     try {
         const newUser = req.body;
+        console.log('nuevo usuario', newUser)
         //aplico hash a la contraseña
         newUser.password = createHash(newUser.password);
+        console.log('contraseña encriptada', newUser)
         const userCreated = await usersService.createUsers(newUser);
+        console.log('Usuario creado', userCreated)
         res.render('login', {message: 'Usuario registrado con exito'});
     } catch (error) {
         res.status(500).render('register', {error: 'No se pudo registrar el usuario'});
