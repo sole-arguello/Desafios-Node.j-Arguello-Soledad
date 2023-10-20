@@ -1,6 +1,8 @@
 import path from "path";
 import { fileURLToPath } from "url";
 
+import bcrypt from 'bcrypt';
+
 export const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const createHash = (password) => {//recibo la contraseña del form
