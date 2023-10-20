@@ -36,8 +36,7 @@ router.post('/login', async (req, res) => {
                 return res.render('login', {error: 'Usuario no registrado'});
             }
            //remplazo validacion de contraseña
-            if(isValidPassword(passwordLogin, user)) {
-                console.log( 'contrase login', passwordLogin, 'usuario', user)
+            if(!isValidPassword(passwordLogin, user)) {
 
                 return res.render('login', {error: 'Credenciles invalidas'});
             }
