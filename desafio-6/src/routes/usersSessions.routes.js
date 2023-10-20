@@ -52,10 +52,9 @@ router.get('/logout', (req, res) => {
     try {
         req.session.destroy(err =>{
             if(err) return res.render('profile', {error: 'No se pudo cerrar sesion'});
-            //una vez cerrada la sesion lo redirige a login
+            //una vez cerrada la sesion lo redirige a login que inicia en home
             res.redirect('/');
         });
-        res.redirect('/login');
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
