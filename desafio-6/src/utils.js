@@ -11,6 +11,6 @@ export const createHash = (password) => {//recibo la contraseña del form
 }
 
 //funcion para comparar los hash
-export const inValidPassword = (password, user) => {//recibe la contraseña nueva y los datos del usuario
+export const isValidPassword = (password, user) => {//recibe la contraseña nueva y los datos del usuario
     return bcrypt.compareSync(password, user.password)
 }
