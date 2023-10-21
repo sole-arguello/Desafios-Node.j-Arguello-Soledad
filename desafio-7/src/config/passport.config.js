@@ -10,19 +10,19 @@ export const initializePassport = () => {
     //estrategia para registro
     passport.use('registerLocalStrategy', new localStrategy(
         {
-            //me permite trabajar con los datos del usuario
+            //me permite acceder con los datos del usuario
             passReqToCallback: true,
             usernameField: 'email',//username ahora es igual email
         },
         async(req, username, password, done) =>{
 
-            const {first_name} = req.body
+            const {first_name, last_name, age} = req.body
             try {
                 const user = await usersService.getUser(username)
                 //const user = await usersModel.findOne({email: username})
                 if(user){//null: que no hubo error, false: ya existe, un mensaje
                     //el usuario ya existe
-                    return done(null, false, {message: 'El usuario ya esta registrado'})
+                    return done(null, false)
                 }
 
                 //el usuario no existe, creo el usuario, y al password la hasheo antes de guardarlo
@@ -32,13 +32,13 @@ export const initializePassport = () => {
                     age,
                     email: username,
                     password: createHash(password),
-                    role: 'usuario'
+                    role: 'Usuario'
                 }
                 console.log(newUser)
                 //creo un nuevo usuario
                 const userCreated = await usersService.createUsers(newUser)
                 //const userCreated = await usersModel.create(newUser)
-                return done(null, userCreated, {message: 'Usuario creado con exito'})
+                return done(null, userCreated)
             } catch (error) {
                 return done(error, {message: 'Error al crear el usuario'})
             }
@@ -79,12 +79,13 @@ export const initializePassport = () => {
     //     }
     // ));
 
-    //genero la sesion guardando el id
+    //genero la sesion guardando el id, recibo el usuario de userCreated
     passport.serializeUser((user, done)=>{
         done(null, user._id)//id de la base de datos
     })
     //cuando el usuario haga otra peticion(login) se consulta la info, se trae y se guarda en req.user
-    passport.deserializeUser(async(id, done)=>{
+    passport.deserializeUser(async(id, done)=>{//recibo el id guardado en la sesion
+        //verifico si el usuario existe
         const user = await usersService.getUserById(id);
         //const user = await usersModel.findById(id)
         done(null, user)//queda guardado la info del ususario en una variable req.user
