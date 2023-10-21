@@ -19,7 +19,7 @@ export const initializePassport = () => {
             const {first_name, last_name, age} = req.body
             try {
                 const user = await usersService.getUser(username)
-                //const user = await usersModel.findOne({email: username})
+                
                 if(user){//null: que no hubo error, false: ya existe, un mensaje
                     //el usuario ya existe
                     return done(null, false)
@@ -37,7 +37,7 @@ export const initializePassport = () => {
                 console.log(newUser)
                 //creo un nuevo usuario
                 const userCreated = await usersService.createUsers(newUser)
-                //const userCreated = await usersModel.create(newUser)
+               
                 return done(null, userCreated)
             } catch (error) {
                 return done(error, {message: 'Error al crear el usuario'})
@@ -47,37 +47,32 @@ export const initializePassport = () => {
     ))
 
 
-    // //estrategia para login
-    // passport.use('loginLocalStrategy', new localStrategy(
-    //     {
-    //         usernameField: 'email',
-    //     },
-    //     async (username, password, done) => {
-    //         try {
+    //estrategia para login
+    passport.use('loginLocalStrategy', new localStrategy(
+        {
+            //me permite acceder con los datos del usuario
+            passReqToCallback: true,
+            usernameField: 'email',//username ahora es igual email
+        },
+        async (username, password, done) => {
+            try {
 
-    //             const loginUser = req.body
-    //             if(loginUser.email === 'admin@coder.com' && loginUser.password === 'admin') {
-    //                 req.session.email = loginUser.email
-    //                 req.session.role = 'admin'
-    //             }else{
-    //                 const user = await usersService.getUser(username);
-    //                 //const user = await usersModel.findOne({ email: username });
-    //                 //al revez del registro
-    //                 if (!user) {
-    //                     return done(null, false, {message: 'El usuario no esta registrado'})//usuario no esta registrado
-    //                 }
-    //                 if (!isValidPassword(password, user)) {
-    //                     return done(null, false);//{ message: 'Credenciales invalidas' }
-    //                 }
-    //             }
-
-    //             //si todo esta ok(null), creo la session del usuario(user)
-    //             return done(null, user);
-    //         } catch (error) {
-    //             return done(error);
-    //         }
-    //     }
-    // ));
+                const user = await usersService.getUser(username);
+                //al revez del registro
+                if (!user) {
+                //el usuario no esta registrado
+                    return done(null, false)//usuario no esta registrado
+                }
+                if (!isValidPassword(password, user)) {
+                    return done(null, false);//{ message: 'Credenciales invalidas' }
+                }
+                //si todo esta ok(null), creo la session del usuario(user)
+                return done(null, user);//pase por la serealizacion
+            } catch (error) {
+                return done(error);
+            }
+        }
+    ));
 
     //genero la sesion guardando el id, recibo el usuario de userCreated
     passport.serializeUser((user, done)=>{
