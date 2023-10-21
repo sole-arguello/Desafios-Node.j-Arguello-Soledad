@@ -9,6 +9,7 @@ import{ connectDB } from './config/dbConnection.js';//importo connectDB
 
 import passport from 'passport';
 import { initializePassport } from './config/passport.config.js';
+import { config } from './config/config.js';
 
 
 import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
@@ -112,9 +113,9 @@ app.set('views', path.join(__dirname, '/views'));//src/views
 app.use(session ({
     store: MongoStore.create({
         ttl: 60,
-        mongoUrl: 'mongodb+srv://soledadar:g04D4zMd9O4y2GvK@cluster0.njbseut.mongodb.net/tiendaDB?retryWrites=true&w=majority'
+        mongoUrl: config.mongo.url,
     }),
-    secret: 'secretSessions',
+    secret: config.server.secretSession,
     resave: true,
     saveUninitialized: true
 }))
