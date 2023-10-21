@@ -21,7 +21,9 @@ router.get('/', async (req, res) => {
                 userFirst_Name: req.user.first_name,
                 userLast_Name: req.user.last_name,
                 userRole: req.user.role
+                
             });
+            
         }
 
     } catch (error) {

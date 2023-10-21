@@ -1,17 +1,10 @@
 <h1 class="titleList">Listado de Productos</h1>
 <div>
-    {{#if userRole}}
-        <div>
-            {{#if userFirst_Name}}
-                    <h2>Hola, <span style="color: blueviolet">{{userFirst_Name}} {{userLast_Name}}</span></h2>
-                
-                {{else}}
-                    <h2>Hola, <span style="color: blueviolet">Administrador</span></h2>
-            {{/if}}
-                <p>Sos <span style="color: rgb(228, 127, 12)" >{{userRole}}</span>de la pagina</p>
-        </div>
 
-    {{/if}}
+    <h2>Hola, <span style="color: blueviolet">{{userFirst_Name}} {{userLast_Name}}</span></h2>
+            
+    <p>Sos <span style="color: rgb(228, 127, 12)" >{{userRole}}</span>de la pagina</p>
+
 </div>
 
 
