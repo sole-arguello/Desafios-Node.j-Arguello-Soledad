@@ -7,6 +7,8 @@ import { engine } from 'express-handlebars'; //importo libreria handlebars y soc
 import { Server } from 'socket.io';
 import{ connectDB } from './config/dbConnection.js';//importo connectDB
 
+import passport from 'passport';
+import { initializePassport } from './config/passport.config.js';
 
 
 import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
@@ -116,6 +118,11 @@ app.use(session ({
     resave: true,
     saveUninitialized: true
 }))
+
+//configuracion de passport
+initializePassport()//se crean las estrategias
+app.use(passport.initialize())//inicializo passport dentro del servidor
+app.use(passport.session())//vinculo passport con session
 
 
 //rutas trabajadas con mongo
