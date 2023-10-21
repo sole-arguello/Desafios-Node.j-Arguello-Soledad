@@ -18,7 +18,9 @@ router.get('/fail-register', (req, res) => {
 //logueo al usuario se admin o usuario
 router.post('/login', passport.authenticate('loginLocalStrategy',
 {failureRedirect: '/api/sessions/fail-login'}), async (req, res) => {
-    res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page     
+
+    res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
+        
 })
 router.get('/fail-login', (req, res) => {
    res.render('login', {error: 'No se pudo iniciar sesion, para este usuario'}); 

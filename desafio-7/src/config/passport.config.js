@@ -50,8 +50,6 @@ export const initializePassport = () => {
     //estrategia para login
     passport.use('loginLocalStrategy', new localStrategy(
         {
-            //me permite acceder con los datos del usuario
-            passReqToCallback: true,
             usernameField: 'email',//username ahora es igual email
         },
         async (username, password, done) => {
