@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { usersService } from "../dao/index.js";
-import { createHash, isValidPassword } from "../utils.js";
 import passport from "passport";
+import { config } from "../config/config.js";
+
 
 const router = Router();
 
@@ -14,6 +14,15 @@ router.post('/register', passport.authenticate('registerLocalStrategy', {
 router.get('/fail-register', (req, res) => {
     res.render('register', {error: 'No se pudo registrar el usuario'});
 })
+/*----------------estrategia github----------------*/
+//ruta registro con github
+router.get('/register-github', passport.authenticate('registerGithubStrategy'))
+//ruta collback con github
+router.get(config.github.callbackUrl, passport.authenticate('registerGithubStrategy', 
+{failureRedirect: '/api/sessions/fail-register'}), (req, res) => {
+    res.redirect('/profile')
+})
+/*---------------------------------------------------*/
 
 //logueo al usuario se admin o usuario
 router.post('/login', passport.authenticate('loginLocalStrategy',

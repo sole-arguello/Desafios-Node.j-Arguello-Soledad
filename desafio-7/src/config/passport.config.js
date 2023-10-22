@@ -1,7 +1,8 @@
 import passport from "passport";
 import localStrategy from "passport-local";
+import { config } from "./config.js";
+import GithubStrategy from "passport-github2";
 import { createHash, isValidPassword } from "../utils.js";
-
 import { usersService } from "../dao/index.js";
 
 
@@ -46,7 +47,6 @@ export const initializePassport = () => {
     
     ))
 
-
     //estrategia para login
     passport.use('loginLocalStrategy', new localStrategy(
         {
@@ -71,6 +71,22 @@ export const initializePassport = () => {
             }
         }
     ));
+
+    //estrategia para registro con github
+    passport.use('registerGithubStrategy', new GithubStrategy(
+        {
+            clientID: config.github.clientId ,
+            clientSecret: config.github.clientSecret,
+            callbackURL: `http://localhost:8080/api/sessions${config.github.callbackUrl}`  
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                console.log('Perfil', profile)
+            } catch (error) {
+                return done(error)
+            }
+        }
+    ))
 
     //genero la sesion guardando el id, recibo el usuario de userCreated
     passport.serializeUser((user, done)=>{
