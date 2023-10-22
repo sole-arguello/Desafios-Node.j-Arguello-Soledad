@@ -81,7 +81,23 @@ export const initializePassport = () => {
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                console.log('Perfil', profile)
+                //console.log('Perfil', profile)
+                const user = await usersService.getUser(profile.username)
+                if(user){
+                    return done(null, user)
+                }
+                const newUser = {
+                    first_name: profile._json.name,
+                    last_name: profile._json.login,
+                    age: 0,
+                    email: profile.username,
+                    password: createHash(profile.id),
+                    role: 'Usuario'
+                }
+                
+                console.log(newUser)
+                const userCreated = await usersService.createUsers(newUser)
+                return done(null, userCreated)
             } catch (error) {
                 return done(error)
             }
