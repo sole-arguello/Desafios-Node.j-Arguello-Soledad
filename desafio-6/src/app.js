@@ -6,6 +6,7 @@ import path from 'path';
 import { engine } from 'express-handlebars'; //importo libreria handlebars y socket.io
 import { Server } from 'socket.io';
 import{ connectDB } from './config/dbConnection.js';//importo connectDB
+import { config } from './config/config.js'
 
 
 
@@ -110,9 +111,9 @@ app.set('views', path.join(__dirname, '/views'));//src/views
 app.use(session ({
     store: MongoStore.create({
         ttl: 60,
-        mongoUrl: 'mongodb+srv://soledadar:g04D4zMd9O4y2GvK@cluster0.njbseut.mongodb.net/tiendaDB?retryWrites=true&w=majority'
+        mongoUrl: config.mongo.url,
     }),
-    secret: 'secretSessions',
+    secret: config.server.secretSession,
     resave: true,
     saveUninitialized: true
 }))
