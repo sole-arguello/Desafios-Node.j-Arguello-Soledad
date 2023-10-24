@@ -20,6 +20,7 @@ export const initializePassport = () => {
             const {first_name, last_name, age} = req.body
             try {
                 const user = await usersService.getUser(username)
+                console.log('Usuario local', user)
                 
                 if(user){//null: que no hubo error, false: ya existe, un mensaje
                     //el usuario ya existe
@@ -82,15 +83,15 @@ export const initializePassport = () => {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //console.log('Perfil', profile)
-                const user = await usersService.getUser(profile.username)
+                const user = await usersService.getUser(profile._json.email)
                 if(user){
                     return done(null, user)
                 }
                 const newUser = {
                     first_name: profile._json.name,
-                    last_name: profile._json.login,
+                    last_name: profile.username,
                     age: 0,
-                    email: profile.username,
+                    email: profile._json.email,
                     password: createHash(profile.id),
                     role: 'Usuario'
                 }
