@@ -53,15 +53,38 @@ router.get('/profile', (req, res) => {
     try {
         if(!req.user?.email){
             res.render('login', { error: 'Para navegar debe iniciar session'})
-        }else{
-            res.render('profile', {
-                userFirst_Name: req.user.first_name,
-                userLast_Name: req.user.last_name,
-                userAge: req.user.age,
-                userEmail: req.user.email,
-                userRole: req.user.role
-    
-            });
+        }else{  
+            if(req.user.age === 0 && req.user.role === 'admin'){
+                //usuario admin
+                res.render('profile', {
+                    userFirst_name: req.user.first_name,
+                    userEmail: req.user.email,
+                    userRole: req.user.role,
+                    message: 'Se ha registrado con exito'
+                })
+            }else if(req.user.age === 0 && req.user.role === 'Usuario' ) {
+                //usuario github                
+                res.render('profile', {
+                    userFirst_name: req.user.first_name,
+                    userGithub: req.user.last_name,
+                    userEmail: req.user.email,
+                    userRole: req.user.role,
+                    message: 'Se ha registrado con exito'
+                });
+            }else{
+                //usuario registrado desde la page
+                console.log('usuario local')
+                res.render('profile', {
+                    userFirst_name: req.user.first_name,
+                    userLast_name: req.user.last_name,
+                    userAge: req.user.age,
+                    userEmail: req.user?.email,
+                    userRole: req.user.role,
+                    message: 'Se ha registrado con exito'
+                })
+            }
+                   
+
         }
     } catch (error) {
         res.status(500).json({ message: error.message });

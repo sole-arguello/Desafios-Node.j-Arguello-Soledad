@@ -1,14 +1,38 @@
 <h1>Perfil del Usuario</h1>
 <p style="color: red">{{error}}</p>
+<p style="color: green">{{message}}</p>
 
-
-<div>
+{{!-- <div>
 
     <P>Nombre: {{userFirst_Name}}</P>
     <p>Apellido: {{userLast_Name}}</p>
     <p>Edad: {{userAge}}</p>
     <p>Email: {{userEmail}}</p>
     <p>Rol: {{userRole}}</p>
+
+</div> --}}
+<div>
+   {{#if userAge}}
+        
+        {{#if userRole}}
+            <p>Nombre: {{userFirst_name}}</p>
+            <p>Email: {{userEmail}} </p>
+            <p>Rol: {{userRole}}</p>
+        {{else}}
+            <P>Nombre: {{userFirst_name}}</P>
+            <p>Usuario Github: {{userGithub}}</p>
+            <p>Email: {{userEmail}}</p>
+            <p>Rol: {{userRole}}</p>
+       
+        {{/if}}
+    {{else}}
+
+        <P>Nombre: {{userFirst_name}}</P>
+        <p>Apellido: {{userLast_name}}</p>
+        <p>Edad: {{userAge}}</p>
+        <p>Email: {{userEmail}}</p>
+        <p>Rol: {{userRole}}</p>
+    {{/if}}
 
 </div>
 
