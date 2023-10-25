@@ -16,13 +16,26 @@ router.get('/', async (req, res) => {
                 res.render('home', { message: 'No hay productos'});
                 throw new Error('No hay productos');
             }
-            res.render('home', { //
-                products : products,
-                userFirst_Name: req.user.first_name,
-                userLast_Name: req.user.last_name,
-                userRole: req.user.role
+            if(req.user.role === 'admin'){
+                res.render('home', { //
+                    userAdmin: true,
+                    products : products,
+                    userFirst_name: req.user.first_name,
+                    userLast_name: req.user.last_name,
+                    userRole: req.user.role
+                    
+                });
                 
-            });
+            }else{
+                res.render('home', { //
+                    products : products,
+                    userFirst_name: req.user.first_name,
+                    userLast_name: req.user.last_name,
+                    userRole: req.user.role
+                    
+                });
+            }
+
             
         }
 
@@ -56,7 +69,9 @@ router.get('/profile', (req, res) => {
         }else{  
             if(req.user.age === 0 && req.user.role === 'admin'){
                 //usuario admin
-                res.render('profile', {
+                res.render('profile', 
+                {
+                    userAdmin: true,
                     userFirst_name: req.user.first_name,
                     userEmail: req.user.email,
                     userRole: req.user.role,
@@ -65,20 +80,21 @@ router.get('/profile', (req, res) => {
             }else if(req.user.age === 0 && req.user.role === 'Usuario' ) {
                 //usuario github                
                 res.render('profile', {
+                    userGithub: true,
                     userFirst_name: req.user.first_name,
-                    userGithub: req.user.last_name,
+                    userUsername: req.user.last_name,
                     userEmail: req.user.email,
                     userRole: req.user.role,
                     message: 'Se ha registrado con exito'
                 });
             }else{
                 //usuario registrado desde la page
-                console.log('usuario local')
                 res.render('profile', {
+                    userUser: true,
                     userFirst_name: req.user.first_name,
                     userLast_name: req.user.last_name,
                     userAge: req.user.age,
-                    userEmail: req.user?.email,
+                    userEmail: req.user.email,
                     userRole: req.user.role,
                     message: 'Se ha registrado con exito'
                 })
