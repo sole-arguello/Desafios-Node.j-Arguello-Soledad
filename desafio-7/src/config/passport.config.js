@@ -83,7 +83,7 @@ export const initializePassport = () => {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //console.log('Perfil', profile)
-                const user = await usersService.getUser(profile._json.email)
+                const user = await usersService.getUser(profile.username)
                 if(user){
                     return done(null, user)
                 }

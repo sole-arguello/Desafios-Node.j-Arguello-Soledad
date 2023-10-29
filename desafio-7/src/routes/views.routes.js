@@ -6,7 +6,7 @@ const router = Router();
 router.get('/', async (req, res) => {
     try {
         //si no esta logeado lo redirige a login
-        if(!req.user?.email){
+        if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             //si esta logueado lo redirige a home
@@ -64,7 +64,7 @@ router.get('/register', (req, res) => {
 //ruta para el perfil de usuario
 router.get('/profile', (req, res) => {
     try {
-        if(!req.user?.email){
+        if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{  
             if(req.user.age === 0 && req.user.role === 'admin'){
@@ -110,7 +110,7 @@ router.get('/profile', (req, res) => {
 //ruta para productos en tiempo real Eliminar 
 router.get('/realTimeProducts', (req, res) => {
     try {
-        if(!req.user?.email){
+        if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             res.render('realTime');
@@ -124,7 +124,7 @@ router.get('/realTimeProducts', (req, res) => {
 //message para linkear / caht es la renderizacion hacia el chat 
 router.get('/message', (req, res) =>{
     try {
-        if(!req.user?.email){
+        if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             res.render('chat');
@@ -139,7 +139,7 @@ router.get('/message', (req, res) =>{
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
 router.get('/products', async (req, res) => {
     try {
-        if(!req.user?.email){
+        if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
         }else{
             const { limit= 4, page=1 } = req.query;
