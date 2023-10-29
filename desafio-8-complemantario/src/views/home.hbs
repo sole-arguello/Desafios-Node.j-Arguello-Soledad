@@ -1,0 +1,30 @@
+<h1 class="titleList">Listado de Productos</h1>
+<div>
+
+    {{#if userAdmin}}
+        <h2>Hola, <span style="color: rgb(95, 5, 65)"> {{userFirst_name}}</span></h2>
+        <p>Sos <span style="color: rgb(12, 131, 228)" >{{userRole}}</span> de la pagina</p>
+        {{else}}
+        <h2>Hola, <span style="color: blueviolet">{{userFirst_name}} {{userLast_name}}</span></h2>
+        <p>Sos <span style="color: rgb(228, 127, 12)" >{{userRole}}</span>, Ya poder navegar por nuestro sitio!!</p>
+        
+    {{/if}}
+
+        
+    
+
+</div>
+
+
+{{#each products}}
+
+    <ul class="list">
+        <li>Nombre Producto: {{this.title}} <br> Precio: {{this.price}} <br>
+            Descripcion: {{this.description}} <br>
+            Imagen: {{this.thumbnail}} <br>
+            Code: {{this.code}} <br> Stock: {{this.stock}} <br>
+            Categoria: {{this.category}}
+        </li>
+    </ul>
+
+{{/each}}
