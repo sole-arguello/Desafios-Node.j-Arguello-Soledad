@@ -62,6 +62,7 @@ export const initializePassport = () => {
             try {
 
                 const user = await usersService.getUser(username);
+                console.log( 'user', user)
                 //al revez del registro
                 if (!user) {
                 //el usuario no esta registrado
@@ -120,6 +121,7 @@ export const initializePassport = () => {
         },
         async (jwtPayload, done) =>{
             try{
+                console.log( ' payload', jwtPayload)
                 return done(null, jwtPayload)
             } catch(error){
                 return done(error)

@@ -4,8 +4,11 @@ import { cartsService, productsService } from '../dao/index.js';
 const router = Router();
 
 //ruta para la vista home de todos los productos
-router.get('/', async (req, res) => {
+router.get('/', 
+passport.authenticate('jwtAuth', 
+{ session: false }), async (req, res) => {
     try {
+        console.log(req.user);
         //si no esta logeado lo redirige a login
         if(!req.user){
             res.render('login', { error: 'Error al iniciar session, para navegar debe iniciar session'})
@@ -47,7 +50,7 @@ router.get('/', async (req, res) => {
 })
 
 //ruta para login
-router.get('/login', (req, res) => {
+router.get('/login', passport.authenticate('jwtAuth', {session: false}), (req, res) => {
     try {
         res.render('login');
     } catch (error) {
@@ -55,7 +58,7 @@ router.get('/login', (req, res) => {
     }
 })
 //ruta para register
-router.get('/register', (req, res) => {
+router.get('/register', passport.authenticate('jwtAuth', {session: false}),(req, res) => {
     try {
         console.log(req.body);
         res.render('register');
@@ -110,7 +113,7 @@ router.get('/profile',
 })
 
 //ruta para productos en tiempo real Eliminar 
-router.get('/realTimeProducts', (req, res) => {
+router.get('/realTimeProducts', passport.authenticate('jwtAuth', {session: false}),(req, res) => {
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -124,7 +127,7 @@ router.get('/realTimeProducts', (req, res) => {
 })
 
 //message para linkear / caht es la renderizacion hacia el chat 
-router.get('/message', (req, res) =>{
+router.get('/message', passport.authenticate('jwtAuth', {session: false}), (req, res) =>{
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
