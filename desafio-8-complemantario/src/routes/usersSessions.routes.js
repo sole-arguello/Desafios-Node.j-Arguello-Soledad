@@ -22,7 +22,13 @@ router.get('/fail-register', (req, res) => {
 router.get('/register-github', passport.authenticate('registerGithubStrategy'))
 //ruta collback con github
 router.get(config.github.callbackUrl, passport.authenticate('registerGithubStrategy', 
-{failureRedirect: '/api/sessions/fail-register'}), (req, res) => {
+    {
+        failureRedirect: '/api/sessions/fail-register',
+        session: false
+    }), (req, res) => {
+    const user = req.user;
+    const token = generateToken(user);
+    res.cookie('authLogin', token, {maxAge: 3600000, httpOnly: true});
     res.redirect('/profile')
 })
 /*---------------- estrategia login ------------*/
@@ -33,9 +39,14 @@ router.post('/login', passport.authenticate('loginLocalStrategy',
         failureRedirect: '/api/sessions/fail-login',
         session: false
     }), async (req, res) => {
-
-    res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
-        
+        try {
+            const user = req.user;
+            const token = generateToken(user);
+            res.cookie('authLogin', token, {maxAge: 3600000, httpOnly: true});
+            res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
+        } catch (error) {
+            res.render('login', {error: 'Error al iniciar sesion'});
+        }
 })
 router.get('/fail-login', (req, res) => {
    res.render('login', {error: 'Credenciales Invalidas'}); 
