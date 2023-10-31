@@ -15,11 +15,9 @@ export const generateToken = (user) => {
         age: user.age,
         email: user.email,
         role: user.role
-    },
-    config.server.private_key,
-    {
-        expiresIn: '24h'
-    }
+        },
+        config.tokenJWT.tokenJWT_Key,
+        { expiresIn: '24h' }
     )
     return token
 }
