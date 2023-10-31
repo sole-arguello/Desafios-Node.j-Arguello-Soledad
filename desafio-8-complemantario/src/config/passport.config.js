@@ -1,14 +1,19 @@
 import passport from "passport";
 import localStrategy from "passport-local";
-import { config } from "./config.js";
 import GithubStrategy from "passport-github2";
-import { createHash, isValidPassword } from "../utils.js";
+import jwt from "passport-jwt";
+import { config } from "./config.js";
+import { createHash, isValidPassword, cookieExtractor } from "../utils.js";
 import { usersService } from "../dao/index.js";
+
+//variables para jwt
+const JwtStrategy = jwt.Strategy;
+const extractJwt = jwt.ExtractJwt;
 
 
 export const initializePassport = () => {
 
-    //estrategia para registro
+    //estrategia para registro local
     passport.use('registerLocalStrategy', new localStrategy(
         {
             //me permite acceder con los datos del usuario
@@ -48,7 +53,7 @@ export const initializePassport = () => {
     
     ))
 
-    //estrategia para login
+    //estrategia para login local
     passport.use('loginLocalStrategy', new localStrategy(
         {
             usernameField: 'email',//username ahora es igual email
@@ -105,15 +110,32 @@ export const initializePassport = () => {
         }
     ))
 
-    //genero la sesion guardando el id, recibo el usuario de userCreated
-    passport.serializeUser((user, done)=>{
-        done(null, user._id)//id de la base de datos
-    })
-    //cuando el usuario haga otra peticion(login) se consulta la info, se trae y se guarda en req.user
-    passport.deserializeUser(async(id, done)=>{//recibo el id guardado en la sesion
-        //verifico si el usuario existe
-        const user = await usersService.getUserById(id);
-        //const user = await usersModel.findById(id)
-        done(null, user)//queda guardado la info del ususario en una variable req.user
-    })
+
+    //Estrategia JWT
+    passport.use('jwtAuth', new JwtStrategy(
+        {
+            //Extraigo la info del token
+            jwtFromRequest: extractJwt.fromExtractors([cookieExtractor]),
+            secretOrKey: config.tokenJWT.tokenJWT_Key
+        },
+        async (jwtPayload, done) =>{
+            try{
+                return done(null, jwtPayload)
+            } catch(error){
+                return done(error)
+            }
+        }
+    ))
+
+    // //genero la sesion guardando el id, recibo el usuario de userCreated
+    // passport.serializeUser((user, done)=>{
+    //     done(null, user._id)//id de la base de datos
+    // })
+    // //cuando el usuario haga otra peticion(login) se consulta la info, se trae y se guarda en req.user
+    // passport.deserializeUser(async(id, done)=>{//recibo el id guardado en la sesion
+    //     //verifico si el usuario existe
+    //     const user = await usersService.getUserById(id);
+    //     //const user = await usersModel.findById(id)
+    //     done(null, user)//queda guardado la info del ususario en una variable req.user
+    // })
 }

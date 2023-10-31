@@ -1,15 +1,15 @@
 import express from 'express';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
 import { __dirname } from './utils.js';//importo dirname para obtener la ruta de mis archivos y path para unir diferentes rutas
 import path from 'path';
 import { engine } from 'express-handlebars'; //importo libreria handlebars y socket.io
 import { Server } from 'socket.io';
 import{ connectDB } from './config/dbConnection.js';//importo connectDB
 
+/*---------- aplico jwt ------------------  */
 import passport from 'passport';
+import cookieParser from 'cookie-parser';
 import { initializePassport } from './config/passport.config.js';
-import { config } from './config/config.js';
+
 
 
 import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
@@ -26,6 +26,7 @@ const port = 8080;//configuro puerto
 const app = express();
 
 //midleware
+app.use(cookieParser());
 app.use(express.json());//para recibir json
 app.use(express.urlencoded({ extended: true }));//para recibir datos del formulario
 app.use(express.static(path.join(__dirname, '/public')));
@@ -34,6 +35,20 @@ app.use(express.static(path.join(__dirname, '/public')));
 const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})//http
 const socketServer = new Server(httpSever);//web socket
 connectDB() //conexion base de datos mongo
+
+//configuracion de handlebars, motor de plantillas
+app.engine('.hbs', engine({extname: '.hbs'}));
+app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, '/views'));//src/views
+//configuracion de passport
+initializePassport()//se crean las estrategias
+app.use(passport.initialize())//inicializo passport dentro del servidor
+
+//rutas trabajadas con mongo
+app.use(viewsRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter)
+app.use('/api/sessions', usersSessionsRouter);
 
 //escucho un evento connection, el callback del socket que se acaba de conectar
 socketServer.on('connection', async (socket) => {
@@ -99,35 +114,4 @@ socketServer.on('connection', async (socket) => {
         }
 
     })
-
-  
 })
-
-
-//configuracion de handlebars, motor de plantillas
-app.engine('.hbs', engine({extname: '.hbs'}));
-app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname, '/views'));//src/views
-
-//configuracion de session
-app.use(session ({
-    store: MongoStore.create({
-        ttl: 60,
-        mongoUrl: config.mongo.url,
-    }),
-    secret: config.server.secretSession,
-    resave: true,
-    saveUninitialized: true
-}))
-
-//configuracion de passport
-initializePassport()//se crean las estrategias
-app.use(passport.initialize())//inicializo passport dentro del servidor
-app.use(passport.session())//vinculo passport con session
-
-
-//rutas trabajadas con mongo
-app.use(viewsRouter);
-app.use("/api/products", productsRouter);
-app.use("/api/carts", cartsRouter)
-app.use('/api/sessions', usersSessionsRouter);

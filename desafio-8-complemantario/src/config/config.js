@@ -3,8 +3,8 @@ dotenv.config()
 
 export const config = {
 
-    server: {
-        secretSession: process.env.SECRET_SESSION
+    tokenJWT: {
+      tokenJWT_Key: process.env.PRIVATE_KEY,  
     },
     
     mongo: {

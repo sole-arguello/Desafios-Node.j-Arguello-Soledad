@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from "passport";
 import { cartsService, productsService } from '../dao/index.js';
 const router = Router();
 
@@ -56,13 +57,16 @@ router.get('/login', (req, res) => {
 //ruta para register
 router.get('/register', (req, res) => {
     try {
+        console.log(req.body);
         res.render('register');
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 })
 //ruta para el perfil de usuario
-router.get('/profile', (req, res) => {
+router.get('/profile',
+ passport.authenticate('jwtAuth', 
+ {session: false}), (req, res) => { //agrego JWT y saco session
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -99,8 +103,6 @@ router.get('/profile', (req, res) => {
                     message: 'Se ha registrado con exito'
                 })
             }
-                   
-
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
