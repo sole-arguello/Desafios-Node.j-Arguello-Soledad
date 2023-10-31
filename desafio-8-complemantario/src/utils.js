@@ -22,6 +22,17 @@ export const generateToken = (user) => {
     return token
 }
 
+export const cookieExtractor = (req) => {
+    let token;
+    if (req && req.cookies) {
+        token = req.cookies['cookieLogin'];
+
+    }else{
+        token = null
+    }
+    return token
+}
+
 export const createHash = (password) => {//recibo la contraseña del form
     const salt = bcrypt.genSaltSync(10);//crea el algoritmo
     const hash = bcrypt.hashSync(password, salt);//recibe la contraseña y el algoritmo
@@ -34,13 +45,3 @@ export const isValidPassword = (password, user) => {//recibe la contraseña nue
     return bcrypt.compareSync(password, user.password)
 }
 
-export const cookieExtractor = (req) => {
-    let token;
-    if (req && req.cookies) {
-        token = req.cookies['cookieLogin'];
-
-    }else{
-        token = null
-    }
-    return token
-}

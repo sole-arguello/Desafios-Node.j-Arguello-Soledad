@@ -1,6 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { config } from "../config/config.js";
+import { generateToken } from "../utils.js";
 
 
 const router = Router();
@@ -42,7 +43,9 @@ router.post('/login', passport.authenticate('loginLocalStrategy',
         try {
             const user = req.user;
             const token = generateToken(user);
-            res.cookie('authLogin', token, {maxAge: 3600000, httpOnly: true});
+
+            console.log(token), 
+            res.cookie('cookieLogin', token, {maxAge: 360000, httpOnly: true});
             res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
         } catch (error) {
             res.render('login', {error: 'Error al iniciar sesion'});

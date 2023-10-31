@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     try {
         //si no esta logeado lo redirige a login
         if(!req.user){
-            res.render('login', { error: 'Para navegar debe iniciar session'})
+            res.render('login', { error: 'Error al iniciar session, para navegar debe iniciar session'})
         }else{
             //si esta logueado lo redirige a home
             const products = await productsService.getProducts();
