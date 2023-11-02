@@ -102,7 +102,7 @@ export const initializePassport = () => {
                     role: 'Usuario'
                 }
                 
-                console.log(newUser)
+               // console.log(newUser)
                 const userCreated = await usersService.createUsers(newUser)
                 return done(null, userCreated)
             } catch (error) {

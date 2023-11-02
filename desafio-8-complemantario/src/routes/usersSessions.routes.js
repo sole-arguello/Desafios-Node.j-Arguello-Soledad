@@ -43,9 +43,7 @@ router.post('/login', passport.authenticate('loginLocalStrategy',
         try {
             const user = req.user;
             const token = generateToken(user);
-
-            console.log(token), 
-            res.cookie('cookieLogin', token, {httpOnly: true});
+            res.cookie('cookieLogin', token, {maxAge: 43200000, httpOnly: true});
             res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
         } catch (error) {
             res.render('login', {error: 'Error al iniciar sesion'});
