@@ -29,7 +29,7 @@ router.get(config.github.callbackUrl, passport.authenticate('registerGithubStrat
     }), (req, res) => {
     const user = req.user;
     const token = generateToken(user);
-    res.cookie('authLogin', token, {maxAge: 3600000, httpOnly: true});
+    res.cookie('authLogin', token, {maxAge: 43200000, httpOnly: true});
     res.redirect('/profile')
 })
 /*---------------- estrategia login ------------*/
@@ -45,7 +45,7 @@ router.post('/login', passport.authenticate('loginLocalStrategy',
             const token = generateToken(user);
 
             console.log(token), 
-            res.cookie('cookieLogin', token, {maxAge: 360000, httpOnly: true});
+            res.cookie('cookieLogin', token, {httpOnly: true});
             res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
         } catch (error) {
             res.render('login', {error: 'Error al iniciar sesion'});
