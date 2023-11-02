@@ -16,7 +16,7 @@ export class UsersManagerMongo {
         }
         
     }
-    async getUser(email){
+    async getUserByEmail(email){
         try {
             const user = await this.model.findOne({email})
             return user
@@ -27,7 +27,10 @@ export class UsersManagerMongo {
     }
     async getUserById(id){
         try {
-            const userExist = await this.model.findById(id);
+            const userExist = await this.model.findById(id).lean();
+            if(!userExist){
+                throw new Error('El Usuario no se encuentra registrado');
+            }
             return userExist
         } catch (error) {
             console.log('get user', error.message);

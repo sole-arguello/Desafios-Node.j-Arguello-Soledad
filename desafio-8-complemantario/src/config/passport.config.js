@@ -24,8 +24,8 @@ export const initializePassport = () => {
 
             const {first_name, last_name, age} = req.body
             try {
-                const user = await usersService.getUser(username)
-                console.log('Usuario local', user)
+                const user = await usersService.getUserByEmail(username)
+                //console.log('Usuario local', user)
                 
                 if(user){//null: que no hubo error, false: ya existe, un mensaje
                     //el usuario ya existe
@@ -61,7 +61,7 @@ export const initializePassport = () => {
         async (username, password, done) => {
             try {
 
-                const user = await usersService.getUser(username);
+                const user = await usersService.getUserByEmail(username);
                 //al revez del registro
                 if (!user) {
                 //el usuario no esta registrado
@@ -127,15 +127,4 @@ export const initializePassport = () => {
         }
     ))
 
-    // //genero la sesion guardando el id, recibo el usuario de userCreated
-    // passport.serializeUser((user, done)=>{
-    //     done(null, user._id)//id de la base de datos
-    // })
-    // //cuando el usuario haga otra peticion(login) se consulta la info, se trae y se guarda en req.user
-    // passport.deserializeUser(async(id, done)=>{//recibo el id guardado en la sesion
-    //     //verifico si el usuario existe
-    //     const user = await usersService.getUserById(id);
-    //     //const user = await usersModel.findById(id)
-    //     done(null, user)//queda guardado la info del ususario en una variable req.user
-    // })
 }
