@@ -4,9 +4,8 @@ import { cartsService, productsService } from '../dao/index.js';
 const router = Router();
 
 //ruta para la vista home de todos los productos
-router.get('/', 
-passport.authenticate('jwtAuth', 
-{ session: false }), async (req, res) => {
+router.get('/',passport.authenticate('jwtAuth',
+     {session: false}), async (req, res) => {
     try {
         console.log(req.user);
         //si no esta logeado lo redirige a login
@@ -50,7 +49,7 @@ passport.authenticate('jwtAuth',
 })
 
 //ruta para login
-router.get('/login', passport.authenticate('jwtAuth', {session: false}), (req, res) => {
+router.get('/login', (req, res) => {
     try {
         res.render('login');
     } catch (error) {
@@ -58,7 +57,7 @@ router.get('/login', passport.authenticate('jwtAuth', {session: false}), (req, r
     }
 })
 //ruta para register
-router.get('/register', passport.authenticate('jwtAuth', {session: false}),(req, res) => {
+router.get('/register', (req, res) => {
     try {
         console.log(req.body);
         res.render('register');
@@ -67,9 +66,8 @@ router.get('/register', passport.authenticate('jwtAuth', {session: false}),(req,
     }
 })
 //ruta para el perfil de usuario
-router.get('/profile',
- passport.authenticate('jwtAuth', 
- {session: false}), (req, res) => { //agrego JWT y saco session
+router.get('/profile', passport.authenticate('jwtAuth', 
+    {session: false}),(req, res) => { //agrego JWT y saco session
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -113,7 +111,8 @@ router.get('/profile',
 })
 
 //ruta para productos en tiempo real Eliminar 
-router.get('/realTimeProducts', passport.authenticate('jwtAuth', {session: false}),(req, res) => {
+router.get('/realTimeProducts', passport.authenticate('jwtAuth', 
+    {session: false}),(req, res) => {
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -127,7 +126,8 @@ router.get('/realTimeProducts', passport.authenticate('jwtAuth', {session: false
 })
 
 //message para linkear / caht es la renderizacion hacia el chat 
-router.get('/message', passport.authenticate('jwtAuth', {session: false}), (req, res) =>{
+router.get('/message', passport.authenticate('jwtAuth', 
+    {session: false}), (req, res) =>{
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -142,7 +142,8 @@ router.get('/message', passport.authenticate('jwtAuth', {session: false}), (req,
 } )
 
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
-router.get('/products', async (req, res) => {
+router.get('/products', passport.authenticate('jwtAuth', 
+    {session: false}),async (req, res) => {
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
