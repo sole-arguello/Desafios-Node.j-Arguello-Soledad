@@ -24,6 +24,7 @@ export const initializePassport = () => {
 
             const {first_name, last_name, age} = req.body
             try {
+                //busco el usuario por email
                 const user = await usersService.getUserByEmail(username)
                 //console.log('Usuario local', user)
                 
@@ -60,7 +61,7 @@ export const initializePassport = () => {
         },
         async (username, password, done) => {
             try {
-
+                //busco el usuario por email
                 const user = await usersService.getUserByEmail(username);
                 //al revez del registro
                 if (!user) {
@@ -88,7 +89,7 @@ export const initializePassport = () => {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //console.log('Perfil', profile)
-                const user = await usersService.getUser(profile.username)
+                const user = await usersService.getUserByEmail(profile.username)
                 if(user){
                     return done(null, user)
                 }
