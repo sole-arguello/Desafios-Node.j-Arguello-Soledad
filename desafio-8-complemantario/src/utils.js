@@ -17,7 +17,7 @@ export const generateToken = (user) => {
         role: user.role
         },
         config.tokenJWT.tokenJWT_Key,
-        { expiresIn: '24h' }
+        { expiresIn: '12h' }
     )
     return token
 }
