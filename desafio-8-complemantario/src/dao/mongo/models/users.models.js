@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { usersService } from '../../index.js';
+import { cartsService } from '../../index.js';
 
 const usersCollection = 'users';
 
@@ -31,14 +31,13 @@ const userSchema = new mongoose.Schema({
     
 })
 
-// userSchema.pre('save', async function(next) {
-//     try {
-//         const user = {}
-//         const newCart = await usersService.createCart(user)
-//         this.cart = newCart._id
-//     } catch (error) {
-//         next(error)
-//     }
-// })
+userSchema.pre('save', async function(next) {
+    try {
+        const newCart = await cartsService.createCart({});
+        this.cart = newCart._id
+    } catch (error) {
+        next(error)
+    }
+})
 
 export const usersModel = mongoose.model(usersCollection, userSchema);
