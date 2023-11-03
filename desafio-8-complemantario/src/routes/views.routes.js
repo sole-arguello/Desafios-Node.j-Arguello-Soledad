@@ -4,7 +4,7 @@ import { cartsService, productsService } from '../dao/index.js';
 const router = Router();
 
 //ruta para la vista home de todos los productos
-router.get('/', async (req, res) => {
+router.get('/', passport.authenticate('jwtAuth', {session: false}), async (req, res) => {
     try {
         console.log(req.user);
         //si no esta logeado lo redirige a login
@@ -65,7 +65,8 @@ router.get('/register', (req, res) => {
     }
 })
 //ruta para el perfil de usuario
-router.get('/profile', (req, res) => { //agrego JWT y saco session
+router.get('/profile', passport.authenticate('jwtAuth', {session: false}),
+    (req, res) => { //agrego JWT y saco session
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
