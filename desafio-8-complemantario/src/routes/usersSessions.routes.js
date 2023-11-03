@@ -59,8 +59,8 @@ router.get('/fail-login', (req, res) => {
 router.get('/logout', (req, res) => {
     try {
         res.clearCookie('cookieLogin');
-        //una vez cerrada la sesion lo redirige a login que inicia en home
-        res.redirect('/');
+        //una vez cerrada la sesion lo redirige a login
+        res.redirect('/login');
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

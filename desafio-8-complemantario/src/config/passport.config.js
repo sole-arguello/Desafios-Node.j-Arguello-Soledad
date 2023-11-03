@@ -42,7 +42,7 @@ export const initializePassport = () => {
                     password: createHash(password),
                     role: 'Usuario'
                 }
-                console.log(newUser)
+                //console.log(newUser)
                 //creo un nuevo usuario
                 const userCreated = await usersService.createUsers(newUser)
                
