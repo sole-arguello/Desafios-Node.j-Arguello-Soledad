@@ -65,8 +65,7 @@ router.get('/register', (req, res) => {
     }
 })
 //ruta para el perfil de usuario
-router.get('/profile', passport.authenticate('jwtAuth', 
- {session: false}), (req, res) => { //agrego JWT y saco session
+router.get('/profile', (req, res) => { //agrego JWT y saco session
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -110,8 +109,7 @@ router.get('/profile', passport.authenticate('jwtAuth',
 })
 
 //ruta para productos en tiempo real Eliminar 
-router.get('/realTimeProducts', passport.authenticate('jwtAuth', 
-    {session: false}),(req, res) => {
+router.get('/realTimeProducts', (req, res) => {
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -125,8 +123,7 @@ router.get('/realTimeProducts', passport.authenticate('jwtAuth',
 })
 
 //message para linkear / caht es la renderizacion hacia el chat 
-router.get('/message', passport.authenticate('jwtAuth', 
-    {session: false}), (req, res) =>{
+router.get('/message',  (req, res) =>{
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})
@@ -141,8 +138,7 @@ router.get('/message', passport.authenticate('jwtAuth',
 } )
 
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
-router.get('/products', passport.authenticate('jwtAuth', 
-    {session: false}),async (req, res) => {
+router.get('/products',async (req, res) => {
     try {
         if(!req.user){
             res.render('login', { error: 'Para navegar debe iniciar session'})

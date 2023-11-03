@@ -7,7 +7,7 @@ import { generateToken } from "../utils.js";
 const router = Router();
 /*--------------- esctrategia registro local ---------------*/
 //registro al ususario
-router.post('/register', passport.authenticate('registerLocalStrategy', 
+router.post('/register', passport.authenticate('jwtAuth', 
     {
     failureRedirect: '/api/sessions/fail-register',
     session: false
@@ -35,7 +35,7 @@ router.get(config.github.callbackUrl, passport.authenticate('registerGithubStrat
 /*---------------- estrategia login ------------*/
 
 //logueo al usuario se admin o usuario locales
-router.post('/login', passport.authenticate('loginLocalStrategy',
+router.post('/login', passport.authenticate('jwtAuth',
     {
         failureRedirect: '/api/sessions/fail-login',
         session: false
@@ -58,7 +58,7 @@ router.get('/fail-login', (req, res) => {
 //para eliminar la seccion
 router.get('/logout', (req, res) => {
     try {
-        res.clearCookie('authLogin');
+        res.clearCookie('cookieLogin');
         //una vez cerrada la sesion lo redirige a login que inicia en home
         res.redirect('/');
     } catch (error) {
