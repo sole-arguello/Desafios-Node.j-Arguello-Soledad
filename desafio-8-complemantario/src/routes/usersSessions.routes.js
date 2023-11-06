@@ -46,11 +46,11 @@ router.post('/login', passport.authenticate('loginLocalStrategy',
             res.cookie('cookieLogin', token, {maxAge: 43200000, httpOnly: true});
             res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
         } catch (error) {
-            res.render('login', {error: 'Error al iniciar sesion'});
+            res.render('login', {error: 'Credenciales incorrectas'});
         }
 })
 router.get('/fail-login', (req, res) => {
-   res.render('login', {error: 'Credenciales Invalidas'}); 
+   res.render('login', {error: 'Para navegar debe iniciar sesion'}); 
 })
 
 /*--------------------------------------------------- */

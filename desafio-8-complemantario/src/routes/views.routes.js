@@ -10,7 +10,10 @@ router.get('/', passport.authenticate('jwtAuth',
         console.log(req.user);
         //si no esta logeado lo redirige a login
         if(!req.user){
-            res.render('login', { error: 'Error al iniciar session, para navegar debe iniciar session'})
+            res.render('login', { 
+                style: "login.css",
+                error: 'Error al iniciar session, para navegar debe iniciar session'
+            })
         }else{
             //si esta logueado lo redirige a home
             const products = await productsService.getProducts();
@@ -20,7 +23,8 @@ router.get('/', passport.authenticate('jwtAuth',
                 throw new Error('No hay productos');
             }
             if(req.user.role === 'admin'){
-                res.render('home', { //
+                res.render('home', { 
+                    style: "home.css",
                     userAdmin: true,
                     products : products,
                     userFirst_name: req.user.first_name,
@@ -38,8 +42,6 @@ router.get('/', passport.authenticate('jwtAuth',
                     
                 });
             }
-
-            
         }
 
     } catch (error) {
@@ -138,7 +140,7 @@ router.get('/message',  (req, res) =>{
         res.status(500).json({ message: error.message });
         
     }
-} )
+})
 
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
 router.get('/products',async (req, res) => {
