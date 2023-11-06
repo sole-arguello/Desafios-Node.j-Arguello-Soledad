@@ -12,11 +12,17 @@ router.post('/register', passport.authenticate('registerLocalStrategy',
     failureRedirect: '/api/sessions/fail-register',
     session: false
     }), async (req, res) => {
-        res.render('login', {message: `Hola, ${req.user.first_name} te has registrado con exito`});
+        res.render('login', {
+            style: "login.css",
+            message: `Hola, ${req.user.first_name} te has registrado con exito`
+        });
     
 })
 router.get('/fail-register', (req, res) => {
-    res.render('register', {error: 'Error al registrar el usuario'});
+    res.render('register', {
+        style: "register.css",
+        error: 'Error al registrar el usuario'
+    });
 })
 /*----------------estrategia registro con github----------------*/
 //ruta registro con github
@@ -46,11 +52,17 @@ router.post('/login', passport.authenticate('loginLocalStrategy',
             res.cookie('cookieLogin', token, {maxAge: 43200000, httpOnly: true});
             res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
         } catch (error) {
-            res.render('login', {error: 'Credenciales incorrectas'});
+            res.render('login', {
+                style: "login.css",
+                error: 'Credenciales incorrectas'
+            });
         }
 })
 router.get('/fail-login', (req, res) => {
-   res.render('login', {error: 'Para navegar debe iniciar sesion'}); 
+   res.render('login', {
+    style: "login.css",
+    error: 'Para navegar debe iniciar sesion'
+    }); 
 })
 
 /*--------------------------------------------------- */

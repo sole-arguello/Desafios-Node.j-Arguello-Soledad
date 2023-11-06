@@ -10,7 +10,8 @@ router.get('/', passport.authenticate('jwtAuth',
         console.log(req.user);
         //si no esta logeado lo redirige a login
         if(!req.user){
-            res.render('login', { 
+            res.render('login', 
+            { 
                 style: "login.css",
                 error: 'Error al iniciar session, para navegar debe iniciar session'
             })
@@ -19,11 +20,16 @@ router.get('/', passport.authenticate('jwtAuth',
             const products = await productsService.getProducts();
 
             if(products.length === 0){
-                res.render('home', { message: 'No hay productos'});
+                res.render('home', 
+                { 
+                    style: "home.css",
+                    message: 'No hay productos'
+                });
                 throw new Error('No hay productos');
             }
             if(req.user.role === 'admin'){
-                res.render('home', { 
+                res.render('home', 
+                { 
                     style: "home.css",
                     userAdmin: true,
                     products : products,
@@ -34,7 +40,9 @@ router.get('/', passport.authenticate('jwtAuth',
                 });
                 
             }else{
-                res.render('home', { //
+                res.render('home', 
+                {
+                    style: "home.css",
                     products : products,
                     userFirst_name: req.user.first_name,
                     userLast_name: req.user.last_name,
@@ -53,7 +61,7 @@ router.get('/', passport.authenticate('jwtAuth',
 //ruta para login
 router.get('/login', async (req, res) => {
     try {
-        res.render('login');
+        res.render('login', { style: "login.css"});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -62,7 +70,7 @@ router.get('/login', async (req, res) => {
 router.get('/register', async (req, res) => {
     try {
         //console.log(req.body);
-        res.render('register');
+        res.render('register', { style: "register.css"});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -73,12 +81,17 @@ router.get('/profile', passport.authenticate('jwtAuth',
     async (req, res) => { //agrego JWT y saco session
     try {
         if(!req.user){
-            res.render('login', { error: 'Para navegar debe iniciar session'})
+            res.render('login', 
+            { 
+                style: "login.css",
+                error: 'Para navegar debe iniciar session'
+            })
         }else{  
             if(req.user.age === 0 && req.user.role === 'admin'){
                 //usuario admin
                 res.render('profile', 
                 {
+                    style: "profile.css",
                     userAdmin: true,
                     userFirst_name: req.user.first_name,
                     userEmail: req.user.email,
@@ -87,7 +100,9 @@ router.get('/profile', passport.authenticate('jwtAuth',
                 })
             }else if(req.user.age === 0 && req.user.role === 'Usuario' ) {
                 //usuario github                
-                res.render('profile', {
+                res.render('profile', 
+                {
+                    style: "profile.css",
                     userGithub: true,
                     userFirst_name: req.user.first_name,
                     userUsername: req.user.last_name,
@@ -97,7 +112,9 @@ router.get('/profile', passport.authenticate('jwtAuth',
                 });
             }else{
                 //usuario registrado desde la page
-                res.render('profile', {
+                res.render('profile', 
+                {
+                    style: "profile.css",
                     userUser: true,
                     userFirst_name: req.user.first_name,
                     userLast_name: req.user.last_name,
@@ -117,9 +134,14 @@ router.get('/profile', passport.authenticate('jwtAuth',
 router.get('/realTimeProducts', (req, res) => {
     try {
         if(!req.user){
-            res.render('login', { error: 'Para navegar debe iniciar session'})
+            res.render('login', 
+            { 
+                style: "login.css",
+                error: 'Para navegar debe iniciar session'
+            })
         }else{
-            res.render('realTime');
+            res.render('realTime',{style: "realTime.css",}
+            );
         }
         
     } catch (error) {
@@ -131,9 +153,13 @@ router.get('/realTimeProducts', (req, res) => {
 router.get('/message',  (req, res) =>{
     try {
         if(!req.user){
-            res.render('login', { error: 'Para navegar debe iniciar session'})
+            res.render('login', 
+            { 
+                style: "login.css",
+                error: 'Para navegar debe iniciar session'
+            })
         }else{
-            res.render('chat');
+            res.render('chat', {style: "chat.css",});
         }
         
     } catch (error) {
@@ -146,7 +172,11 @@ router.get('/message',  (req, res) =>{
 router.get('/products',async (req, res) => {
     try {
         if(!req.user){
-            res.render('login', { error: 'Para navegar debe iniciar session'})
+            res.render('login', 
+            { 
+                style: "login.css",
+                error: 'Para navegar debe iniciar session'
+            })
         }else{
             const { limit= 4, page=1 } = req.query;
             const query = {};
@@ -180,7 +210,7 @@ router.get('/products',async (req, res) => {
             }
            // console.log(dataProducts.payload)
            // console.log('Data del console log:', dataProducts.nextLink, dataProducts.prevLink)
-            res.render('productsPaginate', dataProducts);
+            res.render('productsPaginate', dataProducts, {style: "paginate.css"});
         }
 
     } catch (error) {
@@ -199,7 +229,10 @@ router.get('/cart/:cid', async (req, res) => {
             return res.status(404).send('No se pudo encontrar el carrito');
         }else{
             //console.log('Carrito en consola ',cart.products);
-            res.status(200).render('cart', { products: cart.products });
+            res.status(200).render('cart', {
+                 style: "cart.css",
+                 products: cart.products 
+                });
             
         }
     } catch (error) {
