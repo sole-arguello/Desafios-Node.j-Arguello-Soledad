@@ -5,7 +5,8 @@ const router = Router();
 
 //ruta para la vista home de todos los productos
 router.get('/', passport.authenticate('jwtAuth', 
-    {failureRedirect: '/api/sessions/fail-login', session: false}), async (req, res) => {
+    {
+        failureRedirect: '/api/sessions/fail-login', session: false}), async (req, res) => {
     try {
         console.log(req.user);
         //si no esta logeado lo redirige a login
@@ -131,7 +132,11 @@ router.get('/profile', passport.authenticate('jwtAuth',
 })
 
 //ruta para productos en tiempo real Eliminar 
-router.get('/realTimeProducts', (req, res) => {
+router.get('/realTimeProducts', passport.authenticate('jwtAuth', 
+    {
+        failureRedirect: '/api/sessions/fail-login',
+         session: false}),
+     async (req, res) => {
     try {
         if(!req.user){
             res.render('login', 
@@ -150,7 +155,9 @@ router.get('/realTimeProducts', (req, res) => {
 })
 
 //message para linkear / caht es la renderizacion hacia el chat 
-router.get('/message',  (req, res) =>{
+router.get('/message', passport.authenticate('jwtAuth', 
+    {failureRedirect: '/api/sessions/fail-login', session: false}), 
+    (req, res) =>{
     try {
         if(!req.user){
             res.render('login', 
@@ -169,7 +176,9 @@ router.get('/message',  (req, res) =>{
 })
 
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
-router.get('/products',async (req, res) => {
+router.get('/products', passport.authenticate('jwtAuth', 
+    {failureRedirect: '/api/sessions/fail-login', session: false}),
+    async (req, res) => {
     try {
         if(!req.user){
             res.render('login', 
@@ -210,7 +219,7 @@ router.get('/products',async (req, res) => {
             }
            // console.log(dataProducts.payload)
            // console.log('Data del console log:', dataProducts.nextLink, dataProducts.prevLink)
-            res.render('productsPaginate', dataProducts, {style: "paginate.css"});
+            res.render('productsPaginate', dataProducts);
         }
 
     } catch (error) {
