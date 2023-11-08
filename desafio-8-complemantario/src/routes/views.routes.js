@@ -200,6 +200,7 @@ router.get('/products', passport.authenticate('jwtAuth',
             //obtengo la ruta del servidor 
             const baseUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
             const dataProducts = {
+                style: "paginate.css",
                 status:'success',
                 payload: result,
                 totalPages: result.totalPages,
