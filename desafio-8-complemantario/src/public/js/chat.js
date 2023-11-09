@@ -42,8 +42,11 @@ socketClient.on('historyChat', (messageServer) => {
     let messageElement = ''
     messageServer.forEach(element => {
         messageElement += `
-        <p>Usuario: ${element.user} >>>> 
-        Mensaje: ${element.message}</p>`
+        <label cl> Mensaje de: 
+            <span class="user">${element.user}</span>
+        </label>
+        <p class="areaChat">${element.message}</p> 
+        `
     });
 
     chatPanel.innerHTML = messageElement

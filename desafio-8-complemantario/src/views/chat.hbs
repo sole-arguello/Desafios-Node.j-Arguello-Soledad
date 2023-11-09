@@ -1,15 +1,24 @@
-<h1>Pagina de Chat</h1>
-<p style="color: red">{{error}}</p>
-{{!-- para mostrar quein se conecta --}}
-<p>Bienvenido <span id="userName"></span></p>
+<section class="sectionChat">
+    <h1>Bienvenidos al Chat</h1>
+    <p class="error">{{error}}</p>
+    {{!-- para mostrar quein se conecta --}}
+    <p>Usuario <span class="userName" id="userName"></span> Conectado</p>
 
-
-{{!-- para mostar los mensajes de los usuarios --}}
-<div id="chatPanel"></div>
-
-{{!-- para recibir los mensajes de los usuarios --}}
-<input type="text" id="inputMessage" placeholder="Escribe tu mensaje">
-<button id="btnSendMessage">Enviar</button>
+    <div class="containerChat">
+        <div class="formChat">
+            {{!-- para recibir los mensajes de los usuarios --}}
+            <input class="inputChat" type="text" id="inputMessage" placeholder="Escribe tu mensaje">
+            <button class="btnChat" id="btnSendMessage">Enviar</button>
+        </div>
+        {{!-- para mostar los mensajes de los usuarios --}}
+        <div class="chatPanel" id="chatPanel">
+            {{!-- los chat
+            parrafo usuario
+            parrafo mensaje
+             --}}
+        </div>
+    </div>
+</section>
 
 
 
