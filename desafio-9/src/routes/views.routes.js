@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from "passport";
-import { cartsService, productsService } from '../dao/index.js';
+import { cartsDao, productsService } from '../dao/index.js';
 const router = Router();
 
 //ruta para la vista home de todos los productos
@@ -233,7 +233,7 @@ router.get('/products', passport.authenticate('jwtAuth',
 router.get('/cart/:cid', async (req, res) => {
     const cartId = '6525e395443bd76c765dd0ee'
     try {
-        const cart = await cartsService.getCartsId(cartId);
+        const cart = await cartsDao.getCartsId(cartId);
         //console.log('Prueba en consola', cart);
         if(!cart){
             return res.status(404).send('No se pudo encontrar el carrito');

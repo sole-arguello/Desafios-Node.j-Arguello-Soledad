@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { cartsService } from '../../index.js';
+import { cartsDao } from '../../../index.js';
 
 const usersCollection = 'users';
 
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(next) {
     try {
-        const newCart = await cartsService.createCart({});
+        const newCart = await cartsDao.createCart({});
         this.cart = newCart._id
     } catch (error) {
         next(error)
