@@ -1,17 +1,13 @@
 import { Router } from "express";
-import passport from "passport";
 import { config } from "../config/config.js";
-import { generateToken } from "../utils.js";
+import { generateToken, registerLocalStrategy, registerGithubStrategy,
+     registerGithubStrategyFail, loginLocalStrategy } from "../utils.js";
 
 
 const router = Router();
 /*--------------- esctrategia registro local ---------------*/
 //registro al ususario
-router.post('/register', passport.authenticate('registerLocalStrategy', 
-    {
-    failureRedirect: '/api/sessions/fail-register',
-    session: false
-    }), async (req, res) => {
+router.post('/register', registerLocalStrategy , (req, res) => {
         res.render('login', {
             style: "login.css",
             message: `Hola, ${req.user.first_name} te has registrado con exito`
@@ -26,13 +22,9 @@ router.get('/fail-register', (req, res) => {
 })
 /*----------------estrategia registro con github----------------*/
 //ruta registro con github
-router.get('/register-github', passport.authenticate('registerGithubStrategy'))
+router.get('/register-github', registerGithubStrategy)
 //ruta collback con github
-router.get(config.github.callbackUrl, passport.authenticate('registerGithubStrategy', 
-    {
-        failureRedirect: '/api/sessions/fail-register',
-        session: false
-    }), (req, res) => {
+router.get(config.github.callbackUrl, registerGithubStrategyFail , (req, res) => {
     const user = req.user;
     const token = generateToken(user);
     res.cookie('authLogin', token, {maxAge: 43200000, httpOnly: true});
@@ -41,11 +33,7 @@ router.get(config.github.callbackUrl, passport.authenticate('registerGithubStrat
 /*---------------- estrategia login ------------*/
 
 //logueo al usuario se admin o usuario locales
-router.post('/login', passport.authenticate('loginLocalStrategy',
-    {
-        failureRedirect: '/api/sessions/fail-login',
-        session: false
-    }), async (req, res) => {
+router.post('/login', loginLocalStrategy, async (req, res) => {
         try {
             const user = req.user;
             const token = generateToken(user);

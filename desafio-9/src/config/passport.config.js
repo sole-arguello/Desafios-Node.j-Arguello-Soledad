@@ -4,7 +4,7 @@ import GithubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 import { config } from "./config.js";
 import { createHash, isValidPassword, cookieExtractor } from "../utils.js";
-import { usersService } from "../dao/index.js";
+import { usersDao } from "../dao/index.js";
 
 //variables para jwt
 const JwtStrategy = jwt.Strategy;
@@ -25,7 +25,7 @@ export const initializePassport = () => {
             const {first_name, last_name, age} = req.body
             try {
                 //busco el usuario por email
-                const user = await usersService.getUserByEmail(username)
+                const user = await usersDao.getUserByEmail(username)
                 //console.log('Usuario local', user)
                 
                 if(user){//null: que no hubo error, false: ya existe, un mensaje
@@ -44,7 +44,7 @@ export const initializePassport = () => {
                 }
                 //console.log(newUser)
                 //creo un nuevo usuario
-                const userCreated = await usersService.createUsers(newUser)
+                const userCreated = await usersDao.createUsers(newUser)
                
                 return done(null, userCreated)
             } catch (error) {
@@ -62,7 +62,7 @@ export const initializePassport = () => {
         async (username, password, done) => {
             try {
                 //busco el usuario por email
-                const user = await usersService.getUserByEmail(username);
+                const user = await usersDao.getUserByEmail(username);
                 //al revez del registro
                 if (!user) {
                 //el usuario no esta registrado
@@ -89,7 +89,7 @@ export const initializePassport = () => {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //console.log('Perfil', profile)
-                const user = await usersService.getUserByEmail(profile.username)
+                const user = await usersDao.getUserByEmail(profile.username)
                 if(user){
                     return done(null, user)
                 }
@@ -103,7 +103,7 @@ export const initializePassport = () => {
                 }
                 
                // console.log(newUser)
-                const userCreated = await usersService.createUsers(newUser)
+                const userCreated = await usersDao.createUsers(newUser)
                 return done(null, userCreated)
             } catch (error) {
                 return done(error)

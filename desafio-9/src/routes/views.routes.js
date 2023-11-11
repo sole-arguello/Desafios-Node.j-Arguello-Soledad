@@ -1,12 +1,11 @@
 import { Router } from 'express';
 import passport from "passport";
 import { cartsDao, productsDao } from '../dao/index.js';
+import { jwtAuth } from '../utils.js';
 const router = Router();
 
 //ruta para la vista home de todos los productos
-router.get('/', passport.authenticate('jwtAuth', 
-    {
-        failureRedirect: '/api/sessions/fail-login', session: false}), async (req, res) => {
+router.get('/', jwtAuth, async (req, res) => {
     try {
         console.log(req.user);
         //si no esta logeado lo redirige a login
@@ -77,9 +76,7 @@ router.get('/register', async (req, res) => {
     }
 })
 //ruta para el perfil de usuario
-router.get('/profile', passport.authenticate('jwtAuth', 
-    {failureRedirect: '/api/sessions/fail-login', session: false}),
-    async (req, res) => { //agrego JWT y saco session
+router.get('/profile', jwtAuth, async (req, res) => { //agrego JWT y saco session
     try {
         if(!req.user){
             res.render('login', 
@@ -132,11 +129,7 @@ router.get('/profile', passport.authenticate('jwtAuth',
 })
 
 //ruta para productos en tiempo real Eliminar 
-router.get('/realTimeProducts', passport.authenticate('jwtAuth', 
-    {
-        failureRedirect: '/api/sessions/fail-login',
-         session: false}),
-     async (req, res) => {
+router.get('/realTimeProducts', jwtAuth, async (req, res) => {
     try {
         if(!req.user){
             res.render('login', 
@@ -155,9 +148,7 @@ router.get('/realTimeProducts', passport.authenticate('jwtAuth',
 })
 
 //message para linkear / caht es la renderizacion hacia el chat 
-router.get('/message', passport.authenticate('jwtAuth', 
-    {failureRedirect: '/api/sessions/fail-login', session: false}), 
-    (req, res) =>{
+router.get('/message', jwtAuth, async (req, res) =>{
     try {
         if(!req.user){
             res.render('login', 
@@ -176,9 +167,7 @@ router.get('/message', passport.authenticate('jwtAuth',
 })
 
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
-router.get('/products', passport.authenticate('jwtAuth', 
-    {failureRedirect: '/api/sessions/fail-login', session: false}),
-    async (req, res) => {
+router.get('/products', jwtAuth, async (req, res) => {
     try {
         if(!req.user){
             res.render('login', 
