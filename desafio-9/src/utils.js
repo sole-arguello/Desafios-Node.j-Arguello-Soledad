@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from "./config/config.js";
+import passport from "passport";
 
 export const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -45,3 +46,28 @@ export const isValidPassword = (password, user) => {//recibe la contraseña nue
     return bcrypt.compareSync(password, user.password)
 }
 
+export const registerLocalStrategy = passport.authenticate(
+    'registerLocalStrategy', 
+    {
+    failureRedirect: '/api/sessions/fail-register',
+    session: false
+    })
+
+export const registerGithubStrategy = passport.authenticate('registerGithubStrategy')
+
+export const registerGithubStrategyFail = passport.authenticate(
+    'registerGithubStrategy', 
+    {
+        failureRedirect: '/api/sessions/fail-register',
+        session: false
+    })
+
+export const loginLocalStrategy =  passport.authenticate('loginLocalStrategy',
+    {
+        failureRedirect: '/api/sessions/fail-login',
+        session: false
+    })
+
+export const jwtAuth = passport.authenticate('jwtAuth', 
+{
+    failureRedirect: '/api/sessions/fail-login', session: false})
