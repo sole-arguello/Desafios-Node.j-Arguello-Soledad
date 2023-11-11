@@ -1,13 +1,14 @@
 import { Router } from "express";
+import passport from "passport";
 import { config } from "../config/config.js";
 import { generateToken, registerLocalStrategy, registerGithubStrategy,
-     registerGithubStrategyFail, loginLocalStrategy } from "../utils.js";
+    registerGithubStrategyFail, loginLocalStrategy } from "../utils.js";
 
 
 const router = Router();
 /*--------------- esctrategia registro local ---------------*/
 //registro al ususario
-router.post('/register', registerLocalStrategy , (req, res) => {
+router.post('/register', registerLocalStrategy, async (req, res) => {
         res.render('login', {
             style: "login.css",
             message: `Hola, ${req.user.first_name} te has registrado con exito`
@@ -24,7 +25,7 @@ router.get('/fail-register', (req, res) => {
 //ruta registro con github
 router.get('/register-github', registerGithubStrategy)
 //ruta collback con github
-router.get(config.github.callbackUrl, registerGithubStrategyFail , (req, res) => {
+router.get(config.github.callbackUrl, registerGithubStrategyFail, (req, res) => {
     const user = req.user;
     const token = generateToken(user);
     res.cookie('authLogin', token, {maxAge: 43200000, httpOnly: true});
