@@ -1,17 +1,10 @@
 import {Router } from 'express';
-import { productsService } from '../dao/index.js';
+import { ProductsController } from '../controller/products.controller.js'; 
 
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    try {
-        const resultado = await productsService.getProducts();
-        res.json({ status: 'Listado de productos ', data: resultado });
-    } catch (error) {
-        res.json({ status: 'error',  message: error.message });
-    }
-});
+router.get('/', ProductsController.getProducts)
 
 router.get('/:id', async (req, res) => {
     try {

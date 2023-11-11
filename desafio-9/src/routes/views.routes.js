@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from "passport";
-import { cartsDao, productsService } from '../dao/index.js';
+import { cartsDao, productsDao } from '../dao/index.js';
 const router = Router();
 
 //ruta para la vista home de todos los productos
@@ -18,7 +18,7 @@ router.get('/', passport.authenticate('jwtAuth',
             })
         }else{
             //si esta logueado lo redirige a home
-            const products = await productsService.getProducts();
+            const products = await productsDao.getProducts();
 
             if(products.length === 0){
                 res.render('home', 

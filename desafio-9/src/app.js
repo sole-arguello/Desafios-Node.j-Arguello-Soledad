@@ -13,7 +13,7 @@ import { initializePassport } from './config/passport.config.js';
 
 
 import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
-import { productsService } from './dao/index.js';//importo el servicio de caht para uasrlo en socket
+import { productsDao } from './dao/index.js';//importo el servicio de caht para uasrlo en socket
 
 
 //importo rutas http y las de handlebars
@@ -67,7 +67,7 @@ socketServer.on('connection', async (socket) => {
     socket.on('newProduct', async (productData) => {
         try {
             //creo los productos 
-            await productsService.createProduct(productData);
+            await productsDao.createProduct(productData);
             //obtengo y actualizo los productos
             const products = await productsService.getProducts();
             //emito la lista actualizada
