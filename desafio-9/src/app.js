@@ -11,17 +11,15 @@ import cookieParser from 'cookie-parser';
 import { initializePassport } from './config/passport.config.js';
 
 
-
-import { chatService } from './dao/index.js'; //importo el servicio de caht para uasrlo en socket
-import { productsDao } from './dao/index.js';//importo el servicio de caht para uasrlo en socket
-
+import { ProductsService } from './service/products.service.js';
+import { ChatService } from './service/chat.service.js';
 
 //importo rutas http y las de handlebars
 import { viewsRouter } from './routes/views.routes.js';
 import { productsRouter } from './routes/products.routes.js';
 import { cartsRouter } from './routes/carts.routes.js';
 import { usersSessionsRouter } from './routes/usersSessions.routes.js';
-import { ProductsService } from './service/products.service.js';
+
 
 const port = 8080;//configuro puerto
 const app = express();
@@ -56,7 +54,7 @@ socketServer.on('connection', async (socket) => {
     console.log('Cliente Conectado');
     try {
         //obtengo todos los productos y los envio al cliente
-        const products = await productsService.getProducts();
+        const products = await ProductsService.getProducts();
         //envio los productos al cliente
         socket.emit('productsArray', products);
     } catch (error) {
@@ -97,16 +95,16 @@ socketServer.on('connection', async (socket) => {
 
     //-------------- socket del servidor del chat ---------------//
     //traigo todos los chat
-    const historyChat = await chatService.getMessages()
+    const historyChat = await ChatService.getMessages()
     //emito los caht 
     socket.emit('historyChat', historyChat)
     //recibo mensaje de cada usuario desde el cliente
     socket.on('messageChat', async (messageClient) => {//recibo el mensaje del front
         try {
             //creo los chat en la base de datos
-            await chatService.createMessage(messageClient);
+            await ChatService.createMessage(messageClient);
             //obtengo y actualizo los mensajes
-            const historyChat = await chatService.getMessages();
+            const historyChat = await ChatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
             socketServer.emit('historyChat', historyChat);//envio el mensaje
             
