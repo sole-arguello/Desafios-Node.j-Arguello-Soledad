@@ -69,5 +69,6 @@ export const loginLocalStrategy =  passport.authenticate('loginLocalStrategy',
     })
 
 export const jwtAuth = passport.authenticate('jwtAuth', 
-{
-    failureRedirect: '/api/sessions/fail-login', session: false})
+    {
+        failureRedirect: '/api/sessions/fail-login', session: false
+    })
