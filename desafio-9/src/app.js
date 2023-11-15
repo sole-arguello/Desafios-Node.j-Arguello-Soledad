@@ -21,6 +21,7 @@ import { viewsRouter } from './routes/views.routes.js';
 import { productsRouter } from './routes/products.routes.js';
 import { cartsRouter } from './routes/carts.routes.js';
 import { usersSessionsRouter } from './routes/usersSessions.routes.js';
+import { ProductsService } from './service/products.service.js';
 
 const port = 8080;//configuro puerto
 const app = express();
@@ -67,9 +68,9 @@ socketServer.on('connection', async (socket) => {
     socket.on('newProduct', async (productData) => {
         try {
             //creo los productos 
-            await productsDao.createProduct(productData);
+            await ProductsService.createProduct(productData);
             //obtengo y actualizo los productos
-            const products = await productsService.getProducts();
+            const products = await ProductsService.getProducts();
             //emito la lista actualizada
             socket.emit('productsArray', products);
             
@@ -83,9 +84,9 @@ socketServer.on('connection', async (socket) => {
         
         try {
             // Eliminar el producto de la lista de productos por su ID
-            await productsService.deleteProduct(productId);
+            await ProductsService.deleteProduct(productId);
             // Obtener la lista actualizada de productos
-            const updatedProducts = await productsService.getProducts();
+            const updatedProducts = await ProductsService.getProducts();
             // Emitir la lista actualizada de productos al cliente
             socket.emit('productsArray', updatedProducts);
         } catch (error) {
