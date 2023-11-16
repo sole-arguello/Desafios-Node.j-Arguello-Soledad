@@ -13,7 +13,7 @@ export class CartsController {
         try {
             const idcarts = req.params.cid; //obtengo el parametro cid de la URL
             //tarigo el caarito por medio de la populacion
-            const carts = await cartsService.getCartsId(idcarts);
+            const carts = await CartsService.getCartsId(idcarts);
             if(carts){
               res.json({ message: "Carrito encontrado", data: carts });
             }else{
