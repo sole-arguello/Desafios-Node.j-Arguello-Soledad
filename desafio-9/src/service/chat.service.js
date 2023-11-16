@@ -3,10 +3,10 @@ import { chatDao } from "../dao/index.js";
 
 export class ChatService {
 
-    static getmessages(){
+    static getMessages(){
         return chatDao.getMessages()
     }
-    static createMessge(messageInfo){
+    static createMessage(messageInfo){
         return chatDao.createMessage(messageInfo)
     }
 }
