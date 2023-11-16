@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 //configuro para websocket del lado del server
 const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})//http
 const socketServer = new Server(httpSever);//web socket
-connectDB() //conexion base de datos mongo
+connectDB.getInstance()  //conexion base de datos mongo
 
 //configuracion de handlebars, motor de plantillas
 app.engine('.hbs', engine({extname: '.hbs'}));
