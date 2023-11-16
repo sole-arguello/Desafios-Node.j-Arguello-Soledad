@@ -1,13 +1,24 @@
 import mongoose from "mongoose";
 import { config } from "./config.js";
 
-export const connectDB = async () => {
-    try {
-        //remplazo url de db por la variable de entorno
-        const url = config.mongo.url
-        await mongoose.connect(url);
+
+export class connectDB {
+    static #instance;
+    
+    static #getConnection() {
+        const URL = config.mongo.url
+        const connection = mongoose.connect(URL);
         console.log('Conectado a la base de datos');
-    } catch (error) {
-        console.log('Hubo un error al conectarse a la base de datos', error.message);
+        return connection;
+    }
+
+    static getInstance() {
+        if (this.#instance) {
+            console.log('La conexion a la base de datos ya existe');
+            return this.#instance;
+        }else{
+            this.#instance = this.#getConnection();
+            return this.#instance
+        }
     }
 }
