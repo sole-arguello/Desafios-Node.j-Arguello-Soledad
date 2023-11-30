@@ -34,6 +34,8 @@ router.get('/cart/:cid', ViewsController.renderViewsCart)
 //     const productsCart = cart.products;
 //     res.render("cart", { products: productsCart})
 // });
+//http://localhost:8080/mokingProducts
+router.get('/mokingProducts', ViewsController.mockingProducts)
 
 export { router as viewsRouter }
 
