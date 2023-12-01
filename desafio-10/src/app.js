@@ -4,6 +4,7 @@ import path from 'path';
 import { engine } from 'express-handlebars'; //importo libreria handlebars y socket.io
 import { Server } from 'socket.io';
 import{ connectDB } from './config/dbConnection.js';//importo connectDB
+import {errorHandler } from './middlewares/errors/errorHandler.js';
 
 /*---------- aplico jwt ------------------  */
 import passport from 'passport';
@@ -114,3 +115,5 @@ socketServer.on('connection', async (socket) => {
 
     })
 })
+
+app.use(errorHandler)
