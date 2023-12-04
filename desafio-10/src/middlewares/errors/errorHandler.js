@@ -18,7 +18,7 @@ export const errorHandler = (error, req, res, next) => {
 
         case EError.INVALID_LOGIN:
             res.json({ status: 'error', message: error.cause })
-
+            break;
         default:
             res.json({ status: 'error', message:'Unhandled Error' })
     }
