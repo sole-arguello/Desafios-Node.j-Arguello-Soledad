@@ -1,5 +1,5 @@
 import passport from "passport";
-import localStrategy from "passport-local";
+import LocalStrategy from "passport-local";
 import GithubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 import { config } from "./config.js";
@@ -14,7 +14,7 @@ const extractJwt = jwt.ExtractJwt;
 export const initializePassport = () => {
 
     //estrategia para registro local
-    passport.use('registerLocalStrategy', new localStrategy(
+    passport.use('registerLocalStrategy', new LocalStrategy(
         {
             //me permite acceder con los datos del usuario
             passReqToCallback: true,
@@ -24,6 +24,7 @@ export const initializePassport = () => {
 
             const {first_name, last_name, age} = req.body
             try {
+                console.log("paso por Passport registerLocalStrategy");
                 //busco el usuario por email
                 const user = await UsersSessionsService.getUserByEmail(username)
                 //console.log('Usuario local', user)
@@ -55,12 +56,13 @@ export const initializePassport = () => {
     ))
 
     //estrategia para login local
-    passport.use('loginLocalStrategy', new localStrategy(
+    passport.use('loginLocalStrategy', new LocalStrategy(
         {
             usernameField: 'email',//username ahora es igual email
         },
         async (username, password, done) => {
             try {
+                console.log("paso por Passport loginLocalStrategy");
                 //busco el usuario por email
                 const user = await UsersSessionsService.getUserByEmail(username);
                 //al revez del registro
@@ -88,6 +90,7 @@ export const initializePassport = () => {
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
+                console.log("paso por Passport registerGithubStrategy");
                 //console.log('Perfil', profile)
                 const user = await UsersSessionsService.getUserByEmail(profile.username)
                 if(user){
@@ -121,6 +124,7 @@ export const initializePassport = () => {
         },
         async (jwtPayload, done) =>{
             try{
+                console.log("paso por Passport jwtAuth");
                 return done(null, jwtPayload)
             } catch(error){
                 return done(error)
