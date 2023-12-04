@@ -1,6 +1,6 @@
 export const generateUserErrorInfo = (user) =>{
 
-    return `Algun dato esta incompleto o incorrecto.
+    return `Error al crear el usuario - registro incompleto.
     Datos que son obligatorios:
     * Nombre: debe ser un string, se recibio ${user.first_name}
     * Apellido: debe ser un string, se recibio ${user.last_name}
@@ -13,18 +13,19 @@ export const generateUserErrorInfo = (user) =>{
 }
 
 export const generateProductErrorInfo = (product) =>{
-    return ` Algun dato esta incompleto o incorrecto.
+    return ` Error al crear el producto - campos incompletos.
 
     Datos requeridos:
     * Titulo: es un string, se recibio ${product.title}
     * Descripcion: debe ser un string, se recibio ${product.description}
     * Precio: debe ser un number, se recibio ${product.price}
     * Codigo: debe ser un string, se recibio ${product.code}
-    * Imagen: debe ser un string, se recibio ${product.thumbnail}
     * Stock: debe ser un number, se recibio ${product.stock}
     * Categoría: debe ser un string, se recibio ${product.category}
     * Estado: debe ser un boolean, se recibio ${product.status}
     
+    Datos opcionales:
+    * Imagen: debe ser un string, se recibio ${product.thumbnail}
     `
 }
 
@@ -39,13 +40,13 @@ export const generateLoginErrorInfo = (user) =>{
 }
 
 export const generateTiketErrorInfo = (tiket) =>{
-    return `
+    return `Error al generar el tiket.
     Datos requeridos:
 
     * Codigo: debe ser un string, se recibio ${tiket.code}
     * Fecha y Hora de la compra: debe ser un number, se recibio ${tiket.date}
     * Total: debe ser un number, se recibio ${tiket.total}
-    * Comrprador: debe ser un string, se recibio ${tiket.purchaser}
+    * Comprador: debe ser un string, se recibio ${tiket.purchaser}
 
     `
 }
