@@ -9,8 +9,9 @@ export class ProductsManagerMongo{
     //metodo para obtener productos del paginate
     async getProductsPaginate(query, options){
         try {
+            console.log('paso por manager getProductsPaginate');
             const result = await this.model.paginate(query, options);
-            console.log('getProductsPaginate con exito',result);
+           
             return result
         } catch (error) {
             console.log('error en manager getProductsPaginate',error.message);
@@ -20,9 +21,10 @@ export class ProductsManagerMongo{
 
     async createProduct(infoProduct){
         try {
+            console.log('paso por manager createProduct');
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.create(infoProduct);
-            console.log('createProduct con exito', resultado);
+            
             return resultado
         } catch (error) {
             //mensaje interno
@@ -33,9 +35,10 @@ export class ProductsManagerMongo{
     }
     async getProducts(){
         try {
+            console.log('paso por manager getProducts');
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.find().lean();//soluciona el bloqueo de handelbarspara mostrar en home
-            console.log('getProducts ok');
+            
             return resultado
         } catch (error) {
             //mensaje interno
@@ -46,9 +49,10 @@ export class ProductsManagerMongo{
     }
     async getProductById(prodcutId){
         try {
+            console.log('paso por manager getProductById');
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.findById(prodcutId);//tambien se puede usar findOne({_id: id})
-            console.log('getProductById con exito', resultado);
+           
             return resultado
         } catch (error) {
             //mensaje interno
@@ -59,12 +63,13 @@ export class ProductsManagerMongo{
     }
     async updateProduct(prodcutId, newProduct){
         try {
+            console.log('paso por manager updateProduct');
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.findOneAndUpdate({_id: prodcutId}, newProduct, {new: true});//tambien se puede usar updateOne({_id: id}, product)
             if(!resultado){
                 throw new Error('No se pudo encontrar el producto, para actualizarlo');
             }
-            console.log('updateProduct con exito', resultado);
+            
             return resultado
         } catch (error) {
             //mensaje interno
@@ -75,12 +80,13 @@ export class ProductsManagerMongo{
     }
     async deleteProduct(prodcutId){
         try {
+            console.log('paso por manager deleteProduct');
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.findByIdAndDelete(prodcutId);//tambien se puede usar deleteOne({_id: id})
             if(!resultado){
                 throw new Error('No se pudo encontrar el producto a eliminar');
             }
-            console.log('deleteProduct con exito', resultado);
+            
             return resultado
         } catch (error) {
             //mensaje interno
