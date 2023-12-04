@@ -30,7 +30,7 @@ export const generateProductErrorInfo = (product) =>{
 
 export const generateLoginErrorInfo = (user) =>{
 
-    return `Error al iniciar sesion.
+    return `Error en login.
     Datos requeridos:
     * Email: debe ser un string, se recibio ${user.email}
     * Password: debe ser un string, se recibio ${user.password}
