@@ -4,8 +4,10 @@ import { TiketService } from "../service/tiket.service.js"
 export class TiketController {
     
     static createTiket = async (req, res) => {
+
         try {
-            console.log('createTiket controller');
+
+            console.log('paso por createTiket controller');
             const tiketBody = req.body;
             const newTiket = await TiketService.createTiket(tiketBody);
             res.json({ message: "Tiket creado", data: newTiket });
