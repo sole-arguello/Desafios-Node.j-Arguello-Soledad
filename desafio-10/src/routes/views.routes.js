@@ -35,7 +35,7 @@ router.get('/cart/:cid', authorization(['user', 'admin']), ViewsController.rende
 //     res.render("cart", { products: productsCart})
 // });
 //http://localhost:8080/mokingProducts
-router.get('/mokingProducts', authorization(['user', 'admin']), ViewsController.mockingProducts)
+router.get('/mokingProducts', ViewsController.mockingProducts)
 
 export { router as viewsRouter }
 
