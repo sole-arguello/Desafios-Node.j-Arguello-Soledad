@@ -11,9 +11,9 @@ export class ProductsController {
             const { title, description, code, price, status, stock, category, thumbnails } = req.body;
             if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
                 CustomError.createError({
-                    name: "Error de creacion de producto",
+                    name: "Error al crear el producto",
                     cause: generateProductErrorInfo(req.body),
-                    message: "Error al crear el producto, campos incompletos",
+                    message: "Campos incompletos",
                     code: EError.INVALID_TYPES_ERROR
                 })
             }
