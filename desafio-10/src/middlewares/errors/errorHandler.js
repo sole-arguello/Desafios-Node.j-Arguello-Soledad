@@ -5,7 +5,7 @@ export const errorHandler = (error, req, res, next) => {
     switch (error.code) {
         case EError.INVALID_TYPES_ERROR:
 
-            res.json({ status: 'error', error: error.message })
+            res.json({ status: 'error', error: error.message, cause: error.ca })
             break
 
         case EError.DATABASE_ERROR:
@@ -20,6 +20,6 @@ export const errorHandler = (error, req, res, next) => {
             res.json({ status: 'error', error: error.message })
             break;
         default:
-            res.json({ status: 'error', error:'Unhandled Error' })
+            res.json({ status: 'error', error:'Error de prueba handler' })
     }
 }
