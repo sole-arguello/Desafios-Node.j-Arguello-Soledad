@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { cartsDao } from '../../../index.js';
+import { cartsDao } from '../../../factory.js';
 
 const usersCollection = 'users';
 

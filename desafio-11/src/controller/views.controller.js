@@ -1,6 +1,6 @@
 import { generateProducts } from "../helpers/mock.js";
-import { CartsService } from "../service/carts.service.js";
-import { ProductsService } from "../service/products.service.js";
+import { cartsService, productsService } from "../repositories/index.js";
+
 
 export class ViewsController {
     static renderViewsHome = async (req, res) => {
@@ -16,7 +16,7 @@ export class ViewsController {
                 })
             }else{
                 //si esta logueado lo redirige a home
-                const products = await ProductsService.getProducts();
+                const products = await productsService.getProducts();
     
                 if(products.length === 0){
                     res.render('home', 
@@ -173,7 +173,7 @@ export class ViewsController {
                     sort: { price: 1 },   
                     lean: true
                 }
-                const result = await ProductsService.getProductsPaginate(query, options);
+                const result = await productsService.getProductsPaginate(query, options);
                 //console.log('products', result);
                 //obtengo la ruta del servidor 
                 const baseUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -211,7 +211,7 @@ export class ViewsController {
         
         const cartId = '6525c4976ff5b06f9bbb8dbc'
         try {
-            const cart = await CartsService.getCartsId(cartId);
+            const cart = await cartsService.getCartsId(cartId);
             //console.log('Prueba en consola', cart);
             if(!cart){
                 return res.status(404).send('No se pudo encontrar el carrito');

@@ -4,7 +4,7 @@ import GithubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 import { config } from "./config.js";
 import { createHash, isValidPassword, cookieExtractor } from "../utils.js";
-import { UsersSessionsService } from "../service/usersSessions.service.js";
+import { usersSessionsService } from "../repositories/index.js";
 
 //variables para jwt
 const JwtStrategy = jwt.Strategy;
@@ -26,7 +26,7 @@ export const initializePassport = () => {
             try {
                 console.log("paso por Passport registerLocalStrategy");
                 //busco el usuario por email
-                const user = await UsersSessionsService.getUserByEmail(username)
+                const user = await usersSessionsService.getUserByEmail(username)
                 //console.log('Usuario local', user)
                 
                 if(user){//null: que no hubo error, false: ya existe, un mensaje
@@ -45,7 +45,7 @@ export const initializePassport = () => {
                 }
                 //console.log(newUser)
                 //creo un nuevo usuario
-                const userCreated = await UsersSessionsService.createUsers(newUser)
+                const userCreated = await usersSessionsService.createUsers(newUser)
                
                 return done(null, userCreated)
             } catch (error) {
@@ -64,7 +64,7 @@ export const initializePassport = () => {
             try {
                 console.log("paso por Passport loginLocalStrategy");
                 //busco el usuario por email
-                const user = await UsersSessionsService.getUserByEmail(username);
+                const user = await usersSessionsService.getUserByEmail(username);
                 //al revez del registro
                 if (!user) {
                 //el usuario no esta registrado
@@ -92,7 +92,7 @@ export const initializePassport = () => {
             try {
                 console.log("paso por Passport registerGithubStrategy");
                 //console.log('Perfil', profile)
-                const user = await UsersSessionsService.getUserByEmail(profile.username)
+                const user = await usersSessionsService.getUserByEmail(profile.username)
                 if(user){
                     return done(null, user)
                 }
@@ -106,7 +106,7 @@ export const initializePassport = () => {
                 }
                 
                // console.log(newUser)
-                const userCreated = await UsersSessionsService.createUsers(newUser)
+                const userCreated = await usersSessionsService.createUsers(newUser)
                 return done(null, userCreated)
             } catch (error) {
                 return done(error)

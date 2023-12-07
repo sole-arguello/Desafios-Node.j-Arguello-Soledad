@@ -1,4 +1,4 @@
-import { ProductsService} from '../service/products.service.js'
+import { productsService} from '../repositories/index.js'
 import { CustomError } from '../service/errors/customErrors.js';
 import { generateProductErrorInfo } from '../service/errors/infoDictionary.js';
 import { EError } from '../service/errors/enums.js';
@@ -18,7 +18,7 @@ export class ProductsController {
                 })
             }
             const product = req.body;
-            const newProduct = await ProductsService.createProduct(product);
+            const newProduct = await productsService.createProduct(product);
             res.json({ status: 'success', message: "Producto creado", data: newProduct });
         } catch (error) {
             next(error);
@@ -27,7 +27,7 @@ export class ProductsController {
     static getProducts = async (req, res) => {
         try {
             console.log('paso por getProducts controller');
-            const products = await ProductsService.getProducts()
+            const products = await productsService.getProducts()
             res.json({ message: "Listado de productos", data: products });
         } catch (error) {
             console.log('error getProducts controller', error.message);
@@ -38,7 +38,7 @@ export class ProductsController {
         try {
             console.log('paso por getProductById controller');
             const productId = req.params.id;
-            const products = await ProductsService.getProductById(productId);
+            const products = await productsService.getProductById(productId);
             res.json({ message: "Listado de productos", data: products });
         } catch (error) {
             console.log('error getProductById controller', error.message);
@@ -50,7 +50,7 @@ export class ProductsController {
             console.log('paso por updateProduct controller');
             const productId = req.params.id;
             const product = req.body;
-            const updatedProduct = await ProductsService.updateProduct(productId, product);
+            const updatedProduct = await productsService.updateProduct(productId, product);
             res.json({ message: "Producto actualizado", data: updatedProduct });
         } catch (error) {
             console.log('error updateProduct controller', error.message);
@@ -61,7 +61,7 @@ export class ProductsController {
         try {
             console.log('paso por deleteProduct controller');
             const productId = req.params.id;
-            const deletedProduct = await ProductsService.deleteProduct(productId);
+            const deletedProduct = await productsService.deleteProduct(productId);
             res.json({ message: "Producto eliminado", data: deletedProduct });
         } catch (error) {
             console.log('error deleteProduct controller', error.message);

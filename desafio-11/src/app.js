@@ -10,10 +10,10 @@ import {errorHandler } from './middlewares/errors/errorHandler.js';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { initializePassport } from './config/passport.config.js';
+import { config } from './config/config.js';
 
 
-import { ProductsService } from './service/products.service.js';
-import { ChatService } from './service/chat.service.js';
+import { productsService, chatService } from './repositories/index.js';
 
 //importo rutas http y las de handlebars
 import { viewsRouter } from './routes/views.routes.js';
@@ -22,7 +22,7 @@ import { cartsRouter } from './routes/carts.routes.js';
 import { usersSessionsRouter } from './routes/usersSessions.routes.js';
 
 
-const port = 8080;//configuro puerto
+const port = config.server.port;//configuro puerto
 const app = express();
 
 //midleware
@@ -55,7 +55,7 @@ socketServer.on('connection', async (socket) => {
     console.log('Cliente Conectado');
     try {
         //obtengo todos los productos y los envio al cliente
-        const products = await ProductsService.getProducts();
+        const products = await productsService.getProducts();
         //envio los productos al cliente
         socket.emit('productsArray', products);
     } catch (error) {
@@ -67,9 +67,9 @@ socketServer.on('connection', async (socket) => {
     socket.on('newProduct', async (productData) => {
         try {
             //creo los productos 
-            await ProductsService.createProduct(productData);
+            await productsService.createProduct(productData);
             //obtengo y actualizo los productos
-            const products = await ProductsService.getProducts();
+            const products = await productsService.getProducts();
             //emito la lista actualizada
             socket.emit('productsArray', products);
             
@@ -83,9 +83,9 @@ socketServer.on('connection', async (socket) => {
         
         try {
             // Eliminar el producto de la lista de productos por su ID
-            await ProductsService.deleteProduct(productId);
+            await productsService.deleteProduct(productId);
             // Obtener la lista actualizada de productos
-            const updatedProducts = await ProductsService.getProducts();
+            const updatedProducts = await productsService.getProducts();
             // Emitir la lista actualizada de productos al cliente
             socket.emit('productsArray', updatedProducts);
         } catch (error) {
@@ -96,16 +96,16 @@ socketServer.on('connection', async (socket) => {
 
     //-------------- socket del servidor del chat ---------------//
     //traigo todos los chat
-    const historyChat = await ChatService.getMessages()
+    const historyChat = await chatService.getMessages()
     //emito los caht 
     socket.emit('historyChat', historyChat)
     //recibo mensaje de cada usuario desde el cliente
     socket.on('messageChat', async (messageClient) => {//recibo el mensaje del front
         try {
             //creo los chat en la base de datos
-            await ChatService.createMessage(messageClient);
+            await chatService.createMessage(messageClient);
             //obtengo y actualizo los mensajes
-            const historyChat = await ChatService.getMessages();
+            const historyChat = await chatService.getMessages();
             //replico y envio el mensaje a todos los usuarios
             socketServer.emit('historyChat', historyChat);//envio el mensaje
             

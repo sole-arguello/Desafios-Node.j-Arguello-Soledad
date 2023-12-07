@@ -1,6 +1,7 @@
 import fs from "fs";
-export class CartsManager {
+export class CartsManagerFs {
   constructor(path) {
+    this.carts = [];
     this.pathFile = path;
   }
   fileExist() {

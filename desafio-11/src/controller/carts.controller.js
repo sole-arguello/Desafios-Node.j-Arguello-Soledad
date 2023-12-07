@@ -1,13 +1,10 @@
-import { CartsService } from "../service/carts.service.js";
-import { ProductsService } from "../service/products.service.js";
-import { UsersSessionsService } from "../service/usersSessions.service.js";
-import { TiketService } from "../service/tiket.service.js";
+import { cartsService, productsService, ticketService } from "../repositories/index.js";
 import { v4 as uuidv4 } from 'uuid';
 
 export class CartsController {
     static getCarts = async (req, res) => {
         try {
-            const carts = await CartsService.getCarts();
+            const carts = await cartsService.getCarts();
             console.log('getCarts controller');
             res.json({ message: "Listado de carritos", data: carts });
         } catch (error) {
@@ -20,7 +17,7 @@ export class CartsController {
             const idcarts = req.params.cid; //obtengo el parametro cid de la URL
             console.log('getCartsId controller');
             //tarigo el caarito por medio de la populacion
-            const carts = await CartsService.getCartsId(idcarts);
+            const carts = await cartsService.getCartsId(idcarts);
             if(carts){
               console.log('getCartsId controller exist');
               res.json({ message: "Carrito encontrado", data: carts });
@@ -36,7 +33,7 @@ export class CartsController {
     }
     static createCart = async (req, res) => {
         try {
-            const newCart = await CartsService.createCart();
+            const newCart = await cartsService.createCart();
             console.log('createCart controller');
             res.json({ message: "Carrito creado", data: newCart });
         } catch (error) {
@@ -50,7 +47,7 @@ export class CartsController {
 
             const { cid: idCart } = req.params; //obtengo el id del carrito
             const newProduct = req.body;//obtengo el producto
-            const updatedCart = await CartsService.updateCartId(idCart, newProduct);// le paso el id y el cuerpo 
+            const updatedCart = await cartsService.updateCartId(idCart, newProduct);// le paso el id y el cuerpo 
             res.json({ message: "Carrito actualizado con exito", data: updatedCart });
         }
         catch (error) {
@@ -62,8 +59,8 @@ export class CartsController {
         try {
             console.log('addProduct controller');
             const { cid: idCarts, pid: idProduct } = req.params;
-            const cart = await CartsService.getCartsId(idCarts);
-            const result = await CartsService.addProduct(cart, idProduct);
+            const cart = await cartsServiceartsService.getCartsId(idCarts);
+            const result = await cartsService.addProduct(cart, idProduct);
             res.json({ message: "Producto agregado al carrito", data: result });
         } catch (error) {
             console.log('error addProduct controller', error.message);
@@ -75,7 +72,7 @@ export class CartsController {
             console.log('updateProductInCart controller');
             const { cid: idCarts, pid: idProduct } = req.params;
             const newQuantity  = req.body.newQuantity;
-            const updatedCart = await CartsService.updateProductInCart(idCarts, idProduct, newQuantity);
+            const updatedCart = await cartsService.updateProductInCart(idCarts, idProduct, newQuantity);
             res.json({ message: "success", data: updatedCart });
         }
         catch (error) {
@@ -87,7 +84,7 @@ export class CartsController {
         try {
             console.log('deleteCartId controller');
             const { cid: idCarts } = req.params;
-            const deletedCart = await CartsService.deleteCartId(idCarts);
+            const deletedCart = await cartsService.deleteCartId(idCarts);
             res.json({ message: "Carrito eliminado con exito", data: deletedCart });
             // res.json({ message: "Carrito con id ' " + cartId + " ' eliminado con exito", data: cartDeleted });
         }
@@ -100,7 +97,7 @@ export class CartsController {
         try {
             console.log('deleteProductInCart controller');
             const { cid: idCarts, pid: idProduct } = req.params;
-            const deletedProduct = await CartsService.deleteProductInCart(idCarts, idProduct);
+            const deletedProduct = await cartsService.deleteProductInCart(idCarts, idProduct);
             res.json({ message: "Producto eliminado del carrito", data: deletedProduct });
         }
         catch (error) {
@@ -113,7 +110,7 @@ export class CartsController {
             console.log('Estoy en purchaseCart controller');
 
             const { cid: idCarts } = req.params;
-            const cart = await CartsService.getCartsId(idCarts)
+            const cart = await cartsService.getCartsId(idCarts)
             //console.log('carrito con los productos a comprar:', cart);
 
             //verifico que el carrito no este vacio
@@ -156,7 +153,7 @@ export class CartsController {
                     amount: total,
                     purchaser: req.user.email,
                 }
-                const tiket = await TiketService.createTiket(newTicket);
+                const tiket = await ticketService.createTicket(newTicket);
                 //res.json({ status: "success", message: "Compra realizada", data: tiket });
                 if(rejectedProducts.length >=1 && ticketProducts.length >=1){
                     console.log('Compra con Rechazos', rejectedProducts);
@@ -169,8 +166,8 @@ export class CartsController {
                         //console.log('productId:', productId, 'Id carrito:', idCarts, 'stock:', stock);
 
                         //actualizo el stock del producto en db y limpio el carrito 
-                        await ProductsService.updateProduct(productId, {stock: stock})
-                        await CartsService.deleteProductInCart(idCarts, productId)
+                        await productsService.updateProduct(productId, {stock: stock})
+                        await cartsService.deleteProductInCart(idCarts, productId)
      
                     }
                     console.log('Compra realizada y borro el producto del carrito, dejo el rechazado', rejectedProducts);
@@ -187,8 +184,8 @@ export class CartsController {
                         //console.log('productId:', productId, 'Id carrito:', idCarts, 'stock:', stock);
                         
                         //actualizo el stock del producto y limpio el carrito
-                        await ProductsService.updateProduct(productId, {stock: stock})
-                        await CartsService.deleteProductInCart(idCarts, productId)
+                        await productsService.updateProduct(productId, {stock: stock})
+                        await cartsService.deleteProductInCart(idCarts, productId)
                       
                     }
                     console.log('compra realizada(sin rechazos), actualizo el stock y borro el producto del carrito'

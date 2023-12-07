@@ -1,8 +1,9 @@
 import fs from 'fs';
 
-export class ProductManager{
+export class ProductManagerFs{
     //filePath contiene la ruta del Json
     constructor(filePath) {
+        this.products = [];
         this.filePath = filePath;
     }
     //verifico que exista el archivo
