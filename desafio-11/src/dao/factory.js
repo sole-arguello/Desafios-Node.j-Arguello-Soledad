@@ -3,18 +3,6 @@ import { __dirname } from "../utils.js";
 import path from "path";
 import { UsersManagerMongo } from "../dao/managers/mongo/usersManagerMongo.js";
 
-// import { ProductsManagerMongo } from './managers/mongo/productsManagerMongo.js';
-// import { CartsManagerMongo } from './managers/mongo/cartsManagerMongo.js'
-// import { ChatManagerMongo } from "./managers/mongo/chatManagerMongo.js";
-// import { UsersManagerMongo } from "./managers/mongo/usersManagerMongo.js";
-// import { TiketManagerMongo } from "./managers/mongo/tiketManagerMongo.js";
-
-// export const productsDao = new ProductsManagerMongo();
-// export const cartsDao = new CartsManagerMongo();
-// export const chatDao = new ChatManagerMongo();
-// export const usersDao = new UsersManagerMongo();
-// export const tiketDao = new TiketManagerMongo()
-
 let productsDao;
 let cartsDao;
 let chatDao;
@@ -48,9 +36,9 @@ switch (enviroment) {
     chatDao = new ChatManagerMongo();
 
     //Users
-    const { UsersManagerMongo } = await import(
-      "../dao/managers/mongo/usersManagerMongo.js"
-    );
+    // const { UsersManagerMongo } = await import(
+    //   "../dao/managers/mongo/usersManagerMongo.js"
+    // );
     usersSessionsDao = new UsersManagerMongo();
 
     //tikets
