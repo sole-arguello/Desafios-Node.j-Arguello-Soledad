@@ -3,8 +3,9 @@ import { __dirname } from './utils.js';//importo dirname para obtener la ruta de
 import path from 'path';
 import { engine } from 'express-handlebars'; //importo libreria handlebars y socket.io
 import { Server } from 'socket.io';
-import{ connectDB } from './config/dbConnection.js';//importo connectDB
 import {errorHandler } from './middlewares/errors/errorHandler.js';
+
+import { logger } from './helpers/loggers/logger.js';
 
 /*---------- aplico jwt ------------------  */
 import passport from 'passport';
@@ -34,7 +35,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 //configuro para websocket del lado del server
 const httpSever = app.listen(port, () => {console.log(`app listening at http://localhost:${port}`);})//http
 const socketServer = new Server(httpSever);//web socket
-connectDB.getInstance()  //conexion base de datos mongo
+
 
 //configuracion de handlebars, motor de plantillas
 app.engine('.hbs', engine({extname: '.hbs'}));
