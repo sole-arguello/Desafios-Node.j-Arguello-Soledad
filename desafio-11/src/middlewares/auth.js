@@ -1,5 +1,7 @@
 import passport from "passport";
-
+import { generateUserErrorInfo } from "../service/errors/infoDictionary";
+import { CustomError } from '../service/errors/customErrors.js'
+import { EError } from "../service/errors/enums.js";
 //------------Roles
 export const  authorization = (roles) => {
 
@@ -15,6 +17,24 @@ export const  authorization = (roles) => {
 }
 
 //--------------- passport
+export const customRegister = (res, req, next) => {
+    try {
+        const {firts_name, last_name, email, password} = req.body
+        if(!firts_name || !last_name || !email || !password){
+            CustomError.createError({
+                name: "Error al crear el usuario",
+                cause: generateUserErrorInfo(req.body),
+                message: "Campos incompletos",
+                code: EError.INVALID_LOGIN
+            })
+        }else{
+            next()
+        }
+    } catch (error) {
+        next(error)
+    }
+
+}
 export const registerLocalStrategy = passport.authenticate(
     'registerLocalStrategy', 
     {
