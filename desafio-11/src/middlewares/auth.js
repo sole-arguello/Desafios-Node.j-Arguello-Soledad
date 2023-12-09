@@ -1,5 +1,5 @@
 import passport from "passport";
-import { generateUserErrorInfo } from "../service/errors/infoDictionary";
+import { generateUserErrorInfo } from "../service/errors/infoDictionary.js";
 import { CustomError } from '../service/errors/customErrors.js'
 import { EError } from "../service/errors/enums.js";
 //------------Roles

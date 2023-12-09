@@ -53,14 +53,14 @@ app.use('/api/sessions', usersSessionsRouter);
 
 //escucho un evento connection, el callback del socket que se acaba de conectar
 socketServer.on('connection', async (socket) => {
-    console.log('Cliente Conectado');
+    logger.info('Cliente Conectado');
     try {
         //obtengo todos los productos y los envio al cliente
         const products = await productsService.getProducts();
         //envio los productos al cliente
         socket.emit('productsArray', products);
     } catch (error) {
-        console.log('Error al obtener los productos', error.message);
+        logger.error('Error al obtener los productos', error.message);
         
     }
 
@@ -75,7 +75,7 @@ socketServer.on('connection', async (socket) => {
             socket.emit('productsArray', products);
             
         } catch (error) {
-            console.error('Error al crear un producto:', error.message);
+            logger.error('Error al crear un producto:', error.message);
         }
     })
 
@@ -91,7 +91,7 @@ socketServer.on('connection', async (socket) => {
             socket.emit('productsArray', updatedProducts);
         } catch (error) {
             // Manejar errores, por ejemplo, si el producto no se encuentra
-            console.error('Error al eliminar un producto:', error.message);
+            logger.error('Error al eliminar un producto:', error.message);
         }
     });
 
@@ -111,7 +111,7 @@ socketServer.on('connection', async (socket) => {
             socketServer.emit('historyChat', historyChat);//envio el mensaje
             
         } catch (error) {
-            console.error('Error al enviar el mensaje:', error.message);
+            logger.error('Error al enviar el mensaje:', error.message);
         }
 
     })

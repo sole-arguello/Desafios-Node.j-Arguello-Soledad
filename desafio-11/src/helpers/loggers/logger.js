@@ -12,40 +12,41 @@ const customLevels ={
         info: 2,
         http: 3,
         debug: 4
-    },
-    colors: {
-        error: 'red',
-        warn: 'yellow',
-        info: 'green',
-        http: 'magenta',
-        debbug: 'blue'
-
     }
 }
+// //loger para desarrollo
+// const devLogger =  winston.createLogger({
+//     level:customLevels.levels,
+//     //transportes: sistemas de muestra o almacenamiento de logs
+//     transports: [
+//         new winston.transports.Console({level: 'debug'})
+//     ]
+// })
 
-winston.addColors(customLevels.colors)
-//loger para desarrollo
-const devLoger =  winston.createLogger({
-    levels: customLevels.levels,
-    //transportes: sistemas de muestra o almacenamiento de logs
-    transports: [
-        new winston.transports.Console({level: 'debbug'})
-    ]
-})
-
-//loger para produccion
-const prodLoger =  winston.createLogger({
-    levels: customLevels.levels,
-    transports: [
-        new winston.transports.File({filename: path.join(__dirname, '../logs/prod.log'), level: 'warn'})
-    ]
-})
+// //loger para produccion
+// const prodLogger =  winston.createLogger({
+//     level:customLevels.levels,
+//     transports: [
+//         new winston.transports.File({filename: path.join(__dirname, '../logs/prod.log'), level: 'warn'})
+//     ]
+// })
 
 let logger
 if(currentEnv === 'development'){
-    logger = devLoger
+    winston.createLogger({
+        level:customLevels.levels,
+        //transportes: sistemas de muestra o almacenamiento de logs
+        transports: [
+            new winston.transports.Console({level: 'debug'})
+        ]
+    })
 }else if(currentEnv === 'production'){
-    logger = prodLoger
+    winston.createLogger({
+        level:customLevels.levels,
+        transports: [
+            new winston.transports.File({filename: path.join(__dirname, '../logs/prod.log'), level: 'warn'})
+        ]
+    })
 }
 
 export {logger}

@@ -1,6 +1,7 @@
 import { config } from "../config/config.js";
 import { __dirname } from "../utils.js";
 import path from "path";
+import { logger } from "../helpers/loggers/logger.js";
 
 let productsDao;
 let cartsDao;
