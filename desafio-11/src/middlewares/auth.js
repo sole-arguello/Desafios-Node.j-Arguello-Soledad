@@ -2,6 +2,7 @@ import passport from "passport";
 import { generateUserErrorInfo } from "../service/errors/infoDictionary.js";
 import { CustomError } from '../service/errors/customErrors.js'
 import { EError } from "../service/errors/enums.js";
+import { logger } from "../helpers/logger.js";
 //------------Roles
 export const  authorization = (roles) => {
 
@@ -28,9 +29,11 @@ export const customRegister = (res, req, next) => {
                 code: EError.INVALID_LOGIN
             })
         }else{
+            logger.error("error al registrar el usuario")
             next()
         }
     } catch (error) {
+        logger.error("error al registrar el usuario", error)
         next(error)
     }
 

@@ -1,40 +1,41 @@
 import { ticketService } from '../repositories/index.js'
+import { logger } from '../helpers/logger.js';
 
 export class TicketController {
     
     static createTicket = async (req, res) => {
 
         try {
-
-            console.log('paso por createTicket controller');
             const ticketBody = req.body;
             const newTicket = await ticketService.createTicket(ticketBody);
+            logger.info('Ticket creado', newTicket);
             res.json({ message: "Ticket creado", data: newTicket });
             
         } catch (error) {
+            logger.error('error createTicket controller', error.message);
             res.json({ status: "error", message: error.message });
         }
     }
     static getTicket = async (req, res) => {
         try {
-            console.log('getTicket controller');
-            const ticket = await ticketService.getTicket();
-            res.json({ message: "Listado de tickets", data: ticket });
+            const tickets = await ticketService.getTicket();
+            logger.info('Listado de tickets', tickets);
+            res.json({ message: "Listado de tickets", data: tickets });
             
         } catch (error) {
-            console.log('error getTicket controller', error.message);
+            logger.error('error getTicket controller', error.message);
             res.json({ status: "error", message: error.message });
         }
     }
     static getTicketById = async (req, res) => {
         try {
-            console.log('getTicketById controller');
             const ticketId = req.params.id;
             const ticket = await ticketService.getTicketById(ticketId);
-            res.json({ message: "Listado de tikets", data: ticket });
+            logger.info('Ticket encontrado', ticket);
+            res.json({ message: "Ticket encontrado", data: ticket });
             
         } catch (error) {
-            console.log('error getTiketById controller', error.message);
+            logger.error('error getTiketById controller', error.message);
             res.json({ status: "error", message: error.message });
         }
     }

@@ -1,7 +1,7 @@
 import { config } from "../config/config.js";
 import { __dirname } from "../utils.js";
 import path from "path";
-import { logger } from "../helpers/loggers/logger.js";
+import { logger } from "../helpers/logger.js";
 
 let productsDao;
 let cartsDao;
@@ -15,7 +15,7 @@ switch (enviroment) {
   case "production": {
     //Mongo DB
     const { connectDB } = await import("../config/dbConnection.js");
-    connectDB.getInstance()
+    connectDB.getInstance();
 
     //Products
     const { ProductsManagerMongo } = await import(
@@ -47,7 +47,7 @@ switch (enviroment) {
     );
     ticketDao = new TicketManagerMongo();
 
-    console.log("Estoy en el entorno de produccion");
+    logger.info("Estoy en el entorno de produccion");
     break;
   }
   //////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,10 @@ switch (enviroment) {
       "./managers/fileSystemManagers/productManagerFs.js"
     );
     productsDao = new ProductManagerFs(
-      path.join(__dirname, "/dao/managers/fileSystemManagers/files/products.json")
+      path.join(
+        __dirname,
+        "/dao/managers/fileSystemManagers/files/products.json"
+      )
     );
 
     //Carts
@@ -71,7 +74,7 @@ switch (enviroment) {
       path.join(__dirname, "/dao/managers/fileSystemManagers/files/carts.json")
     );
 
-    console.log("Estoy en el entorno de desarrollo");
+    logger.info("Estoy en el entorno de desarrollo");
     break;
   }
 }

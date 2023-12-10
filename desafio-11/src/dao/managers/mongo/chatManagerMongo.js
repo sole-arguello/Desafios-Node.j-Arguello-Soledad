@@ -1,3 +1,4 @@
+import { logger } from "../../../helpers/logger.js";
 import { chatModel } from "./models/chat.model.js";
 
 export class ChatManagerMongo {
@@ -11,7 +12,7 @@ export class ChatManagerMongo {
             const resultado = await this.model.find();
             return resultado 
         } catch (error) {
-            console.log('get chat', error.message);
+            logger.error('get chat', error.message);
             throw new Error('No se pudo obtener el listadp de los mensajes ', error.message);
         }
     }
@@ -21,7 +22,7 @@ export class ChatManagerMongo {
             const resultado = await this.model.create(messageInfo);
             return resultado
         } catch (error) {
-            console.log('add message', error.message);
+            logger.error('add message', error.message);
             throw new Error('No se pudo agragar el mensaje ', error.message);
         }
     }

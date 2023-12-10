@@ -24,7 +24,7 @@ export const initializePassport = () => {
 
             const {first_name, last_name, age} = req.body
             try {
-                console.log("paso por Passport registerLocalStrategy");
+                //console.log("paso por Passport registerLocalStrategy");
                 //busco el usuario por email
                 const user = await usersSessionsService.getUserByEmail(username)
                 //console.log('Usuario local', user)
@@ -62,7 +62,7 @@ export const initializePassport = () => {
         },
         async (username, password, done) => {
             try {
-                console.log("paso por Passport loginLocalStrategy");
+                //console.log("paso por Passport loginLocalStrategy");
                 //busco el usuario por email
                 const user = await usersSessionsService.getUserByEmail(username);
                 //al revez del registro
@@ -90,7 +90,7 @@ export const initializePassport = () => {
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                console.log("paso por Passport registerGithubStrategy");
+                //console.log("paso por Passport registerGithubStrategy");
                 //console.log('Perfil', profile)
                 const user = await usersSessionsService.getUserByEmail(profile.username)
                 if(user){
@@ -124,7 +124,7 @@ export const initializePassport = () => {
         },
         async (jwtPayload, done) =>{
             try{
-                console.log("paso por Passport jwtAuth");
+                //console.log("paso por Passport jwtAuth");
                 return done(null, jwtPayload)
             } catch(error){
                 return done(error)

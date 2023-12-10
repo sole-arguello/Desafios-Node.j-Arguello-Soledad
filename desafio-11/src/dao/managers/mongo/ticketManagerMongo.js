@@ -1,3 +1,4 @@
+import { logger } from "../../../helpers/logger.js";
 import { ticketModel } from "./models/tickets.model.js";
 
 export class TicketManagerMongo {
@@ -8,10 +9,10 @@ export class TicketManagerMongo {
   async createTicket(ticketBody) {
     try {
       const ticket = await this.model.create(ticketBody);
-      console.log("paso por manager createTicket");
+      logger.info("paso por manager createTicket");
       return ticket;
     } catch (error) {
-      console.log("Error en manager createTicket", error.message);
+      logger.error("Error en manager createTicket", error.message);
       throw new Error("No se pudo crear el ticket ", error.message);
     }
   }
@@ -19,10 +20,10 @@ export class TicketManagerMongo {
   async getTickets() {
     try {
       const tickets = await this.model.find().lean();
-      console.log("paso por manager getTikets");
+      logger.info("paso por manager getTikets");
       return tickets;
     } catch (error) {
-      console.log("Error en manager getTickets", error.message);
+      logger.error("Error en manager getTickets", error.message);
       throw new Error(
         "No se pudo obtener el listado de los tikets ",
         error.message
@@ -33,10 +34,10 @@ export class TicketManagerMongo {
   async getTicketById(id) {
     try {
       const tickets = await this.model.findById(id).lean();
-      console.log("paso por getTicketById");
+      logger.info("paso por getTicketById");
       return tickets;
     } catch (error) {
-      console.log("Error en manager getTiketById", error.message);
+      logger.error("Error en manager getTiketById", error.message);
       throw new Error("No se pudo obtener el tiket ", error.message);
     }
   }

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { CartsManagerMongo } from '../cartsManagerMongo.js'; 
+import { logger } from '../../../../helpers/logger.js';
 
 const usersCollection = 'users';
 
@@ -41,6 +42,7 @@ userSchema.pre('save', async function(next) {
         const newCart = await cartsManager.createCart({})
         this.cart = newCart._id
     } catch (error) {
+        logger.error('error al crear el carrito con el usuario',error)
         next(error)
     }
 })
