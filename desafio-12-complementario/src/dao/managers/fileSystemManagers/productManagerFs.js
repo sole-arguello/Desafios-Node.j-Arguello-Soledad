@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { logger } from '../../../utils/log4js.js';
 
 export class ProductManagerFs{
     //filePath contiene la ruta del Json
@@ -18,10 +19,11 @@ export class ProductManagerFs{
                 //transfoma de string a json
                 return JSON.parse(data);
             } else {
+                logger.error('No es posible leer el archivo');
                 throw new Error('No es posible leer el archivo');
             }
         } catch (error) {
-            console.log(error.message)
+            logger.error(error.message)
             throw error;
         }
     }
@@ -37,12 +39,12 @@ export class ProductManagerFs{
                 return prodFound
             }
             else{
-                console.log('El producto no existe');
+                logger.error('El producto no existe');
                 throw new Error('Producto no encontrado');
             }
             
         } catch (error) {
-            console.log(error.message);
+            logger.error(error.message);
             throw new Error ('El producto es inexistente')
         }
 
@@ -54,7 +56,7 @@ export class ProductManagerFs{
             if (!infoProduct.title || !infoProduct.description || !infoProduct.price || 
                 !infoProduct.thumbnail || !infoProduct.code || !infoProduct.stock 
                 || !infoProduct.category) {
-                console.log('Todos los campos son obligatorios');
+                logger.error('Todos los campos son obligatorios');
                 throw new Error('Todos los campos son obligatorios');
                 
             }
@@ -73,7 +75,7 @@ export class ProductManagerFs{
             const codeExist = products.some( prod => prod.code === infoProduct.code)
             if(codeExist){
                 //alert("El codigo " + infoProduct.code + " ya existe, no sera agregado nuevamente")
-                console.log('el codigo ' + infoProduct.code + ' ya existe, no sera agregado nuevamente');
+                logger.info('el codigo ' + infoProduct.code + ' ya existe, no sera agregado nuevamente');
                 return "El codigo " + infoProduct.code + " ya existe, no sera agregado nuevamente"
 
             } else{
@@ -82,11 +84,12 @@ export class ProductManagerFs{
             }
             //sobreescribo el con el nuevo producto el archivo
             await fs.promises.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
-            console.log('Producto creado con exito');
+            logger.info('Producto creado con exito');
             return infoProduct
 
             
         } catch (error) {
+            logger.error(error.message);
             throw error;
         }
     }
@@ -101,11 +104,13 @@ export class ProductManagerFs{
             const updateIndex = products.findIndex(prod => prod.id === id);
     
             if (updateIndex === -1) {
+                logger.error('El producto no existe');
                 throw new Error('Producto no encontrado');
             }
     
             // Verificar si el campo 'id' está presente en el objeto 'product'
             if (product.hasOwnProperty('id') && product.id !== id) {
+                logger.error('No está permitido modificar el ID del producto.');
                 throw new Error('No está permitido modificar el ID del producto.');
             }
             // Actualizar los campos del producto con los nuevos valores (excepto el ID)
@@ -116,10 +121,10 @@ export class ProductManagerFs{
     
             // Sobrescribir el JSON con los productos actualizados
             await fs.promises.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
-            console.log('Producto actualizado con éxito');
+            logger.info('Producto actualizado con éxito');
             return products[updateIndex];
         } catch (error) {
-            console.log(error.message);
+            logger.error(error.message);
             throw new Error('Archivo inexistente o no se puede actualizar');
         }
     }
@@ -136,13 +141,13 @@ export class ProductManagerFs{
                 const deleteId = products.filter(prod => prod.id !== id);
                 //sobreescribo el archivo sin el 
                 await fs.promises.writeFile(this.filePath, JSON.stringify(deleteId, null, '\t'));
-                console.log('Producto eliminado con exito');
+                logger.info('Producto eliminado con exito');
             } else {
-                console.log('El producto no existe');
+                logger.error('El producto no existe');
                 throw new Error('Producto no encontrado');
             }
         } catch (error) {
-            console.log(error.message);
+            logger.error(error.message);
             throw new Error('El Producto a eliminar es inexistente');
         }
     }

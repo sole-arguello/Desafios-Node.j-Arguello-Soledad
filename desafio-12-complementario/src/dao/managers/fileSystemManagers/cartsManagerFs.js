@@ -16,10 +16,11 @@ export class CartsManagerFs {
         const dataCarts = await fs.promises.readFile(this.pathFile, "utf-8");
         return JSON.parse(dataCarts);
       } else {
+        logger.error("No es posible leer el archivo");
         throw new Error("No es posible obtener los carritos");
       }
     } catch (error) {
-      console.log(error.message);
+      logger.error(error.message);
       throw error;
     }
   }
@@ -33,10 +34,11 @@ export class CartsManagerFs {
       if (cartFound) {
         return cartFound;
       } else {
+        logger.error("Carrito no encontrado");
         throw new Error("Carrito no encontrado");
       }
     } catch (error) {
-      console.log(error.message);
+      logger.error(error.message);
       throw new Error("El Carrito es inexistente");
     }
   }
@@ -64,6 +66,7 @@ export class CartsManagerFs {
       //retorno el carrito cargado
       return newCart;
     } catch (error) {
+      logger.error(error.message);
       throw new Error("No es posible crear el carrito");
     }
   }
@@ -92,9 +95,11 @@ export class CartsManagerFs {
         return cartFound
         
       } else {
+        logger.error("El carrito no existe");
         throw new Error("El carrito no existe");
       }
     } catch (error) {
+      logger.error(error.message);
       throw error;
     }
   }
