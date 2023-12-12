@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { logger } from '../../../utils/log4js.js';
+import { logger } from '../../../helpers/logger.js';
 
 export class ProductManagerFs{
     //filePath contiene la ruta del Json
