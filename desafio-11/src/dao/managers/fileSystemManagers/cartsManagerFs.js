@@ -1,101 +1,155 @@
-import fs from "fs";
-import { logger } from "../../../helpers/logger";
-export class CartsManagerFs {
-  constructor(path) {
-    this.carts = [];
-    this.pathFile = path;
-  }
-  fileExist() {
-    return fs.existsSync(this.pathFile);
-  }
+import fs from 'fs';
+import { logger } from '../../../utils/log4js.js';
 
-  //metodo para buscar todos los carritos
-  async getCarts() {
-    try {
-      if (this.fileExist()) {
-        const dataCarts = await fs.promises.readFile(this.pathFile, "utf-8");
-        return JSON.parse(dataCarts);
-      } else {
-        throw new Error("No es posible obtener los carritos");
-      }
-    } catch (error) {
-      console.log(error.message);
-      throw error;
+export class ProductManagerFs{
+    //filePath contiene la ruta del Json
+    constructor(filePath) {
+        this.products = [];
+        this.filePath = filePath;
     }
-  }
-  //metodo que busca por id
-  async getCartsById(id) {
-    try {
-      //leo el archivo
-      const carts = await this.getCarts();
-      //busco por id
-      const cartFound = carts.find((prod) => prod.id === id);
-      if (cartFound) {
-        return cartFound;
-      } else {
-        throw new Error("Carrito no encontrado");
-      }
-    } catch (error) {
-      console.log(error.message);
-      throw new Error("El Carrito es inexistente");
+    //verifico que exista el archivo
+    fileExist() {
+        return fs.existsSync(this.filePath);
     }
-  }
-  //metodo que lee y crea los carritos
-  async createCart() {
-    try {
-      // Lee los carritos existentes
-      const carts = await this.getCarts();
-
-      // Crea un nuevo ID autoincremental para el carrito
-      let newId;
-      if (carts.length === 0) {
-        newId = 1;
-      } else {
-        newId = carts[carts.length - 1].id + 1;
-      }
-      //creo el carrito con el id y el producto vacio
-      const newCart = {
-        id: newId,
-        products: [],
-      };
-      carts.push(newCart);
-      // Sobrescribe el JSON con los carritos actualizados
-      await fs.promises.writeFile(this.pathFile, JSON.stringify(carts, null, "\t"));
-      //retorno el carrito cargado
-      return newCart;
-    } catch (error) {
-      throw new Error("No es posible crear el carrito");
-    }
-  }
-  //metodo para agregar productos al carrito
-  async addProduct(cartId, productId, quantity) {
-    try {
-      //leo el archivo
-      const carts = await this.getCarts();
-      //busco el carrito por id
-      const cartFound = carts.find((prod) => prod.id === cartId);
-      if (cartFound) {
-        //si existe el carrito, busco el producto por id
-        const productFound = cartFound.products.find((prod) => prod.id === productId);
-        if(productFound) {
-          //si existe el producto, se suma la cantidad
-          productFound.quantity += quantity;
-        }else{
-          //si NO existe el producto, se agrega al carrito
-          cartFound.products.push({ 
-            id: productId,
-             quantity: quantity
-            });
+    //metodo que lee y trae los productos
+    async getProducts() {
+        try {
+            if (this.fileExist()) {
+                const data = await fs.promises.readFile(this.filePath, 'utf-8');
+                //transfoma de string a json
+                return JSON.parse(data);
+            } else {
+                logger.error('No es posible leer el archivo');
+                throw new Error('No es posible leer el archivo');
+            }
+        } catch (error) {
+            logger.error(error.message)
+            throw error;
         }
-        //sobreescribo el archivo guardando los cambios
-        await fs.promises.writeFile(this.pathFile, JSON.stringify(carts, null, "\t"))
-        return cartFound
-        
-      } else {
-        throw new Error("El carrito no existe");
-      }
-    } catch (error) {
-      throw error;
     }
-  }
+    //metodo que busca por id
+    async getProductById(id){ 
+
+        try {
+            //leo el archivo
+            const products = await this.getProducts();
+            //busco por id
+            const prodFound = products.find(prod => prod.id === id)
+            if(prodFound) {
+                return prodFound
+            }
+            else{
+                logger.error('El producto no existe');
+                throw new Error('Producto no encontrado');
+            }
+            
+        } catch (error) {
+            logger.error(error.message);
+            throw new Error ('El producto es inexistente')
+        }
+
+    }
+    //metodo que lee y agrega productos
+    async createProduct(infoProduct) {
+        try {
+            //verifico que los campos se carguen obligatoriamente
+            if (!infoProduct.title || !infoProduct.description || !infoProduct.price || 
+                !infoProduct.thumbnail || !infoProduct.code || !infoProduct.stock 
+                || !infoProduct.category) {
+                logger.error('Todos los campos son obligatorios');
+                throw new Error('Todos los campos son obligatorios');
+                
+            }
+            //leo el producto en el archivo
+            const products = await this.getProducts();
+            
+            //creo el id autoincremental
+            let newId;
+            if (products.length === 0) {
+                newId = 1
+            } else {
+                newId = products[products.length - 1].id + 1;
+            }
+            
+            //verifico si el codigo se repite y no lo agrego
+            const codeExist = products.some( prod => prod.code === infoProduct.code)
+            if(codeExist){
+                //alert("El codigo " + infoProduct.code + " ya existe, no sera agregado nuevamente")
+                logger.info('el codigo ' + infoProduct.code + ' ya existe, no sera agregado nuevamente');
+                return "El codigo " + infoProduct.code + " ya existe, no sera agregado nuevamente"
+
+            } else{
+                infoProduct.id = newId
+                products.push(infoProduct);
+            }
+            //sobreescribo el con el nuevo producto el archivo
+            await fs.promises.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
+            logger.info('Producto creado con exito');
+            return infoProduct
+
+            
+        } catch (error) {
+            logger.error(error.message);
+            throw error;
+        }
+    }
+
+    //metodo que actualiza
+    async updateProduct(id, product) {
+        try {
+            // Leer la lista de productos existentes
+            const products = await this.getProducts();
+            
+            // Buscar el índice del producto que se va a actualizar
+            const updateIndex = products.findIndex(prod => prod.id === id);
+    
+            if (updateIndex === -1) {
+                logger.error('El producto no existe');
+                throw new Error('Producto no encontrado');
+            }
+    
+            // Verificar si el campo 'id' está presente en el objeto 'product'
+            if (product.hasOwnProperty('id') && product.id !== id) {
+                logger.error('No está permitido modificar el ID del producto.');
+                throw new Error('No está permitido modificar el ID del producto.');
+            }
+            // Actualizar los campos del producto con los nuevos valores (excepto el ID)
+            products[updateIndex] = {
+                ...products[updateIndex],
+                ...product
+            };
+    
+            // Sobrescribir el JSON con los productos actualizados
+            await fs.promises.writeFile(this.filePath, JSON.stringify(products, null, '\t'));
+            logger.info('Producto actualizado con éxito');
+            return products[updateIndex];
+        } catch (error) {
+            logger.error(error.message);
+            throw new Error('Archivo inexistente o no se puede actualizar');
+        }
+    }
+
+    //metodo eliminar producto
+    async deleteProduct(id) {
+        try {
+            //leo el archivo
+            const products = await this.getProducts()
+            //verifico si exite el id
+            const existId = products.find(prod => prod.id === id)
+            if(existId){
+                //busco el producto a eliminar
+                const deleteId = products.filter(prod => prod.id !== id);
+                //sobreescribo el archivo sin el 
+                await fs.promises.writeFile(this.filePath, JSON.stringify(deleteId, null, '\t'));
+                logger.info('Producto eliminado con exito');
+            } else {
+                logger.error('El producto no existe');
+                throw new Error('Producto no encontrado');
+            }
+        } catch (error) {
+            logger.error(error.message);
+            throw new Error('El Producto a eliminar es inexistente');
+        }
+    }
+
 }
