@@ -1,5 +1,5 @@
 import fs from "fs";
-import { logger } from "../../../helpers/logger";
+import { logger } from "../../../helpers/logger.js";
 export class CartsManagerFs {
   constructor(path) {
     this.carts = [];
