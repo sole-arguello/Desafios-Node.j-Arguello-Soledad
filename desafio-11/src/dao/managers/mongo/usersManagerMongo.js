@@ -1,6 +1,7 @@
 import { usersModel} from "./models/users.models.js"
 import { UsersDto } from "../../dto/user.dto.js"
 import { logger } from "../../../helpers/logger.js";
+import { error } from "console";
 export class UsersManagerMongo {
 
     constructor() {
@@ -24,24 +25,22 @@ export class UsersManagerMongo {
     async getUserByEmail(email){
         try {
             const user = await this.model.findOne({email})
-            logger.info('paso por manager getUserByEmail');
             return user
         } catch (error) {
-            logger.error('Error en manager getUserByEmail', error.message);
+            logger.error(error.message);
             throw new Error('El Usuario no se encuentra registrado', error.message);
         }
     }
     async getUserById(id){
         try {
             const userExist = await this.model.findById(id).lean();
-            logger.info('paso por manager getUserById', userExist);
             if(!userExist){
-                logger.error('error en manager getUserById');
+                logger.error(error.message);
                 throw new Error('El Usuario no se encuentra registrado');
             }
             return userExist
         } catch (error) {
-            logger.error('error en manager getUserById', error.message);
+            logger.error(error.message);
             throw new Error('El Usuario no se encuentra registrado', error.message);
         }
     }
@@ -49,10 +48,9 @@ export class UsersManagerMongo {
         
         try {
             const users = await this.model.find();
-            logger.info('paso por manager getUsers');
             return users
         } catch (error) {
-            logger.error('error en manager getUsers', error.message);
+            logger.error(error.message);
             throw new Error('Los usuario no se encontraron', error.message);
         }
     }
