@@ -62,7 +62,7 @@ export const initializePassport = () => {
         },
         async (username, password, done) => {
             try {
-                //console.log("paso por Passport loginLocalStrategy");
+                console.log("paso por Passport loginLocalStrategy");
                 //busco el usuario por email
                 const user = await usersSessionsService.getUserByEmail(username);
                 //al revez del registro
