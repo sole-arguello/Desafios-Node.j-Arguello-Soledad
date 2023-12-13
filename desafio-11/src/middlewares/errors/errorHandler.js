@@ -2,7 +2,7 @@ import { logger } from '../../helpers/logger.js';
 import {EError } from '../../service/errors/enums.js';
 
 export const errorHandler = (error, req, res, next) => {
-    logger('paso por errorHandler',error.cause)
+    logger.info('paso por errorHandler',error.cause)
     switch (error.code) {
         case EError.INVALID_TYPES_ERROR:
 
@@ -21,6 +21,6 @@ export const errorHandler = (error, req, res, next) => {
             res.json({ status: 'error', message: error.message, error: error.cause })
             break;
         default:
-            res.json({ status: 'error', error:'Unhandled Error0' })
+            res.json({ status: 'error', error:'Unhandled Error' })
     }
 }
