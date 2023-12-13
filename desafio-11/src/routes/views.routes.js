@@ -71,11 +71,5 @@ router.get(
 
 //http://localhost:8080/mokingProducts
 router.get("/mokingProducts", ViewsController.mockingProducts);
-//http://localhost:8080/loggerTest
-router.get("/loggerTest", (req, res) => {
-  logger.info("prueba de info");
-  logger.warn("prueba de warn");
-  res.send("prueba de logger");
-});
 
 export { router as viewsRouter };
