@@ -31,6 +31,10 @@ export const config = {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
     },
+    gmail: {
+        account: process.env.GMAIL_ACCOUNT,
+        password: process.env.GMAIL_PASSWORD
+    },
     enviroment: {
         persistence: persistenceMode,
     }
