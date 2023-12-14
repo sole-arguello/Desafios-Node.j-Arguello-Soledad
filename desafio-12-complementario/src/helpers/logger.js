@@ -1,5 +1,4 @@
 import winston from "winston";
-
 import { __dirname } from "../utils.js";
 import path from "path";
 import { config } from "../config/config.js";
@@ -9,17 +8,25 @@ const colorizeLevel = winston.format((info) => {
   const { level } = info;
 
   switch(level){
-    case 'info':
+    case "info":
+      info.level = chalk.blue(level);
+      break;
+    case "warn":
       info.level = chalk.yellow(level);
       break;
-    case 'warn':
-      info.level = chalk.cyan(level);
-      break;
     
-    case 'error':
+    case "error":
       info.level = chalk.red(level);
       break;
-    
+    case "http":
+      info.level = chalk.magenta(level);
+      break;
+    case "verbose":
+      info.level = chalk.cyan(level);
+      break;
+    case "debug":
+      info.level = chalk.green(level);
+      break;
     default:
       break
   }
@@ -50,11 +57,11 @@ const prodLogger = winston.createLogger({
     }),
   ],
 });
-const currentEnv = config.enviroment.persistence;
+//const currentEnv = config.enviroment.persistence;
 let logger;
-if (currentEnv === "development") {
+if (config.enviroment.persistence === "development") {
   logger = devLogger;
-} else if (currentEnv === "production") {
+} else {
   logger = prodLogger;
 }
 

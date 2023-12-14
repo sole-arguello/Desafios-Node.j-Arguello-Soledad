@@ -2,3 +2,29 @@
 [31merror[39m: Operation `users.findOne()` buffering timed out after 10000ms
 error: userEmail is not defined
 [31merror[39m: userEmail is not defined[31merror[39m: userEmail is not defined
+[31merror[39m: logger is not defined
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: chalk.orange is not a function
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: res.sen is not a function
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: chalk is not defined
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+{"level":"error","message":"Error fatal"}
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal
+[31merror[39m: Error fatal

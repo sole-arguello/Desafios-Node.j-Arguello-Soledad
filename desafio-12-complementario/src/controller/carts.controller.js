@@ -9,7 +9,7 @@ export class CartsController {
             //console.log('getCarts controller');
             res.json({ message: "Listado de carritos", data: carts });
         } catch (error) {
-            logger.error('error getCarts controller', error.message);
+            logger.error(error.message);
             //console.log('error getCarts controller', error.message);
             res.json({ status: "error", message: error.message });
         }
@@ -21,96 +21,85 @@ export class CartsController {
             //tarigo el caarito por medio de la populacion
             const carts = await cartsService.getCartsId(idcarts);
             if(carts){
-              logger.info('getCartsId controller exist');
               res.json({ message: "Carrito encontrado", data: carts });
             }else{
-              logger.info('getCartsId controller no exist');
               res.json({ status: "error", message: "Carrito no encontrado"});
             }
             
           } catch (error) {
-            logger.error('error getCartsId controller', error.message);
+            logger.error(error.message);
             res.json({ status: "error", message: error.message });
           }
     }
     static createCart = async (req, res) => {
         try {
             const newCart = await cartsService.createCart();
-            logger.info('createCart controller');
             res.json({ message: "Carrito creado", data: newCart });
         } catch (error) {
-            logger.error('error createCart controller', error.message);
+            logger.error(error.message);
             res.json({ status: "error", message: error.message });
         }
     }
     static updateCartId = async (req, res) => {
         try {
-            logger.info('updateCartId controller');
-
             const { cid: idCart } = req.params; //obtengo el id del carrito
             const newProduct = req.body;//obtengo el producto
             const updatedCart = await cartsService.updateCartId(idCart, newProduct);// le paso el id y el cuerpo 
             res.json({ message: "Carrito actualizado con exito", data: updatedCart });
         }
         catch (error) {
-            logger.error('error updateCartId controller', error.message);
+            logger.error(error.message);
             res.json({ status: "error",  message: error.message });
         }
     }
     static addProduct = async (req, res) => {
         try {
-            logger.info('addProduct controller');
             const { cid: idCarts, pid: idProduct } = req.params;
             const cart = await cartsServiceartsService.getCartsId(idCarts);
             const result = await cartsService.addProduct(cart, idProduct);
             res.json({ message: "Producto agregado al carrito", data: result });
         } catch (error) {
-            logger.info('error addProduct controller', error.message);
+            logger.info( error.message);
             res.json({ status: "error", message: error.message });
         }
     }
     static updateProductInCart = async (req, res) => {
         try {
-            logger.info('updateProductInCart controller');
             const { cid: idCarts, pid: idProduct } = req.params;
             const newQuantity  = req.body.newQuantity;
             const updatedCart = await cartsService.updateProductInCart(idCarts, idProduct, newQuantity);
             res.json({ message: "success", data: updatedCart });
         }
         catch (error) {
-            logger.error('error updateProductInCart controller', error.message);
+            logger.error(error.message);
             res.json({ status: "error",  message: error.message });
         }
     }
     static deleteCartId = async (req, res) => {
         try {
-            logger.info('deleteCartId controller');
             const { cid: idCarts } = req.params;
             const deletedCart = await cartsService.deleteCartId(idCarts);
             res.json({ message: "Carrito eliminado con exito", data: deletedCart });
             // res.json({ message: "Carrito con id ' " + cartId + " ' eliminado con exito", data: cartDeleted });
         }
         catch (error) {
-            logger.error('error deleteCartId controller', error.message);
+            logger.error(error.message);
             res.json({ status: "error",  message: error.message });
         }
     }
     static deleteProductInCart = async (req, res) => {
         try {
-            logger.info('deleteProductInCart controller');
             const { cid: idCarts, pid: idProduct } = req.params;
             const deletedProduct = await cartsService.deleteProductInCart(idCarts, idProduct);
             res.json({ message: "Producto eliminado del carrito", data: deletedProduct });
         }
         catch (error) {
-            logger.error('error deleteProductInCart controller', error.message);
+            logger.error(error.message);
             res.json({ status: "error",  message: error.message });
         }
     }
     static purchaseCart = async (req, res) => {
         try {
-            logger.info('Estoy en purchaseCart controller');
-
             const { cid: idCarts } = req.params;
             const cart = await cartsService.getCartsId(idCarts)
             //console.log('carrito con los productos a comprar:', cart);

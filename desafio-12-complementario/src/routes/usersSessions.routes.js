@@ -29,12 +29,6 @@ router.get('/fail-login', UsersSessionsController.renderLoginFail)
 //para eliminar la seccion
 router.get('/logout', UsersSessionsController.renderLogout)
 
-// const eamilTemplate = `<div>
-//     <h1>Bienvenido!!</h1>
-//     <img src="" style= "width: 100px;">
-//     <p>Ya puedes comenzar a usar nuestros servicios</p>
-//     <a href="https://localhost:8080">Ahora inicia sesion</a>
-// </div>`
 
 //ruta para email localhost:8080/api/sessions/send-email
 // router.post('send-email', async (req, res) => {

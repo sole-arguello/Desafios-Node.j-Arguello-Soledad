@@ -28,10 +28,9 @@ export class UsersSessionsController {
     static renderLogin = async (req, res) => {
         try {
             //manejo de errores en middlewares
-            logger.info('loguin rol de usuario: ', req.user.role);
             const user = req.user;
             const token = generateToken(user);
-            logger.info('Login correcto');
+            logger.info('Login correcto - ', {message: user.role});
             res.cookie('cookieLogin', token, {maxAge: 43200000, httpOnly: true});
             res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
             

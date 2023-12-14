@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authorization, jwtAuth } from "../middlewares/auth.js";
 import { ViewsController } from "../controller/views.controller.js";
-
+import { logger } from "../helpers/logger.js";
 const router = Router();
 
 //ruta para la vista home de todos los productos
@@ -37,5 +37,18 @@ router.get("/cart/:cid",authorization(["user", "admin"]),ViewsController.renderV
 
 //http://localhost:8080/mokingProducts
 router.get("/mokingProducts", ViewsController.mockingProducts);
+
+//RUTA PARA PROBAR LOGGERS SEGUN ENTORNO DE TRABAJO
+//http://localhost:8080/loggerTest
+router.get("/loggerTest", (req, res) => {
+    logger.debug("Soy un mensaje DEBUG");
+    logger.verbose("Soy un mensaje VERBOSE");
+    logger.http("Soy un mensaje HTTP");
+    logger.info("Soy un mensaje INFO");
+    logger.warn("Soy un mensaje WARN");
+    logger.error("Error fatal")
+
+    res.json({ status: "success", message: "Petición recibida" });
+  });
 
 export { router as viewsRouter };
