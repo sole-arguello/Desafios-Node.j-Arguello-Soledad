@@ -7,15 +7,15 @@ export class UsersSessionsRepository {
     }
 
     async createUsers(infoUser){
-        return user = await this.dao.createUsers(infoUser)
+        return await this.dao.createUsers(infoUser)
     }
     async getUserByEmail(email){
-        return userEmail = await this.dao.getUserByEmail(email)
+        return await this.dao.getUserByEmail(email)
     }
     async getUserById(id){
-        return userId = await this.dao.getUserById(id)
+        return await this.dao.getUserById(id)
     }
     async getUsers(){
-        return users = await this.dao.getUsers()
+        return await this.dao.getUsers()
     }
 }
