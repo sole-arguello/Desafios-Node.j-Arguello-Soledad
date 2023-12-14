@@ -6,10 +6,10 @@ export class ChatRepository {
     }
 
     async getMessages(){
-        return chat = await this.dao.getMessages()
+        return await this.dao.getMessages()
     }
     async createMessage(messageInfo){
-        return newChat = await this.dao.createMessage(messageInfo)
+        return await this.dao.createMessage(messageInfo)
     }
 
     //emptyChat
