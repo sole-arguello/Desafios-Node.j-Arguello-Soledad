@@ -28,7 +28,7 @@ export class ViewsController {
                     throw new Error('No hay productos');
                 }
                 if(req.user.role === 'admin'){
-                    logger.info('ususario logueado', req.user);
+                    logger.info('ususario logueado');
                     res.render('home', 
                     { 
                         style: "home.css",
@@ -41,7 +41,7 @@ export class ViewsController {
                     });
                     
                 }else{
-                    logger.info('ususario logueado', req.user);
+                    logger.info('ususario logueado');
                     res.render('home', 
                     {
                         style: "home.css",
@@ -53,9 +53,9 @@ export class ViewsController {
                     });
                 }
             }
-            logger.info('ususario logueado', req.user);
+            logger.info('ususario logueado');
         } catch (error) {
-            logger.error('error al renderizar home', error.message);
+            logger.error(error.message);
            res.status(500).json({ message: error.message }); 
         }
        
@@ -65,7 +65,7 @@ export class ViewsController {
             logger.info('renderizo login');
             res.render('login', { style: "login.css"});
         } catch (error) {
-            logger.error('error al renderizar login', error.message);
+            logger.error(error.message);
             res.status(500).json({ message: error.message });
         }
     }
@@ -75,7 +75,7 @@ export class ViewsController {
             logger.info('renderizo register');
             res.render('register', { style: "register.css"});
         } catch (error) {
-            logger.error('error al renderizar register', error.message);
+            logger.error(error.message);
             res.status(500).json({ message: error.message });
         }
     }
