@@ -2,19 +2,20 @@ import { Router } from "express";
 import { authorization, jwtAuth } from "../middlewares/auth.js";
 import { ViewsController } from "../controller/views.controller.js";
 import { logger } from "../helpers/logger.js";
+
 const router = Router();
 
 //ruta para la vista home de todos los productos
 router.get("/",jwtAuth,authorization(["user", "admin"]),ViewsController.renderViewsHome);
 
 //ruta para login
-router.get("/login",authorization(["user", "admin"]),ViewsController.renderViewsLogin);
+router.get("/login",authorization(["user", "admin"]),ViewsController.renderViewsLogin)
 
 //ruta para register
-router.get("/register", ViewsController.renderViewsRegister);
+router.get("/register",jwtAuth, ViewsController.renderViewsRegister);
 
 //ruta para el perfil de usuario
-router.get("/profile",jwtAuth,authorization(["user, admin"]),ViewsController.renderViewsProfile);
+router.get("/profile",ViewsController.renderViewsProfile);
 
 //ruta para productos en tiempo real crear y Eliminar
 router.get("/realTimeProducts",jwtAuth,authorization(["admin"]),ViewsController.renderViewsRealTime);
@@ -28,12 +29,15 @@ router.get("/products",jwtAuth,authorization(["user", "admin"]),ViewsController.
 //ruta hardcodeada localhost:8080/cart/6525e395443bd76c765dd0ee
 router.get("/cart/:cid",authorization(["user", "admin"]),ViewsController.renderViewsCart);
 
-// viewsRouter.get("/cart", async (req, res) => {
-//     const cartId = await cartsModel.findOne().sort({ carts: -1 });
-//     const cart = await CartsService.getCartById(cartId,{lean:true});
-//     const productsCart = cart.products;
-//     res.render("cart", { products: productsCart})
-// });
+//restablecer password
+router.get('/forgot-password', (req, res) => {
+  res.render('forgotPassView')
+})
+
+router.get('/reset-password', (req, res) => {
+  const token = req.query.token
+  res.render('resetPassView', token )
+})
 
 //http://localhost:8080/mokingProducts
 router.get("/mokingProducts", ViewsController.mockingProducts);
@@ -50,5 +54,14 @@ router.get("/loggerTest", (req, res) => {
 
     res.json({ status: "success", message: "Petición recibida" });
   });
+
+// viewsRouter.get("/cart", async (req, res) => {
+//     const cartId = await cartsModel.findOne().sort({ carts: -1 });
+//     const cart = await CartsService.getCartById(cartId,{lean:true});
+//     const productsCart = cart.products;
+//     res.render("cart", { products: productsCart})
+// });
+
+
 
 export { router as viewsRouter };

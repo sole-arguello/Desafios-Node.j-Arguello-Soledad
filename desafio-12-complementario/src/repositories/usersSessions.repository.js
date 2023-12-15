@@ -18,4 +18,7 @@ export class UsersSessionsRepository {
     async getUsers(){
         return await this.dao.getUsers()
     }
+    async updateUser(id, user){
+        return await this.dao.updateUser(id, user)
+    }
 }

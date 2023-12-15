@@ -1,16 +1,15 @@
 import { Router } from "express";
 import { config } from "../config/config.js";
 import { 
-    customRegister,
     registerLocalStrategy, registerGithubStrategy, 
-    registerGithubStrategyFail, loginLocalStrategy } from "../middlewares/auth.js";
+    registerGithubStrategyFail, loginLocalStrategy} from "../middlewares/auth.js";
 import { UsersSessionsController } from "../controller/usersSessions.controller.js";
-import { transporter } from "../config/gmailMailling.js";
+
 
 const router = Router();
 /*--------------- esctrategia registro local ---------------*/
 //registro al ususario
-router.post('/register',customRegister, registerLocalStrategy, UsersSessionsController.renderRegister )
+router.post('/register',registerLocalStrategy, UsersSessionsController.renderRegister )
 
 router.get('/fail-register', UsersSessionsController.renderRegisterFail)
 /*----------------estrategia registro con github----------------*/
@@ -26,25 +25,11 @@ router.get('/fail-login', UsersSessionsController.renderLoginFail)
 
 /*--------------------------------------------------- */
 
+router.post('/forgot-password', UsersSessionsController.forgotPassword)
+router.post('/reset-password?token={{token}}', UsersSessionsController.resetPassword)
+
 //para eliminar la seccion
 router.get('/logout', UsersSessionsController.renderLogout)
 
-
-//ruta para email localhost:8080/api/sessions/send-email
-// router.post('send-email', async (req, res) => {
-//     try {
-//         const result = await transporter.sendMail({
-//             from: config.gmail.account,
-//             to: 'soledad.ar1@gmail.com',
-//             subject: 'Tu registro a sido exitoso',
-//             html: eamilTemplate
-//         })
-//         console.log(result)
-//         res.json({ status: "ok", message: 'Email enviado' })
-//     } catch (error) {
-//         console.log(error)
-//         res.json({ status: "error", message: 'Hubo un error al enviar el email' })
-//     }
-// })
 
 export { router as usersSessionsRouter}

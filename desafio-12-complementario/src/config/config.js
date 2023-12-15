@@ -33,9 +33,11 @@ export const config = {
     },
     gmail: {
         account: process.env.GMAIL_ACCOUNT,
-        password: process.env.GMAIL_PASSWORD
+        password: process.env.GMAIL_PASSWORD,
+        secretToken: process.env.TOKEN_EMAIL
     },
     enviroment: {
         persistence: persistenceMode,
     }
 }
+//console.log('config', config)

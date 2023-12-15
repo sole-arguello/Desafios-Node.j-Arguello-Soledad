@@ -9,7 +9,7 @@ export class UsersManagerMongo {
     async createUsers(userInfo) {
         try {
             const newUserDto = new UsersDto(userInfo);
-            //console.log('Usuario Dto', newUserDto);
+            console.log('Usuario Dto', newUserDto);
             const newUser = await this.model.create(newUserDto);
             //mensaje interno
             logger.info('paso por manager createUsers');          
@@ -21,9 +21,9 @@ export class UsersManagerMongo {
         }
         
     }
-    async getUserByEmail(email){
+    async getUserByEmail(userEmail){
         try {
-            const user = await this.model.findOne({email})
+            const user = await this.model.findOne({email: userEmail}).lean();
             logger.info('paso por manager getUserByEmail');
             return user
         } catch (error) {
@@ -52,8 +52,18 @@ export class UsersManagerMongo {
             logger.info('paso por manager getUsers');
             return users
         } catch (error) {
-            logger.error('error en manager getUsers', error.message);
+            logger.error(error.message);
             throw new Error('Los usuario no se encontraron', error.message);
+        }
+    }
+
+    async updateUser(id, user){
+        try {
+            const updateUser = await this.model.findByIdAndUpdate(id, user, {new: true});
+            return updateUser
+        } catch (error) {
+            logger.error(error.message)
+            throw new Error('No se pudo actualizar el usuario', error.message)
         }
     }
 

@@ -1,6 +1,8 @@
 import { cartsService, productsService, ticketService } from "../repositories/index.js";
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from "../helpers/logger.js";
+import { transporter } from "../config/gmailMailling.js";
+import { config } from "../config/config.js";
 
 export class CartsController {
     static getCarts = async (req, res) => {
@@ -179,6 +181,13 @@ export class CartsController {
                         await cartsService.deleteProductInCart(idCarts, productId)
                       
                     }
+                    // const nameUser = req.user.first_name
+                    // await transporter.sendMail({
+                    //     from: config.gmail.account,
+                    //     to: 'soledad.ar1@gmail.com',
+                    //     subject: 'Gracias por su compra',
+                    //     html: templateEmail(nameUser)
+                    // })
                     logger('compra realizada(sin rechazos), actualizo el stock y borro el producto del carrito');
                     res.json({ status: "success", message: "compra realizda con exito", data: ticketProducts, tiket });
                 }

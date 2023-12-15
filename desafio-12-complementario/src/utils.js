@@ -33,16 +33,6 @@ export const cookieExtractor = (req) => {
     return token
 }
 
-export const templateEmail = (user) => {
-    const template = `<div>
-    <h1>Bienvenido!!</h1>
-    <img src="" style= "width: 100px;">
-    <p>Ya puedes comenzar a usar nuestros servicios</p>
-    <a href="https://localhost:8080">Ahora inicia sesion</a>
-</div>`
-    
-}
-
 export const createHash = (password) => {//recibo la contraseña del form
     const salt = bcrypt.genSaltSync(10);//crea el algoritmo
     const hash = bcrypt.hashSync(password, salt);//recibe la contraseña y el algoritmo
