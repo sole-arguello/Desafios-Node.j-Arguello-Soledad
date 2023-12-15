@@ -3,14 +3,14 @@ import { config } from "../config/config.js";
 import { 
     customRegister,
     registerLocalStrategy, registerGithubStrategy, 
-    registerGithubStrategyFail, loginLocalStrategy } from "../middlewares/auth.js";
+    registerGithubStrategyFail, loginLocalStrategy} from "../middlewares/auth.js";
 import { UsersSessionsController } from "../controller/usersSessions.controller.js";
 
 
 const router = Router();
 /*--------------- esctrategia registro local ---------------*/
 //registro al ususario
-router.post('/register', registerLocalStrategy, UsersSessionsController.renderRegister )
+router.post('/register', customRegister,registerLocalStrategy, UsersSessionsController.renderRegister )
 
 router.get('/fail-register', UsersSessionsController.renderRegisterFail)
 /*----------------estrategia registro con github----------------*/
