@@ -12,10 +12,10 @@ router.get("/",jwtAuth,authorization(["user", "admin"]),ViewsController.renderVi
 router.get("/login",authorization(["user", "admin"]),ViewsController.renderViewsLogin)
 
 //ruta para register
-router.get("/register",jwtAuth, ViewsController.renderViewsRegister);
+router.get("/register", ViewsController.renderViewsRegister);
 
 //ruta para el perfil de usuario
-router.get("/profile",ViewsController.renderViewsProfile);
+router.get("/profile", jwtAuth, authorization(["user", "admin"]),ViewsController.renderViewsProfile);
 
 //ruta para productos en tiempo real crear y Eliminar
 router.get("/realTimeProducts",jwtAuth,authorization(["admin"]),ViewsController.renderViewsRealTime);
@@ -36,7 +36,8 @@ router.get('/forgot-password', (req, res) => {
 
 router.get('/reset-password', (req, res) => {
   const token = req.query.token
-  res.render('resetPassView', token )
+  console.log('token', token)
+  res.render('resetPassView', { token } )
 })
 
 //http://localhost:8080/mokingProducts

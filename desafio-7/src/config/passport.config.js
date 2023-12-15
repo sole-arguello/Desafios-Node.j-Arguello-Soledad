@@ -34,7 +34,7 @@ export const initializePassport = () => {
                     age,
                     email: username,
                     password: createHash(password),
-                    role: 'Usuario'
+                    role: 'user'
                 }
                 console.log(newUser)
                 //creo un nuevo usuario
@@ -93,7 +93,7 @@ export const initializePassport = () => {
                     age: 0,
                     email: profile._json.email,
                     password: createHash(profile.id),
-                    role: 'Usuario'
+                    role: 'user'
                 }
                 
                 console.log(newUser)

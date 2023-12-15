@@ -63,25 +63,27 @@ export class UsersSessionsController {
             res.redirect('/login');
            
         } catch (error) {
-            logger.error(error.message);
+           // logger.error(error.message);
             res.status(500).json({ message: error.message });
         }
     }
 
     static forgotPassword = async (req, res) => {
-        const {email} = req.body;
-        //console.log(email)
+        const {email} = req.body;//email del usuario
+        console.log(email)
         try {
  
             //verifico si existe traigo el email del repository
             const user = await usersSessionsService.getUserByEmail(email);
             //console.log(user)
-            const emailToken = generateEmailToken(email, 5*60)
+            const emailToken = generateEmailToken(email, 5 * 60)//5min
             await sendChangePasswordEmail(req, email, emailToken);
-            res.send(`Revisa tu correo para restablecer tu contraseña <a href="/">Volver al login</a>`);
+            logger.info('Envio email para restablecer contraseña');
+            res.send(`Revisa tu correo para restablecer tu contraseña 
+            <a href="/">Volver al login</a>`);
         } catch (error) {
             logger.error(error.message);
-            res.status(500).json({ message: error.message });
+            res.status(500).json({status: 'error', message: error.message });
         }
         
     }
@@ -91,31 +93,39 @@ export class UsersSessionsController {
            const token = req.query.token;
            const { newPassword } = req.body;
            //validar el token sea valido
-           const validemail = verifyEmailToken(token);
-           if(!validemail){
-              return res.send(`El enlace ya no es valido, genera un nuevo enlace 
-              <a href="/forgot-password">Enlace</a>`)
+           const validEmail = verifyEmailToken(token);
+           console.log('validEmail', validEmail)
+           if(!validEmail){
+            logger.info('El enlace ya no es valido');
+            return res.send(`El enlace ya no es valido, genera un nuevo enlace 
+              <a href="/forgot-password"> Enlace</a>`)
            }
-           const user = await usersSessionsService.getUserByEmail(validemail);
+           //verifico que el usuario exista
+           const user = await usersSessionsService.getUserByEmail(validEmail);
            if(!user){
+            logger.info('Esta operacion no se puede realizar');
             return res.send('Esta operacion no se puede realizar')
            }
-           //actualizo el password
-           const updatePassword = await usersSessionsService.updatePassword(validemail, newPassword);
+           console.log('user', user)
+           console.log(' newPassword',newPassword)
            //comparo las contrase;as
            if(isValidPassword(newPassword, user)){
-             return res.render('resetPassview', {error: 'credendiales invalidas', token})
+             logger.info('credenciales invalidas');
+             return res.render('resetPassView', {error: 'credendiales invalidas', token})
            }
            const userData = {
+                //obtengo el usuario que esta en DB y cambio la propiedad password
                ...user,
                password: createHash(newPassword)
-
-           }
+            }
+            console.log('userData', userData)
            //actualizo
            await usersSessionsService.updateUser(user._id, userData);
-           res.render('login', {message: 'Contraseña actualizada con exito'})
+           res.render('/', {message: 'Contraseña actualizada con exito'})
+           logger.info('Contraseña actualizada con exito, renderizo al login');
 
         } catch (error) {
+            logger.error(error.message);
             res.status(500).json({ message: error.message });
         }
     }

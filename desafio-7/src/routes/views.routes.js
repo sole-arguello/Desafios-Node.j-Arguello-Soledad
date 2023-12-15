@@ -77,7 +77,7 @@ router.get('/profile', (req, res) => {
                     userRole: req.user.role,
                     message: 'Se ha registrado con exito'
                 })
-            }else if(req.user.age === 0 && req.user.role === 'Usuario' ) {
+            }else if(req.user.age === 0 && req.user.role === 'user' ) {
                 //usuario github                
                 res.render('profile', {
                     userGithub: true,

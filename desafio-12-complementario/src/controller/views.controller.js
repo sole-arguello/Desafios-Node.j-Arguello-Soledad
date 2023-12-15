@@ -8,7 +8,7 @@ export class ViewsController {
         try {
             //si no esta logeado lo redirige a login
             if(!req.user){
-                logger.Error('error al iniciar sesion');
+                logger.error('error al iniciar sesion');
                 res.render('login', 
                 { 
                     style: "login.css",
@@ -82,7 +82,7 @@ export class ViewsController {
     static renderViewsProfile = async (req, res) => { //agrego JWT y saco session
         try {
             if(!req.user){
-                logger.Error('error al iniciar sesion');
+                logger.error('error al iniciar sesion');
                 res.render('login', 
                 { 
                     style: "login.css",
@@ -174,7 +174,7 @@ export class ViewsController {
     static renderViewsProducts = async (req, res) => {
         try {
             if(!req.user){
-                logger.Error('error al iniciar sesion');
+                logger.error('error al iniciar sesion');
                 res.render('login', 
                 { 
                     style: "login.css",
