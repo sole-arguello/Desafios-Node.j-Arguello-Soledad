@@ -20,8 +20,8 @@ export const  authorization = (roles) => {
 //--------------- passport
 export const customRegister = (res, req, next) => {
     try {
-        const {firts_name, last_name, email, password} = req.body
-        if(!firts_name || !last_name || !email || !password){
+        const {first_name, last_name, email, password} = req.body
+        if(!first_name || !last_name || !email || !password){
             CustomError.createError({
                 name: "Error al crear el usuario",
                 cause: generateUserErrorInfo(req.body),
