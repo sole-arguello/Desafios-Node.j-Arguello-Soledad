@@ -90,7 +90,7 @@ export class ViewsController {
                 })
             }else{  
                 if(req.user.age === 0 && req.user.role === 'admin'){
-                    logger.info('ususario logueado, renderizo profile', req.user);
+                    logger.info('ususario admin, renderizo profile');
                     //usuario admin
                     res.render('profile', 
                     {
@@ -101,8 +101,8 @@ export class ViewsController {
                         userRole: req.user.role,
                         message: 'Se ha registrado con exito'
                     })
-                }else if(req.user.age === 0 && req.user.role === 'Usuario' ) {
-                    logger.info('ususario logueado, renderizo profile', req.user);
+                }else if(req.user.age === 0 && req.user.role === 'user' ) {
+                    logger.info('ususario User GitHub, renderizo profile');
                     //usuario github                
                     res.render('profile', 
                     {
@@ -115,7 +115,7 @@ export class ViewsController {
                         message: 'Se ha registrado con exito'
                     });
                 }else{
-                    logger.info('ususario logueado, renderizo profile', req.user);
+                    logger.info('ususario User Local, renderizo profile');
                     //usuario registrado desde la page
                     res.render('profile', 
                     {
@@ -131,6 +131,7 @@ export class ViewsController {
                 }
             }
         } catch (error) {
+            logger.error(error.message)
             res.status(500).json({ message: error.message });
         }
     }
@@ -148,6 +149,7 @@ export class ViewsController {
             }
             
         } catch (error) {
+            logger.error(error.message)
             res.status(500).json({ message: error.message });        
         }
     }
@@ -164,6 +166,7 @@ export class ViewsController {
             }
             
         } catch (error) {
+            logger.error(error.message)
             res.status(500).json({ message: error.message });
             
         }
@@ -211,12 +214,12 @@ export class ViewsController {
                 }
                // console.log(dataProducts.payload)
                // console.log('Data del console log:', dataProducts.nextLink, dataProducts.prevLink)
-               logger.info('Productos paginados')
+                logger.info('Productos paginados')
                 res.render('productsPaginate', dataProducts);
             }
     
         } catch (error) {
-            logger.error('error al renderizar products paginate', error.message);
+            logger.error(error.message);
             res.status(500).json({ message: error.message });
             
         }
@@ -229,6 +232,7 @@ export class ViewsController {
             const cart = await cartsService.getCartsId(cartId);
             //console.log('Prueba en consola', cart);
             if(!cart){
+                logger.error('No se pudo encontrar el carrito');
                 return res.status(404).send('No se pudo encontrar el carrito');
             }else{
                 //console.log('Carrito en consola ',cart.products);
@@ -253,7 +257,7 @@ export class ViewsController {
             logger.info("moking products")
             res.json({status: "success", data: products})
         } catch (error) {
-            logger.error('error mockingProducts controller', error.message);
+            logger.error(error.message);
             res.json( { status: "error", message: error.message });
         }
     }
