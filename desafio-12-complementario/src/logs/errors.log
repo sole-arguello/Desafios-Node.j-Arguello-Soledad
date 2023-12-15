@@ -80,3 +80,5 @@ error: userEmail is not defined
 [31merror[39m: No se pudo crear el usuario
 [31merror[39m: Error en manager createUsers
 [31merror[39m: No se pudo crear el usuario
+[31merror[39m: Error en manager createUsers
+[31merror[39m: No se pudo crear el usuario

@@ -5,10 +5,10 @@ import { logger } from '../../../../helpers/logger.js';
 const usersCollection = 'users';
 
 const userSchema = new mongoose.Schema({
-    full_name: {
-        type: String,
-        required: true,
-    },
+    // full_name: {
+    //     type: String,
+    //     //required: true,
+    // },
     first_name: {
         type: String,
         required: true

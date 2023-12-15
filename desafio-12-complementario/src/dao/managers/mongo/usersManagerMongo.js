@@ -8,9 +8,9 @@ export class UsersManagerMongo {
     }
     async createUsers(userInfo) {
         try {
-            const newUserDto = new UsersDto(userInfo);
-            console.log('Usuario Dto', newUserDto);
-            const newUser = await this.model.create(newUserDto);
+            // const newUserDto = new UsersDto(userInfo);
+            // console.log('Usuario Dto', newUserDto);
+            const newUser = await this.model.create(userInfo);
             //mensaje interno
             logger.info('paso por manager createUsers');          
             return newUser
