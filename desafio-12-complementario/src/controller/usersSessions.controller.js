@@ -2,7 +2,7 @@ import { generateToken, isValidPassword } from "../utils.js";
 import { logger } from "../helpers/logger.js";
 import { generateEmailToken, sendChangePasswordEmail, verifyEmailToken } from "../helpers/email.js";
 import { usersSessionsService } from "../repositories/index.js";
-import { createHash } from "crypto";
+import { createHash } from "../utils.js";
 
 
 export class UsersSessionsController {
@@ -26,7 +26,7 @@ export class UsersSessionsController {
         const token = generateToken(user);
         logger.info('Registro github correcto');
         res.cookie('authLogin', token, {maxAge: 43200000, httpOnly: true});
-        res.redirect('/profile')
+        return res.redirect('/profile')
         
     }
     static renderLogin = async (req, res) => {
@@ -60,7 +60,7 @@ export class UsersSessionsController {
             logger.info('sesion cerrada');
             res.clearCookie('cookieLogin');
             //una vez cerrada la sesion lo redirige a login
-            res.redirect('/login');
+            return res.redirect('/');
            
         } catch (error) {
            // logger.error(error.message);
@@ -86,7 +86,7 @@ export class UsersSessionsController {
             res.status(500).json({status: 'error', message: error.message });
         }
         
-    }
+    } 
 
     static resetPassword = async (req, res) => {
         try {
@@ -121,10 +121,15 @@ export class UsersSessionsController {
             console.log('userData', userData)
            //actualizo
            await usersSessionsService.updateUser(user._id, userData);
-           res.render('/', {message: 'Contraseña actualizada con exito'})
            logger.info('Contraseña actualizada con exito, renderizo al login');
+           return res.rendirect('/', {message: 'Contraseña actualizada con exito'})
 
-        } catch (error) {
+
+           //deberia diraccionar al login que esta en home y sin el return 
+           //como en ele renderLogin y tomar el mensaje
+
+
+           } catch (error) {
             logger.error(error.message);
             res.status(500).json({ message: error.message });
         }

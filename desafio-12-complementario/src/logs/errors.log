@@ -172,3 +172,46 @@ error: userEmail is not defined
 [31merror[39m: Error al registrar el usuario 2
 [31merror[39m: error al iniciar sesion
 [31merror[39m: Error al registrar el usuario
+[31merror[39m: Error al registrar el usuario
+[31merror[39m: error al iniciar sesion
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: error al iniciar sesion
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Digest method not supported
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Digest method not supported
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Failed to lookup view "/" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: error al iniciar sesion
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Invalid status code: { message: 'Contraseña actualizada con exito' }
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Failed to lookup view "/" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Invalid status code: { message: 'Contraseña actualizada con exito' }
+[31merror[39m: Invalid status code: { message: 'Contraseña actualizada con exito' }
+[31merror[39m: Failed to lookup view "/" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: error al iniciar sesion
+[31merror[39m: error al iniciar sesion
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: error al iniciar sesion
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: Failed to lookup view "forgotPassword" in views directory "C:\Users\54351\OneDrive\Desktop\back\Desafios-Node.j-Arguello-Soledad\desafio-12-complementario\src\views"
+[31merror[39m: No recipients defined
+[31merror[39m: No recipients defined

@@ -261,4 +261,25 @@ export class ViewsController {
             res.json( { status: "error", message: error.message });
         }
     }
+
+    // static renderForgotPassword = async (req, res) => {
+    //     try {
+    //         res.render('forgotPassword');
+    //     } catch (error) {
+    //         logger.error(error.message);
+    //         res.status(500).json({ message: error.message });
+    //     }
+       
+    // }
+
+    // static renderResetPassword = async (req, res) => {
+    //     try {
+    //         const token = req.query.token
+    //         console.log('token', token)
+    //         res.render('resetPassword', { token, style: "resetPassword.css" });
+    //     } catch (error) {
+    //         logger.error(error.message);
+    //         res.status(500).json({ message: error.message });
+    //     }
+    // }
 }
