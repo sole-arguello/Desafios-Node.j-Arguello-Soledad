@@ -12,7 +12,7 @@ router.get("/",jwtAuth,authorization(["user", "admin"]),ViewsController.renderVi
 router.get("/login",authorization(["user", "admin"]),ViewsController.renderViewsLogin)
 
 //ruta para register
-router.get("/register", ViewsController.renderViewsRegister);
+router.get("/register", jwtAuth, ViewsController.renderViewsRegister);
 
 //ruta para el perfil de usuario
 router.get("/profile", jwtAuth, authorization(["user", "admin"]),ViewsController.renderViewsProfile);
