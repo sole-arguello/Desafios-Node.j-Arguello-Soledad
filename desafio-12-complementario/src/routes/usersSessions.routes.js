@@ -25,7 +25,7 @@ router.get('/fail-login', UsersSessionsController.renderLoginFail)
 /*--------------------------------------------------- */
 
 router.post('/forgot-password', UsersSessionsController.forgotPassword)
-router.post('reset-password', UsersSessionsController.resetPassword)
+router.post('/reset-password', UsersSessionsController.resetPassword)
 
 //para eliminar la seccion
 router.get('/logout', UsersSessionsController.renderLogout)
