@@ -8,9 +8,10 @@ export class ProductsController {
 
     static createProduct = async (req, res, next) => {
         try {
-            logger.info('paso por createProduct controller');
-            const { title, description, code, price, status, stock, category, thumbnails } = req.body;
-            if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
+            logger.info('paso por createProduct controller', req.user);
+            const productInfo = req.body;
+            productInfo.owner = req.user._id;
+            if (!productInfo) {
                 CustomError.createError({
                     name: "Error al crear el producto",
                     cause: generateProductErrorInfo(req.body),
@@ -18,8 +19,7 @@ export class ProductsController {
                     code: EError.INVALID_TYPES_ERROR
                 })
             }
-            const product = req.body;
-            const newProduct = await productsService.createProduct(product);
+            const newProduct = await productsService.createProduct(productInfo);
             res.json({ status: 'success', message: "Producto creado", data: newProduct });
         } catch (error) {
             logger.error('error createProduct controller', error.message);
