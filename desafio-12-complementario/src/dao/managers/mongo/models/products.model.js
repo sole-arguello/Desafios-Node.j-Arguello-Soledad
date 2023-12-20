@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    thumbnail: {
+    thumbnail: {//[]
         type: String
     },
 
@@ -33,7 +33,12 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ['conjunto', 'bombis', 'body']
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
     }
+
 })
 productSchema.plugin(mongoosePaginate);
 export const productsModel = mongoose.model(productsCollection, productSchema);
