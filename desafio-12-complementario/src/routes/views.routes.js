@@ -18,7 +18,7 @@ router.get("/register", ViewsController.renderViewsRegister);
 router.get("/profile", jwtAuth, authorization(["user", "admin", "premium"]),ViewsController.renderViewsProfile);
 
 //ruta para productos en tiempo real crear y Eliminar
-router.get("/realTimeProducts",jwtAuth,authorization(["admin"]),ViewsController.renderViewsRealTime);
+router.get("/realTimeProducts",jwtAuth,authorization(["admin", "premium"]),ViewsController.renderViewsRealTime);
 
 //message para linkear / caht es la renderizacion hacia el chat
 router.get("/message",jwtAuth,authorization(["user, admin", "premium"]),ViewsController.renderViewsMessage);
