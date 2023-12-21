@@ -240,3 +240,11 @@ error: userEmail is not defined
 [31merror[39m: Error en manager createProduct
 [31merror[39m: error createProduct controller
 [31merror[39m: No se pudo crea el producto
+[31merror[39m: error createProduct controller
+[31merror[39m: product is not defined
+[31merror[39m: error createProduct controller
+[31merror[39m: product is not defined
+[31merror[39m: error createProduct controller
+[31merror[39m: product is not defined
+[31merror[39m: error createProduct controller
+[31merror[39m: product is not defined

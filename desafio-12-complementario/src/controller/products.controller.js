@@ -20,7 +20,7 @@ export class ProductsController {
             }
             const productInfo = req.body;
             productInfo.owner = req.user._id;
-            const newProduct = await productsService.createProduct(product);
+            const newProduct = await productsService.createProduct(productInfo);
             res.json({ status: 'success', message: "Producto creado", data: newProduct });
         } catch (error) {
             logger.error('error createProduct controller', error.message);
