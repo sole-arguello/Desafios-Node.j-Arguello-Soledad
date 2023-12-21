@@ -74,7 +74,9 @@ export class ProductsController {
             console.log('debug userPremium', userPremium)
             const productOwner = product.owner.toString();
             console.log('debug productOwner', productOwner)
-            if((user === 'premium' && product.owner === userPremium) || user === 'admin') {
+            //no me funciono
+           // if((user === 'premium' && product.owner === userPremium) || user === 'admin') 
+            if((productOwner === userPremium) || user === 'admin'){
                 await productsService.deleteProduct(productId);
                 logger.info('Producto eliminado');
                 res.json({status: "success", message: "Producto eliminado" });
