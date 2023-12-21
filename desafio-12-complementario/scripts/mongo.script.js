@@ -13,5 +13,5 @@ const updateProducts = async () => {
         console.log(error.message)
     }
 }
-
+//node scripts/mongo.script.js
 updateProducts()

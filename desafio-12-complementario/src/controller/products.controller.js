@@ -65,12 +65,36 @@ export class ProductsController {
     static deleteProduct = async (req, res) => {
         try {
             const productId = req.params.id;
-            const deletedProduct = await productsService.deleteProduct(productId);
-            logger.info('Producto eliminado', deletedProduct);
-            res.json({ message: "Producto eliminado", data: deletedProduct });
+            console.log('debug productId', productId)
+            const product = await productsService.getProductById(productId);
+            console.log('debug product', product)
+            const user = req.user.role;
+            console.log('debug user', user)
+            const userPremium = req.user._id.toString() ;
+            console.log('debug userPremium', userPremium)
+            const productOwner = product.owner.toString();
+            console.log('debug productOwner', productOwner)
+            if((user === 'premium' && product.owner === userPremium) || user === 'admin') {
+                await productsService.deleteProduct(productId);
+                logger.info('Producto eliminado');
+                res.json({status: "success", message: "Producto eliminado" });
+            }else{
+                logger.error('No tienes permisos para eliminar este producto');
+                res.json({status: "error", message: "No tienes permisos para eliminar este producto" });
+            }
+            // const deletedProduct = await productsService.deleteProduct(productId);
+            // logger.info('Producto eliminado', deletedProduct);
+            // res.json({ message: "Producto eliminado", data: deletedProduct });
         } catch (error) {
             logger.error('error deleteProduct controller', error.message);
             res.json( { status: "error", message: error.message });
         }
     }
 }
+
+                // CustomError.createError({
+                //     name: "Error al eliminar el producto",
+                //     cause: generateProductErrorInfo(req.body),
+                //     message: "No eres administrador",
+                //     code: EError.INVALID_TYPES_ERROR
+                // })

@@ -17,6 +17,6 @@ router.post('/', jwtAuth, authorization(['admin', 'premium']), ProductsControlle
 
 router.put('/:id', jwtAuth,  authorization(['admin']), ProductsController.updateProduct)
 
-router.delete('/:id', jwtAuth, authorization(['admin']), ProductsController.deleteProduct)
+router.delete('/:id', jwtAuth, authorization(['admin', 'premium']), ProductsController.deleteProduct)
 
 export { router as productsRouter }
