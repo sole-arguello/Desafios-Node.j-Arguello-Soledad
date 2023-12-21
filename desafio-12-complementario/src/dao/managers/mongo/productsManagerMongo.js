@@ -15,7 +15,7 @@ export class ProductsManagerMongo{
            
             return result
         } catch (error) {
-            logger.error('error en manager getProductsPaginate',error.message);
+            logger.error('error en manager getProductsPaginate: ', { message: error.message});
             throw new Error('No se pudo obtener el listado de  producto',error.message);
         }
     }
@@ -29,20 +29,24 @@ export class ProductsManagerMongo{
             return resultado
         } catch (error) {
             //mensaje interno
-            logger.error('Error en manager createProduct',error.message);
+            logger.error('Error en manager createProduct: ',{ message: error.message});
             //nmensaje al cliente
-            throw new Error('No se pudo crea el producto',error.message);
+            throw new Error('No se pudo crea el producto', error.message);
         }
     }
     async getProducts(){
         try {
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.find().lean();//soluciona el bloqueo de handelbarspara mostrar en home
+            if(!resultado){
+                logger.error('No hay productos cargados');
+                throw new Error('No hay productos cargados');
+            }
             logger.info('paso por manager getProducts');
             return resultado
         } catch (error) {
             //mensaje interno
-            logger.error('error en manager getProducts',error.message);
+            logger.error('error en manager getProducts: ', { message: error.message});
             //nmensaje al cliente
             throw new Error('No se pudo obtener el listado de  producto',error.message);
         }
@@ -52,11 +56,15 @@ export class ProductsManagerMongo{
            
             //uso el modelo definido y el metodo de mongo
             const resultado = await this.model.findById(prodcutId);//tambien se puede usar findOne({_id: id})
-            logger.error('paso por manager getProductById');
+            if(!resultado){
+                logger.error('No se pudo encontrar el producto');
+                throw new Error('No se pudo encontrar el producto');
+            }
+            logger.info('paso por manager getProductById');
             return resultado
         } catch (error) {
             //mensaje interno
-            logger.info('error en manager getProductById',error.message);
+            logger.error('error en manager getProductById: ', { message: error.message});
             //nmensaje al cliente
             throw new Error('No se pudo obtener el producto',error.message);
         }
@@ -74,7 +82,7 @@ export class ProductsManagerMongo{
             return resultado
         } catch (error) {
             //mensaje interno
-            logger.error('Error en manager updateProduct',error.message);
+            logger.error('Error en manager updateProduct: ',{ message: error.message});
             //nmensaje al cliente
             throw new Error('No se pudo actualizar el producto',error.message);
         }
@@ -91,7 +99,7 @@ export class ProductsManagerMongo{
             return resultado
         } catch (error) {
             //mensaje interno
-            logger.error('Error en manager deleteProduct',error.message);
+            logger.error('Error en manager deleteProduct: ', { message: error.message});
             //nmensaje al cliente
             throw new Error('No se pudo encontrar el producto, para actualizarlo',error.message);
         }
