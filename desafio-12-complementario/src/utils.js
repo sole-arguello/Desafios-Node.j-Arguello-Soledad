@@ -10,6 +10,7 @@ export const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const generateToken = (user) => {
     const token = jwt.sign(
         {
+        _id: user._id,
         first_name: user.first_name,
         last_name: user.last_name,
         age: user.age,
