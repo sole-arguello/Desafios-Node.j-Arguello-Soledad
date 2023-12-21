@@ -299,3 +299,9 @@ error: userEmail is not defined
 [31merror[39m: No se pudo encontrar el producto
 [31merror[39m: error en manager getProductById
 [31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')
+[31merror[39m: Cannot read properties of undefined (reading 'role')

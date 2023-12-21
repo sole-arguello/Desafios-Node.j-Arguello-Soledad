@@ -33,8 +33,8 @@ export class UsersManagerMongo {
     }
     async getUserById(id){
         try {
-            const userExist = await this.model.findById(id).lean();
-            logger.info('paso por manager getUserById', userExist);
+            const userExist = await this.model.findById({_id: id}).lean();
+            logger.info('paso por manager getUserById');
             if(!userExist){
                 logger.error('error en manager getUserById');
                 throw new Error('El Usuario no se encuentra registrado');

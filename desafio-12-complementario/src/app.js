@@ -20,6 +20,7 @@ import { viewsRouter } from "./routes/views.routes.js";
 import { productsRouter } from "./routes/products.routes.js";
 import { cartsRouter } from "./routes/carts.routes.js";
 import { usersSessionsRouter } from "./routes/usersSessions.routes.js";
+import { usersRouter } from "./routes/users.routes.js";
 
 const port = config.server.port; //configuro puerto
 const app = express();
@@ -49,6 +50,7 @@ app.use(viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/sessions", usersSessionsRouter);
+app.use("/api/users", usersRouter)
 
 //escucho un evento connection, el callback del socket que se acaba de conectar
 socketServer.on("connection", async (socket) => {
