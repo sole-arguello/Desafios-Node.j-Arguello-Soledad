@@ -8,8 +8,7 @@ export class ProductsController {
 
     static createProduct = async (req, res, next) => {
         try {
-            console.log('user', req.user); 
-            logger.info('paso por createProduct controller');
+            logger.info('paso por createProduct controller - Rol: ', req.user);
             const { title, description, code, price, status, stock, category, thumbnails } = req.body;
             if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
                 CustomError.createError({
@@ -24,7 +23,7 @@ export class ProductsController {
             const newProduct = await productsService.createProduct(productInfo);
             res.json({ status: 'success', message: "Producto creado", data: newProduct });
         } catch (error) {
-            logger.error('error createProduct controller', error.message);
+            logger.error('Se produjo un error en createProduct controller: ', { message: error.message});
             next(error);
         }
     }
@@ -34,7 +33,7 @@ export class ProductsController {
             const products = await productsService.getProducts()
             res.json({ message: "Listado de productos", data: products });
         } catch (error) {
-            logger.error('error getProducts controller', error.message);
+            logger.error('Se produjo un error en getProducts controller: ', { message: error.message});
             res.json( { status: "error", message: error.message });
         }
     }
@@ -42,10 +41,11 @@ export class ProductsController {
         try {
             const productId = req.params.id;
             const products = await productsService.getProductById(productId);
-            logger.info('Lista de productos', products);
-            res.json({ message: "Listado de productos", data: products });
+            logger.info('Producto encontrado ', products);
+            res.json({status: 'success', message: "Producto encontrado" });
+
         } catch (error) {
-            logger.error('error getProductById controller', error.message);
+            logger.error('Se produjo un error en getProductById controller: ', { message: error.message});
             res.json( { status: "error", message: error.message });
         }
     }
@@ -58,7 +58,7 @@ export class ProductsController {
             logger.info('Producto actualizado', updatedProduct);
             res.json({ message: "Producto actualizado", data: updatedProduct });
         } catch (error) {
-            logger.error('error updateProduct controller', error.message);
+            logger.error('error updateProduct controller: ', { message: error.message});
             res.json( { status: "error", message: error.message });
         }
     }
@@ -88,7 +88,7 @@ export class ProductsController {
             // logger.info('Producto eliminado', deletedProduct);
             // res.json({ message: "Producto eliminado", data: deletedProduct });
         } catch (error) {
-            logger.error('error deleteProduct controller', error.message);
+            logger.error('error deleteProduct controller: ', { message: error.message});
             res.json( { status: "error", message: error.message });
         }
     }
