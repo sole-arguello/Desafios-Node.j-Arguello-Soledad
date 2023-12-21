@@ -6,28 +6,28 @@ import { logger } from "../helpers/logger.js";
 const router = Router();
 
 //ruta para la vista home de todos los productos
-router.get("/",jwtAuth,authorization(["user", "admin"]),ViewsController.renderViewsHome);
+router.get("/",jwtAuth,authorization(["user", "admin", 'premium']),ViewsController.renderViewsHome);
 
 //ruta para login
-router.get("/login",authorization(["user", "admin"]),ViewsController.renderViewsLogin)
+router.get("/login",authorization(["user", "admin", "premium"]),ViewsController.renderViewsLogin)
 
 //ruta para register
-router.get("/register", jwtAuth, ViewsController.renderViewsRegister);
+router.get("/register", ViewsController.renderViewsRegister);
 
 //ruta para el perfil de usuario
-router.get("/profile", jwtAuth, authorization(["user", "admin"]),ViewsController.renderViewsProfile);
+router.get("/profile", jwtAuth, authorization(["user", "admin", "premium"]),ViewsController.renderViewsProfile);
 
 //ruta para productos en tiempo real crear y Eliminar
 router.get("/realTimeProducts",jwtAuth,authorization(["admin"]),ViewsController.renderViewsRealTime);
 
 //message para linkear / caht es la renderizacion hacia el chat
-router.get("/message",jwtAuth,authorization(["user, admin"]),ViewsController.renderViewsMessage);
+router.get("/message",jwtAuth,authorization(["user, admin", "premium"]),ViewsController.renderViewsMessage);
 
 //pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
-router.get("/products",jwtAuth,authorization(["user", "admin"]),ViewsController.renderViewsProducts);
+router.get("/products",jwtAuth,authorization(["user", "admin", "premium"]),ViewsController.renderViewsProducts);
 
 //ruta hardcodeada localhost:8080/cart/6525e395443bd76c765dd0ee
-router.get("/cart/:cid",authorization(["user", "admin"]),ViewsController.renderViewsCart);
+router.get("/cart/:cid",authorization(["user", "admin", "premium"]),ViewsController.renderViewsCart);
 
 //restablecer password
 router.get('/forgot-password', (req, res) => {

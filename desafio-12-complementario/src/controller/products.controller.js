@@ -8,6 +8,7 @@ export class ProductsController {
 
     static createProduct = async (req, res, next) => {
         try {
+            console.log('user', req.user); 
             logger.info('paso por createProduct controller');
             const { title, description, code, price, status, stock, category, thumbnails } = req.body;
             if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
@@ -19,7 +20,7 @@ export class ProductsController {
                 })
             }
             const productInfo = req.body;
-            productInfo.owner = req.user._id;
+            productInfo.owner = req.user.id;
             const newProduct = await productsService.createProduct(productInfo);
             res.json({ status: 'success', message: "Producto creado", data: newProduct });
         } catch (error) {
