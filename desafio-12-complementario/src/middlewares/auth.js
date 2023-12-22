@@ -14,26 +14,7 @@ export const  authorization = (roles) => {
 }
 
 //--------------- passport
-// export const customRegister = (res, req, next) => {
-//     try {
-//         const {first_name, last_name, email, password} = req.body
-//         if(!first_name || !last_name || !email || !password){
-//             CustomError.createError({
-//                 name: "Error al crear el usuario",
-//                 cause: generateUserErrorInfo(req.body),
-//                 message: "Campos incompletos",
-//                 code: EError.INVALID_LOGIN
-//             })
-//         }else{
-//             logger.error("error al registrar el usuario")
-//             next()
-//         }
-//     } catch (error) {
-//         logger.error("error al registrar el usuario", error)
-//         next(error)
-//     }
 
-// }
 export const registerLocalStrategy = passport.authenticate(
     'registerLocalStrategy', 
     {

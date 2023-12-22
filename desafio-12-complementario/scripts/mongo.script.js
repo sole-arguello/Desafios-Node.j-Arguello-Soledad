@@ -8,7 +8,7 @@ const updateProducts = async () => {
     try {
         const adminId = '6533fabfc5bc693b8dd0cc30'
         const result = await productsModel.updateMany({}, { $set: {owner: adminId} }) 
-        console.log( result)
+        console.log( result )
     } catch (error) {
         console.log(error.message)
     }

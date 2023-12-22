@@ -122,11 +122,7 @@ export class UsersSessionsController {
            //actualizo
            await usersSessionsService.updateUser(user._id, userData);
            logger.info('Contraseña actualizada con exito, renderizo al login');
-           return res.rendirect('/', {message: 'Contraseña actualizada con exito'})
-
-
-           //deberia diraccionar al login que esta en home y sin el return 
-           //como en ele renderLogin y tomar el mensaje
+           return res.render('login', {message: 'Contraseña actualizada con exito', style: "login.css"})
 
 
            } catch (error) {
