@@ -22,7 +22,7 @@ const swaggerOptions = {
         // }
     },
     apis: [
-        `${path.join(__dirname, '../docs/**/*.yaml')}`,//archivo de documentacion
+        `${path.join(__dirname, '/docs/**/*.yaml')}`,//archivo de documentacion
     ]
 
 }
