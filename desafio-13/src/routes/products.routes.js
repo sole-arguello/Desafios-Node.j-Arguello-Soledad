@@ -1,4 +1,3 @@
-import { logger } from '../helpers/logger.js';
 import {Router } from 'express';
 import { ProductsController } from '../controller/products.controller.js'; 
 import { authorization, jwtAuth } from '../middlewares/auth.js';
