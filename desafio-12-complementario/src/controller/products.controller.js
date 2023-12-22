@@ -65,15 +65,15 @@ export class ProductsController {
     static deleteProduct = async (req, res) => {
         try {
             const productId = req.params.id;
-            console.log('debug productId', productId)
+            //console.log('debug productId', productId)
             const product = await productsService.getProductById(productId);
-            console.log('debug product', product)
+           // console.log('debug product', product)
             const user = req.user.role;
-            console.log('debug user', user)
+            //console.log('debug user', user)
             const userPremium = req.user._id.toString() ;
-            console.log('debug userPremium', userPremium)
+            //console.log('debug userPremium', userPremium)
             const productOwner = product.owner.toString();
-            console.log('debug productOwner', productOwner)
+            //console.log('debug productOwner', productOwner)
             //no me funciono
            // if((user === 'premium' && product.owner === userPremium) || user === 'admin') 
             if((productOwner === userPremium) || user === 'admin'){

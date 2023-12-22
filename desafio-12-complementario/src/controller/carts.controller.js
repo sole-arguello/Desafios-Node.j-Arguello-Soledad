@@ -58,7 +58,16 @@ export class CartsController {
         try {
             const { cid: idCarts, pid: idProduct } = req.params;
             const cart = await cartsServiceartsService.getCartsId(idCarts);
-            const result = await cartsService.addProduct(cart, idProduct);
+            const user = req.user.role;
+            const userPremium = req.user._id.toString();
+            const productOwner = product.owner.toString();
+            if((productOwner === userPremium) && (user === "admin")) {
+                res.json({status: "error", message: "No puedes agregar un producto a un carrito" })
+            }else{
+                const product = await cartsService.addProduct(cart, idProduct);
+                res.json({ message: "success", data: product });
+            }
+
             res.json({ message: "Producto agregado al carrito", data: result });
         } catch (error) {
             logger.info( error.message);
@@ -181,14 +190,8 @@ export class CartsController {
                         await cartsService.deleteProductInCart(idCarts, productId)
                       
                     }
-                    // const nameUser = req.user.first_name
-                    // await transporter.sendMail({
-                    //     from: config.gmail.account,
-                    //     to: 'soledad.ar1@gmail.com',
-                    //     subject: 'Gracias por su compra',
-                    //     html: templateEmail(nameUser)
-                    // })
-                    logger('compra realizada(sin rechazos), actualizo el stock y borro el producto del carrito');
+
+                    logger.info('compra realizada(sin rechazos), actualizo el stock y borro el producto del carrito');
                     res.json({ status: "success", message: "compra realizda con exito", data: ticketProducts, tiket });
                 }
             }else{
