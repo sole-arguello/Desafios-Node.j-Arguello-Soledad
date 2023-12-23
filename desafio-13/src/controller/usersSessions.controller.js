@@ -1,7 +1,7 @@
 import { generateToken, isValidPassword } from "../utils.js";
 import { logger } from "../helpers/logger.js";
 import { generateEmailToken, sendChangePasswordEmail, verifyEmailToken } from "../helpers/email.js";
-import { usersSessionsService } from "../repositories/index.js";
+import { usersSessionsService, productsService } from "../repositories/index.js";
 import { createHash } from "../utils.js";
 
 
@@ -36,8 +36,33 @@ export class UsersSessionsController {
             const token = generateToken(user);
             logger.info('Login correcto - ', {message: user.role});
             res.cookie('cookieLogin', token, {maxAge: 43200000, httpOnly: true});
-            return res.render('login', {style: "login.css"});//redirecciono a home y ya tiene acceso a navegar en la page
-            
+            //res.redirect('/')
+            //res.render('home', {style: "home.css"});//redirecciono a home y ya tiene acceso a navegar en la page
+            const products = await productsService.getProducts();
+            if(req.user.role === 'admin'){
+                res.render('home', 
+                { 
+                    style: "home.css",
+                    userAdmin: true,
+                    products : products,
+                    userFirst_name: req.user.first_name,
+                    userLast_name: req.user.last_name,
+                    userRole: req.user.role
+                    
+                });
+                
+            }else{
+                logger.info('ususario logueado');
+                res.render('home', 
+                {
+                    style: "home.css",
+                    products : products,
+                    userFirst_name: req.user.first_name,
+                    userLast_name: req.user.last_name,
+                    userRole: req.user.role
+                    
+                });
+            }           
         } catch (error) {
             logger.error(error.message);
             return res.render('login', {

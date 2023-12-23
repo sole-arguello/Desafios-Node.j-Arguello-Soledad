@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
         unique: true
     },
     thumbnail: {
-        type: []
+        type: [],
     },
 
     stock: {
