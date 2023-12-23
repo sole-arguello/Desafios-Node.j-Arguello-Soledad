@@ -1,8 +1,6 @@
 import { cartsService, productsService, ticketService } from "../repositories/index.js";
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from "../helpers/logger.js";
-import { transporter } from "../config/gmailMailling.js";
-import { config } from "../config/config.js";
 
 export class CartsController {
     static getCarts = async (req, res) => {

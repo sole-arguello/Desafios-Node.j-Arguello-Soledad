@@ -42,7 +42,7 @@ export class ProductsController {
             const productId = req.params.id;
             const products = await productsService.getProductById(productId);
             logger.info('Producto encontrado ', products);
-            res.json({status: 'success', message: "Producto encontrado" });
+            res.json({status: 'success', message: "Producto encontrado", data: products });
 
         } catch (error) {
             logger.error('Se produjo un error en getProductById controller: ', { message: error.message});

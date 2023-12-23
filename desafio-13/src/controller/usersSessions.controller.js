@@ -26,7 +26,7 @@ export class UsersSessionsController {
         const token = generateToken(user);
         logger.info('Registro github correcto');
         res.cookie('authLogin', token, {maxAge: 43200000, httpOnly: true});
-        return res.redirect('/profile')
+        return res.render('/profile',  {style: "profile.css"});
         
     }
     static renderLogin = async (req, res) => {
@@ -36,7 +36,7 @@ export class UsersSessionsController {
             const token = generateToken(user);
             logger.info('Login correcto - ', {message: user.role});
             res.cookie('cookieLogin', token, {maxAge: 43200000, httpOnly: true});
-            res.redirect('/');//redirecciono a home y ya tiene acceso a navegar en la page
+            return res.render('login', {style: "login.css"});//redirecciono a home y ya tiene acceso a navegar en la page
             
         } catch (error) {
             logger.error(error.message);

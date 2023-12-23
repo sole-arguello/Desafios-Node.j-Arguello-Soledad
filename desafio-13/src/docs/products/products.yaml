@@ -18,6 +18,7 @@ paths:
           description: Internal server error 
   #------- Ruta para obtener un producto por id --------------
   /api/products/{id}:
+    #---metodo de petición
     get:
       tags:
         - Products
@@ -28,7 +29,7 @@ paths:
           description: ID unique of the product
           required: true
           schema:
-            type: string
+            $type: string
       responses:
         200:
           description: The product was obtained correctly
@@ -40,7 +41,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-              
+    #---metodo de petición
+    put:          
+      tags:
+        - Products
+      summary: Update a product
+      parameters:
+        - name: id
+          in: path
+          description: ID unique of the product updated
+          required: true
+          schema:
+            $type: string
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/updateProduct'
+      responses:
+        200:
+          description: The product was updated correctly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSuccess'
+
+        404:
+          description: The product was not found
+        500:
+          description: Internal server error
 
 #------ cuerpo del producto como ejemplo -------------
 components:
@@ -88,5 +118,46 @@ components:
         category: Bombis
         thumbnail: []
         owner: ObjectId("876a7b4b8a7b4b8a7b4b8a7b")
+    #datos que se retornan al cliente    
+    UpdateSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string 
+      example:
+        status: success
+        message: Product updated
+  #------- Request body para crear un nuevo producto ------------
+  requestBodies:
+    updateProduct:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        code:
+          type: string
+        stock:
+          type: number
+        category:
+          type: string
+        thumbnail:
+          type: array
+          items:
+            type: string
 
+      example:
+        title: Bombis Maria
+        description:  Prenda 100% algodon
+        price: 10000
+        code: ADC125
+        stock: 10
+        category: Bombis
+        thumbnail: []
 
+ 
