@@ -8,7 +8,7 @@ import { createHash } from "../utils.js";
 export class UsersSessionsController {
     static renderRegister = async (req, res) => {
         logger.info('Renderizo a login luego de registrar usuario')
-        res.render('login', {
+        return res.render('login', {
             style: "login.css",
             message: `Hola, ${req.user.first_name} te has registrado con exito`
         });
@@ -40,7 +40,7 @@ export class UsersSessionsController {
             
         } catch (error) {
             logger.error(error.message);
-            res.render('login', {
+            return res.render('login', {
                 style: "login.css",
                 error: 'Credenciales incorrectas'
             });
@@ -49,7 +49,7 @@ export class UsersSessionsController {
     }
     static renderLoginFail = async (req, res) => {
         logger.error('error al iniciar sesion');
-        res.render('login', {
+        return res.render('login', {
          style: "login.css",
          error: 'Para navegar debe iniciar sesion'
          }); 
@@ -60,7 +60,7 @@ export class UsersSessionsController {
             logger.info('sesion cerrada');
             res.clearCookie('cookieLogin');
             //una vez cerrada la sesion lo redirige a login
-            return res.redirect('/');
+            return res.render('home', {style: "home.css"});
            
         } catch (error) {
            // logger.error(error.message);
@@ -79,7 +79,7 @@ export class UsersSessionsController {
             const emailToken = generateEmailToken(email, 5 * 60)//5min
             await sendChangePasswordEmail(req, email, emailToken);
             logger.info('Envio email para restablecer contraseña');
-            res.send(`Revisa tu correo para restablecer tu contraseña 
+            return res.send(`Revisa tu correo para restablecer tu contraseña 
             <a href="/">Volver al login</a>`);
         } catch (error) {
             logger.error(error.message);
