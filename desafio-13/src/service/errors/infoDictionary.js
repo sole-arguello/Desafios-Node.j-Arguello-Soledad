@@ -22,7 +22,6 @@ export const generateProductErrorInfo = (product) =>{
     * Codigo: debe ser un string, se recibio ${product.code}
     * Stock: debe ser un number, se recibio ${product.stock}
     * Categoría: debe ser un string, se recibio ${product.category}
-    * Estado: debe ser un boolean, se recibio ${product.status}
     
     Datos opcionales:
     * Imagen: debe ser un string, se recibio ${product.thumbnail}

@@ -1,6 +1,7 @@
 paths:
   #------- Ruta para obtener todos los productos -----------
   /api/products:
+    #-------Metodo
     get:
       tags:
         - Products
@@ -16,6 +17,34 @@ paths:
                   $ref: '#/components/schemas/Product'
         500:
           description: Internal server error 
+    
+    #-------Metodo
+    post:
+      tags:
+        - Products
+      summary: Create a new product
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/updateProduct'
+      responses:
+        200:
+          description: The product was created correctly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSuccess'
+        # 400:
+        #   description: Bad request
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/Error'
+        500:
+          description: Internal server error
+
   #------- Ruta para obtener un producto por id --------------
   /api/products/{id}:
     #---metodo de petición
@@ -129,6 +158,17 @@ components:
       example:
         status: success
         message: Product updated
+
+    CreateSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        status: success
+        message: Product created
   #------- Request body para crear un nuevo producto ------------
   requestBodies:
     updateProduct:
