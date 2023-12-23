@@ -116,7 +116,7 @@ components:
         code: ADC125
         stock: 10
         category: Bombis
-        thumbnail: []
+        thumbnail: "img 3"
         owner: ObjectId("876a7b4b8a7b4b8a7b4b8a7b")
     #datos que se retornan al cliente    
     UpdateSuccess:
@@ -158,6 +158,6 @@ components:
         code: ADC125
         stock: 10
         category: Bombis
-        thumbnail: []
+        thumbnail: "img 3"
 
  

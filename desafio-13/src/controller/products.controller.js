@@ -9,8 +9,8 @@ export class ProductsController {
     static createProduct = async (req, res, next) => {
         try {
             logger.info('paso por createProduct controller - Rol: ', req.user);
-            const { title, description, code, price, status, stock, category, thumbnails } = req.body;
-            if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
+            const { title, description, code, price, stock, category, thumbnails } = req.body;
+            if (!title || !description || !code || !price || !stock || !category || !thumbnails) {
                 CustomError.createError({
                     name: "Error al crear el producto",
                     cause: generateProductErrorInfo(req.body),
