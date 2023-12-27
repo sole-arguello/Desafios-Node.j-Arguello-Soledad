@@ -36,12 +36,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateSuccess'
-        # 400:
-        #   description: Bad request
-        #   content:
-        #     application/json:
-        #       schema:
-        #         $ref: '#/components/schemas/Error'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAuthorization'
         500:
           description: Internal server error
 
@@ -100,6 +100,30 @@ paths:
           description: The product was not found
         500:
           description: Internal server error
+
+    #---metodo de petición
+    delete:
+      tags:
+        - Products
+      summary: Delete a product
+      parameters:
+        - name: id
+          in: path
+          description: ID unique of the product deleted
+          required: true
+          schema:
+            $type: string
+      responses:
+        200:
+          description: The product was deleted correctly
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/DeleteSuccess'
+        404:
+          description: The product was not found
+        500:
+          description: Internal server error  
 
 #------ cuerpo del producto como ejemplo -------------
 components:
@@ -166,9 +190,23 @@ components:
           type: string
         message:
           type: string
+        result:
+          $ref: '#/components/schemas/Product'
       example:
         status: success
         message: Product created
+
+
+    DeleteSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+        message:  
+          type: string
+      example:
+        status: success
+        message: Product deleted
   #------- Request body para crear un nuevo producto ------------
   requestBodies:
     updateProduct:
