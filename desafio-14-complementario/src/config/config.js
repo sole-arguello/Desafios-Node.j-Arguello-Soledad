@@ -7,6 +7,7 @@ const program = new Command();
 program
     .option('--port <port>', 'Puerto de ejecucion', '3000')
     .option('--mode <mode>', 'Entorno de desarrollo', 'development')
+    .option('--mode <mode>', 'Entorno de prueba', 'test')
     .parse();
 
 const persistenceMode = program.opts().mode;
@@ -19,7 +20,8 @@ export const config = {
     },
 
     mongo: {
-        url: process.env.MONGO_URL
+        url: process.env.MONGO_URL,
+        url_test: process.env.MONGO_URL_TEST
     },
 
     tokenJWT: {

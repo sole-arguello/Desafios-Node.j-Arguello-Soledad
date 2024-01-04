@@ -119,3 +119,5 @@ socketServer.on("connection", async (socket) => {
 });
 
 app.use(errorHandler);
+
+export { app }

@@ -1,12 +1,18 @@
+import { app } from '../src/app.js'
 import { expect } from 'chai'
-import supertest from 'supertest'  
+import supertest from 'supertest' 
+import { usersModel } from '../src/dao/managers/mongo/models/users.models.js'
 
-const request = supertest('http://localhost:8080')
+const request = supertest(app)
 
 describe('Testing de ecommerce', () => {
 
+    before(async function(){
+        await usersModel.deleteMany({})
+    })
+
     describe('Test de usuarios', () => {
-        it('El endpoint de Post /api/session/register debe registrar un usuario', async function () {
+        it('El endpoint de Post /api/sessions/register debe registrar un usuario', async function () {
             const newUser = {
                 first_name: 'test',
                 last_name: 'test',
@@ -14,8 +20,8 @@ describe('Testing de ecommerce', () => {
                 age: 10,
                 password: 'test'
             }
-            const  registerResponse = await request.post('/api/session/register').send(newUser);
-            expect(registerResponse.status).to.be.eql(201);
+            const  registerResponse = await request.post('/api/sessions/register').send(newUser);
+            expect(registerResponse.status).to.be.eql(200);
         })
     })
 })
