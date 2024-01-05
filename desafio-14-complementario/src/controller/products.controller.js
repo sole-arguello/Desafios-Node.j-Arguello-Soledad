@@ -15,7 +15,8 @@ export class ProductsController {
                     name: "Error al crear el producto",
                     cause: generateProductErrorInfo(req.body),
                     message: "Campos incompletos",
-                    code: EError.INVALID_TYPES_ERROR
+                    code: EError.INVALID_TYPES_ERROR,
+                    algo: 'Soy un algo'
                 })
             }
             const productInfo = req.body;
@@ -25,6 +26,7 @@ export class ProductsController {
         } catch (error) {
             logger.error('Se produjo un error en createProduct controller: ', { message: error.message});
             next(error);
+            // throw error;
         }
     }
     static getProducts = async (req, res) => {

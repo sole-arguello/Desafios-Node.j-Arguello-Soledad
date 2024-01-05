@@ -1,5 +1,5 @@
 import { generateProducts } from "../helpers/mock.js";
-import { cartsService, productsService } from "../repositories/index.js";
+import { cartsService, productsService, usersSessionsService } from "../repositories/index.js";
 import { logger } from "../helpers/logger.js";
 
 
@@ -81,6 +81,13 @@ export class ViewsController {
     }
     static renderViewsProfile = async (req, res) => { //agrego JWT y saco session
         try {
+            if(req.query.test === 'true'){
+                
+                const user = await usersSessionsService.getUserById(req.user._id);
+                delete user.password
+                //console.log(user)
+                return res.json({body: user})
+            }
             if(!req.user){
                 logger.error('error al iniciar sesion');
                 res.render('login', 
@@ -103,6 +110,7 @@ export class ViewsController {
                     })
                 }else if(req.user.age === 0 && req.user.role === 'user' ) {
                     logger.info('ususario User GitHub, renderizo profile');
+                   
                     //usuario github                
                     res.render('profile', 
                     {

@@ -41,7 +41,7 @@ export const initializePassport = () => {
                     age,
                     email: username,
                     password: createHash(password),
-                    role: 'user'
+                    role: 'admin'
                 }
                 //console.log(newUser)
                 //creo un nuevo usuario

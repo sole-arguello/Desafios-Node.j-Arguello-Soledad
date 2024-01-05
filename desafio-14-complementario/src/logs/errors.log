@@ -347,3 +347,141 @@ error: userEmail is not defined
 [31merror[39m: Campos incompletos
 [31merror[39m: Se produjo un error en createProduct controller:  Campos incompletos
 [31merror[39m: Campos incompletos
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot read properties of undefined (reading 'send')
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error al iniciar sesion
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getUserById
+[31merror[39m: El Usuario no se encuentra registrado
+[31merror[39m: error en manager getUserById
+[31merror[39m: El Usuario no se encuentra registrado
+[31merror[39m: error en manager getUserById
+[31merror[39m: El Usuario no se encuentra registrado
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Cannot read properties of undefined (reading 'error')
+[31merror[39m: Cannot set headers after they are sent to the client
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: error en manager getProductById:  Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+[31merror[39m: Se produjo un error en getProductById controller:  No se pudo obtener el producto
+[31merror[39m: Se produjo un error en createProduct controller:  Campos incompletos
+[31merror[39m: Campos incompletos
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `Categoria de prueba` is not a valid enum value for path `category`.
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
+[31merror[39m: Error en manager createProduct:  products validation failed: category: `conjuntos` is not a valid enum value for path `category`.
+[31merror[39m: Se produjo un error en createProduct controller:  No se pudo crea el producto
+[31merror[39m: No se pudo crea el producto
