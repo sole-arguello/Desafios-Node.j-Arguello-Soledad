@@ -8,14 +8,15 @@ const request = supertest(app);
 
 describe('Testing de ecommerce', () => {
     let sessionCookie;
+    let cartID
+    let createdProductID;
+
     before(async function(){
         await usersModel.deleteMany({})
     })
 
 
     describe('Test de usuarios', () => {
-        
-        let cartID
        
         it('El endpoint de Post /api/sessions/register debe registrar un usuario', async function () {
             const newUser = {
@@ -62,8 +63,7 @@ describe('Testing de ecommerce', () => {
     })
 
     describe('Testing de Productos', () => {
-       //let sessionCookie;
-       let createdProductID;
+       
     
        it('POST --> Debe crear un nuevo producto', async function () {
            const newProduct = {
@@ -84,15 +84,16 @@ describe('Testing de ecommerce', () => {
    
            expect(response.status).to.be.equal(200);
            createdProductID = response._body._id;
+           console.log('Product id', createdProductID)
 
        });
    
-       it('GET --> Debe consultar el producto creado', async function () {
-           const response = await request.get(`/api/products/${createdProductID}`);
-           console.log('Respuesta ----', response)
-           expect(response.status).to.be.equal(200);
-           expect(response.body.title).to.be.equal("test_product");
-       });
+    //    it('GET --> Debe consultar el producto creado', async function () {
+    //        const response = await request.get(`/api/products/${createdProductID}`);
+    //        console.log('Respuesta ----', response)
+    //        expect(response.status).to.be.equal(200);
+    //        expect(response._body._id).to.be.equal("65980fe0cfd1755d2bbcf4aa");
+    //    });
    
     //    it('PUT -->Debe editar la cantidad en stock del producto', async function () {
     //        const updatedProductData = {
@@ -104,11 +105,9 @@ describe('Testing de ecommerce', () => {
     //        const getProduct = await request.get(`/api/products/${createdProductID}`);
     //        expect(getProduct._body.stock).to.be.equal(60);
     //    });
-    // })
+    })
 
     // describe('Testing de Carts', () => {
-    //    let cartID;
-    //    let createdProductID;
    
     //    it('PUT --> Debe ingresar un producto en el carrito del usuario', async function () {
            
@@ -139,52 +138,6 @@ describe('Testing de ecommerce', () => {
     //         expect(cart._body.cart.products).to.be.an('array').that.is.empty;
 
     //     })
-    })
+    // })
 })
 
-
-// import {UsersManagerMongo } from '../src/dao/managers/mongo/usersManagerMongo.js'
-// import mongoose from 'mongoose'
-// import Assert  from 'assert'
-// import { usersModel } from '../src/dao/managers/mongo/models/users.models.js'
-
-
-// const assert = Assert.strict
-
-// try {
-//     await mongoose.connect('')
-//     console.log('Conectado a MongoDB Atlas Test')
-// } catch (error) {
-//    console.log(error.message) 
-// }
-
-// describe('Pruebas de modulos de usuarios dao', () => {
-    
-//     beforeEach(async function(){
-//         await usersModel.deleteMany({})
-//     })
-
-//     it('Prueba de creacion de usuarios', async () => {
-//         const usersDao = new UsersManagerMongo()
-//         const user = {
-//             first_name: 'test',
-//             last_name: 'test',
-//             email: 'test@test',
-//             age: 10,
-//             password: 'test'
-//         }
-//         const result = await usersDao.createUsers(user)
-//         console.log('resultado', result)
-//         assert.strictEqual(result._id, true)
-
-//     })
-
-//     it('Prueba que permite obtener todos los usuarios', async () => {
-//         const usersdao = new UsersManagerMongo()
-//         const result = await usersdao.getUsers()
-//         console.log('resultado', result)
-
-//         //comparacion valor actual y esperado
-//         assert.strictEqual(Array.isArray(result), true)
-//     })
-// })

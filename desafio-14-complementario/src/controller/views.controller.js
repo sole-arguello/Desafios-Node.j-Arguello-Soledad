@@ -6,6 +6,7 @@ import { logger } from "../helpers/logger.js";
 export class ViewsController {
     static renderViewsHome = async (req, res) => {
         try {
+            
             //si no esta logeado lo redirige a login
             if(!req.user){
                 logger.error('error al iniciar sesion');
@@ -81,6 +82,7 @@ export class ViewsController {
     }
     static renderViewsProfile = async (req, res) => { //agrego JWT y saco session
         try {
+            //para poder hacer el testing 
             if(req.query.test === 'true'){
                 
                 const user = await usersSessionsService.getUserById(req.user._id);
