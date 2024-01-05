@@ -72,7 +72,7 @@ describe('Testing de ecommerce', () => {
                price: 100,
                code: "TEST_CODE_PRODUCT_",
                stock: 50,
-               category: "conjuntos",
+               category: "conjunto",
                status: true,
                thumbnail: [
                    "img.png"
@@ -80,19 +80,19 @@ describe('Testing de ecommerce', () => {
            }
    
            const response = await request.post('/api/products/').set('Cookie', sessionCookie).send(newProduct);
-           console.log('Respuesta ----', response)
+           //console.log('Respuesta ----', response)
    
            expect(response.status).to.be.equal(200);
            createdProductID = response._body._id;
 
        });
    
-    //    it('GET --> Debe consultar el producto creado', async function () {
-    //        const response = await request.get(`/api/products/${createdProductID}`);
-   
-    //        expect(response.status).to.be.equal(200);
-    //        expect(response.body.title).to.be.equal("test_product");
-    //    });
+       it('GET --> Debe consultar el producto creado', async function () {
+           const response = await request.get(`/api/products/${createdProductID}`);
+           console.log('Respuesta ----', response)
+           expect(response.status).to.be.equal(200);
+           expect(response.body.title).to.be.equal("test_product");
+       });
    
     //    it('PUT -->Debe editar la cantidad en stock del producto', async function () {
     //        const updatedProductData = {

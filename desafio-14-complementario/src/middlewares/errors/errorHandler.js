@@ -25,7 +25,7 @@ export const errorHandler = (error, req, res, next) => {
             break;
         default:
             logger.error(error.message)
-            res.json({ status: 'error', error:'Unhandled Error', keys: Object.keys(error?.cause || {}) }) // TODO: Revisar obj error
+            res.json({ status: 'error', error:'Unhandled Error' })
             break
     }
 }

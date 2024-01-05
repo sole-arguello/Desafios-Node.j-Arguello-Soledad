@@ -15,8 +15,7 @@ export class ProductsController {
                     name: "Error al crear el producto",
                     cause: generateProductErrorInfo(req.body),
                     message: "Campos incompletos",
-                    code: EError.INVALID_TYPES_ERROR,
-                    algo: 'Soy un algo'
+                    code: EError.INVALID_TYPES_ERROR
                 })
             }
             const productInfo = req.body;
