@@ -1,0 +1,13 @@
+
+GET http://localhost:8080
+
+
+### POST
+
+POST http://localhost:8080/api/sessions/login
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "123456"
+}
