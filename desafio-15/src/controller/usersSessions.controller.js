@@ -86,13 +86,6 @@ export class UsersSessionsController {
             const user = {...req.user}
             user.last_connection = new Date();
             await usersSessionsService.updateUser(user._id, user);
-            
-            //el profe
-            // req.session.destroy((error)=>{
-            //    res.send('Sesion cerrada');
-            // })
-
-            //mi forma 
             logger.info('sesion cerrada');
             res.clearCookie('cookieLogin');
             //una vez cerrada la sesion lo redirige a login 

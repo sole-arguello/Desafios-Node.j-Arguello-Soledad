@@ -74,7 +74,7 @@ export const initializePassport = () => {
                     return done(null, false);//{ message: 'Credenciales invalidas' }
                 }
                 //si todo esta ok(null), creo la session del usuario(user)
-                user.last_connecction = new Date();
+                user.last_connection = new Date();
                 await usersSessionsService.updateUser(user._id, user);
                 return done(null, user);//pase por la serealizacion
             } catch (error) {
