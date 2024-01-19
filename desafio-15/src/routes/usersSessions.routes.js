@@ -2,7 +2,7 @@ import { Router } from "express";
 import { config } from "../config/config.js";
 import { 
     registerLocalStrategy, registerGithubStrategy, 
-    registerGithubStrategyFail, loginLocalStrategy } from "../middlewares/auth.js";
+    registerGithubStrategyFail, loginLocalStrategy, jwtAuth } from "../middlewares/auth.js";
 import { UsersSessionsController } from "../controller/usersSessions.controller.js";
 
 const router = Router();
@@ -28,7 +28,7 @@ router.post('/forgot-password', UsersSessionsController.forgotPassword)
 router.post('/reset-password', UsersSessionsController.resetPassword)
 
 //para eliminar la seccion
-router.get('/logout', UsersSessionsController.renderLogout)
+router.get('/logout', jwtAuth, UsersSessionsController.renderLogout)
 
 
 export { router as usersSessionsRouter}

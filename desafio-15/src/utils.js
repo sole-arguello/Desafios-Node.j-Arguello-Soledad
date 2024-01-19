@@ -15,7 +15,9 @@ export const generateToken = (user) => {
         last_name: user.last_name,
         age: user.age,
         email: user.email,
-        role: user.role
+        role: user.role,
+        documents: user.documents,
+        last_connection: user.last_connection
         },
         config.tokenJWT.tokenJWT_Key,
         { expiresIn: '12h' }
