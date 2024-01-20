@@ -8,7 +8,7 @@ const router = Router();
 //localhost:8080/api/users/premium/:uid
 router.put('/premium/:uid',jwtAuth, authorization(['admin']), UsersController.modifyRole)
 
-router.post('/:uid/documents', uploadDocuments.fields([
+router.post('/:uid/documents',jwtAuth, uploadDocuments.fields([
     {name: 'identificacion', maxCount: 1},
     {name: 'domicilio', maxCount: 1},
     {name: 'estadoDeCuenta', maxCount: 1},

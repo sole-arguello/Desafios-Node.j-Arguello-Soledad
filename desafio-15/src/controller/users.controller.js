@@ -30,7 +30,24 @@ export class UsersController{
             const userId = req.params.uid;
             const user = await usersSessionsService.getUserById(userId);
             console.log('user', user)
-            console.log('documentos', req.files) 
+            console.log('documentos', req.files)
+            const identification = req.files['identificacion']?.[0] || null;
+            const address = req.files['domicilio']?.[0] || null;
+            const esatusCount = req.files['esatdoDeCuenta']?.[0] || null;
+            const docs = []
+            if(identification) docs.push({name: 'identificacion', reference: identification.filename})
+            if(address) docs.push({name: 'domicilio', reference: address.filename})
+            if(esatusCount) docs.push({name: 'esatdoDeCuenta', reference: esatusCount.filename})
+            user.documents = docs
+
+            if(docs.length <3){
+                user.status = 'incomplete'
+            }else{
+                user.status = 'complete'
+            }
+            await usersSessionsService.updateUser(userId, user);
+            logger.info("Documentos cargados");
+            res.json({ status: "success", message: "Documentos cargados" });
 
         } catch (error) {
             logger.error("Se produjo un error en uploaderUserDocuments controller", error.message);

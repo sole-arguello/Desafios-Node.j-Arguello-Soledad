@@ -31,7 +31,7 @@ export class UsersManagerMongo {
         }
     }
     async getUserById(id){
-        //console.log(id)
+        console.log(id)
         try {
             const userExist = await this.model.findById({_id: id}).lean();
             logger.info('paso por manager getUserById');

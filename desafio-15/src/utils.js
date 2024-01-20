@@ -87,7 +87,7 @@ const documentsStorage = multer.diskStorage({
     },
     //el nombre con que voy a guardar las imagenes
     filename: function (req, file, cb) {
-        cb(null, `${req.body.email}-document-${file.originalname}`)
+        cb(null, `${req.user.email}-document-${file.originalname}`)
     }
 })
 //uploader para las imagenes
