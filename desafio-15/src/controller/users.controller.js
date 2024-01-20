@@ -34,8 +34,8 @@ export class UsersController{
         try {
             const userId = req.params.uid;
             const user = await usersSessionsService.getUserById(userId);
-            console.log('user', user)
-            console.log('documentos', req.files)
+            //console.log('user', user)
+            //console.log('documentos', req.files)
             const identification = req.files['identificacion']?.[0] || null;
             const address = req.files['domicilio']?.[0] || null;
             const statusCount = req.files['estadoDeCuenta']?.[0] || null;
