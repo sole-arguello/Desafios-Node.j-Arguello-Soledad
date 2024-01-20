@@ -4,11 +4,12 @@ import {
     registerLocalStrategy, registerGithubStrategy, 
     registerGithubStrategyFail, loginLocalStrategy, jwtAuth } from "../middlewares/auth.js";
 import { UsersSessionsController } from "../controller/usersSessions.controller.js";
+import { uploadProfile } from "../utils.js";
 
 const router = Router();
 /*--------------- esctrategia registro local ---------------*/
 //registro al ususario
-router.post('/register', registerLocalStrategy, UsersSessionsController.renderRegister )
+router.post('/register', uploadProfile.single('avatar'), registerLocalStrategy, UsersSessionsController.renderRegister )
 
 router.get('/fail-register', UsersSessionsController.renderRegisterFail)
 /*----------------estrategia registro con github----------------*/

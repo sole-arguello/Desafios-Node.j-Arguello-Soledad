@@ -89,7 +89,7 @@ export class UsersSessionsController {
             logger.info('sesion cerrada');
             res.clearCookie('cookieLogin');
             //una vez cerrada la sesion lo redirige a login 
-            return res.render('home', {style: "home.css"});
+            return res.render('loguin', {style: "loguin.css"});
            
         } catch (error) {
            // logger.error(error.message);

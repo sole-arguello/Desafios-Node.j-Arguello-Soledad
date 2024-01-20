@@ -5,7 +5,7 @@
 
 <p>Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a></p>
 
-<form action="/api/sessions/register" method="post">
+<form action="/api/sessions/register" method="post" enctype="multipart/form-data">
 
     <label for="first_name">Nombre:</label><br>
     <input type="text" name="first_name"><br><br>
@@ -21,6 +21,9 @@
 
     <label for="password">Contraseña:</label><br>
     <input type="password" name="password"><br><br>
+    
+    <label for="file">Imagen</label><br>
+    <input type="file" name="avatar"><br><br>
 
     <button>Registrarse</button>
 

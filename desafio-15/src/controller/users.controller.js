@@ -24,4 +24,17 @@ export class UsersController{
             res.json({ status: "error", message: error.message });
         }
     }
+
+    static uploaderUserDocuments = async (req, res) => {
+        try {
+            const userId = req.params.uid;
+            const user = await usersSessionsService.getUserById(userId);
+            console.log('user', user)
+            console.log('documentos', req.files) 
+
+        } catch (error) {
+            logger.error("Se produjo un error en uploaderUserDocuments controller", error.message);
+            res.json({ status: "error", message: error.message });
+        }
+    }
 }

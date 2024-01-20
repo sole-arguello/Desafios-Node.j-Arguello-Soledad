@@ -23,6 +23,7 @@ export const initializePassport = () => {
         async(req, username, password, done) =>{
 
             const {first_name, last_name, age} = req.body
+            //console.log('req.file', req.file)
             try {
                 //console.log("paso por Passport registerLocalStrategy");
                 //busco el usuario por email
@@ -41,9 +42,10 @@ export const initializePassport = () => {
                     age,
                     email: username,
                     password: createHash(password),
-                    role: 'user'
+                    role: 'user',
+                    avatar: req.file.filename
                 }
-                //console.log(newUser)
+                console.log(newUser)
                 //creo un nuevo usuario
                 const userCreated = await usersSessionsService.createUsers(newUser)
                

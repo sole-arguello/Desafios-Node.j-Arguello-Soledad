@@ -51,6 +51,16 @@ const userSchema = new mongoose.Schema({
     last_connection: {
         type: Date,
         default: null
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: ['pending', 'incomplete', 'complete'],
+        default: 'pending'
+    },
+    avatar: {
+        type: String,
+        default: ""
     }
     
 })
