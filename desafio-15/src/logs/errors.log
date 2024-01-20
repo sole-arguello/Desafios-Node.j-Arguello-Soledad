@@ -521,3 +521,6 @@ error: userEmail is not defined
 [31merror[39m: error en manager getUserById
 [31merror[39m: error en manager getUserById
 [31merror[39m: Se produjo un error en uploaderUserDocuments controller
+[31merror[39m: error en manager getUserById
+[31merror[39m: error en manager getUserById
+[31merror[39m: Se produjo un error en uploaderUserDocuments controller
