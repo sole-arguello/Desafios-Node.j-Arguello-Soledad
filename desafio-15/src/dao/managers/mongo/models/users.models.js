@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(next) {
     try {
-        const cartsManager = new CartsManagerMongo()
+        const cartsManager  = new CartsManagerMongo()
         const newCart = await cartsManager.createCart({})
         this.cart = newCart._id
     } catch (error) {

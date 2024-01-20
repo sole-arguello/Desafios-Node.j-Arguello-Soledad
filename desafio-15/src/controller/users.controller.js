@@ -8,6 +8,11 @@ export class UsersController{
             const userId = req.params.uid.toString();
             logger.info("paso por modifyRole controller");
             const user = await usersSessionsService.getUserById(userId);
+            //validar que el usuario haya subido todos los docs
+            if(user.status !== 'complete'){
+                res.json({ status: "error", message: "El ususrio no ha subido todos los documentos" });
+            }
+
             //logger.info('debug user exist', user)
            if(user.role === 'premium'){
                 user.role = 'user'
@@ -33,11 +38,11 @@ export class UsersController{
             console.log('documentos', req.files)
             const identification = req.files['identificacion']?.[0] || null;
             const address = req.files['domicilio']?.[0] || null;
-            const esatusCount = req.files['esatdoDeCuenta']?.[0] || null;
+            const statusCount = req.files['estadoDeCuenta']?.[0] || null;
             const docs = []
             if(identification) docs.push({name: 'identificacion', reference: identification.filename})
             if(address) docs.push({name: 'domicilio', reference: address.filename})
-            if(esatusCount) docs.push({name: 'esatdoDeCuenta', reference: esatusCount.filename})
+            if(statusCount) docs.push({name: 'estadoDeCuenta', reference: statusCount.filename})
             user.documents = docs
 
             if(docs.length <3){
